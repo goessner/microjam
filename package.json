@@ -1,0 +1,42 @@
+{
+	"name": "microjam",
+	"description": "Most minimalistic JAMStack",
+	"version": "0.2.0",
+	"author": "Stefan Goessner <fang03@web.de>",
+	"publisher": "goessner",
+	"keywords": [
+		"JAMStack",
+		"deploy",
+		"github-pages",
+		"markdown"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/goessner/microjam"
+	},
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.34.0"
+	},
+	"activationEvents": [
+		"onLanguage:markdown"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.saveAsHtml",
+				"title": "Save JAMStack document as HTML",
+				"category": "Markdown"
+			}
+		],
+		"markdownit.plugins": true,
+		"markdown.enableExperimentalExtensionApi": true,
+		"markdown.previewScripts": [
+			"./hello.js"
+		]
+	},
+	"main": "./extension",
+	"devDependencies": {
+		"@types/vscode": "^1.34.0"
+	}
+}
