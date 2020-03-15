@@ -1,1 +1,1 @@
-# &mu;-jam ... experimentally state
+# &mu;-jam ... experimental state

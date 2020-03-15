@@ -12,7 +12,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/goessner/microjam"
+		"url": "git+https://github.com/goessner/microjam.git"
 	},
 	"license": "MIT",
 	"engines": {
@@ -29,13 +29,24 @@
 				"category": "Markdown"
 			}
 		],
-		"markdownit.plugins": true,
+		"markdown.markdownItPlugins": true,
 		"markdown.enableExperimentalExtensionApi": true,
 		"markdown.previewScripts": [
-			"./hello.js"
+			"./bin/g2.html.js"
 		]
 	},
 	"main": "./extension",
+	"dependencies": {
+		"markdown-it": "^10.0.0",
+		"argparse": "^1.0.7",
+		"entities": "~2.0.0",
+		"linkify-it": "^2.0.0",
+		"mdurl": "^1.0.1",
+		"uc.micro": "^1.0.5",
+		"katex": "0.11.1",
+		"commander": "^2.19.0",
+		"markdown-it-texmath": "^0.6.0"
+	},
 	"devDependencies": {
 		"@types/vscode": "^1.34.0"
 	}
