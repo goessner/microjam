@@ -1,0 +1,89 @@
+/* theme by https://www.delight.im/ */
+html, body {
+	/* Reset the document's margin values */
+	margin: 0;
+	/* Reset the document's padding values */
+	padding: 0;
+	/* Use the platform's native font as the default */
+	font-family: "Roboto", -apple-system, "San Francisco", "Segoe UI", "Helvetica Neue", sans-serif;
+	/* Define a reasonable base font size */
+	font-size: 12pt;
+
+	/* Styles for better appearance on screens only -- are reset to defaults in print styles later */
+
+	/* Use a non-white background color to make the content areas stick out from the full page box */
+	background-color: #eee;
+}
+
+/* Defines a class for manual page breaks via inserted .page-break element */
+div.page-break {
+	page-break-after: always;
+}
+
+/* For top-level headings only */
+h1 {
+	/* Force page breaks after */
+	page-break-before: always;
+}
+/* For all headings */
+h1, h2, h3, h4, h5, h6 {
+	/* Avoid page breaks immediately */
+	page-break-after: avoid;
+}
+/* For all paragraph tags */
+p {
+	/* Reset the margin so that the text starts and ends at the expected marks */
+	margin: 0;
+}
+/* For adjacent paragraph tags */
+p + p {
+	/* Restore the spacing between the paragraphs */
+	margin-top: 0.5cm;
+}
+/* For links in the document */
+a {
+	/* Prevent colorization or decoration */
+	text-decoration: none;
+	color: black;
+}
+/* For tables in the document */
+table {
+	/* Avoid page breaks inside */
+	page-break-inside: avoid;
+}
+
+/* align KaTeX font-size to surrounding text */
+.katex { font-size: 1em !important; }
+/* supress effect of display formulas with eqno having bigger margin */
+.katex-display { margin:0 !important; }
+/* overwrite github-markdown.css asymmetric margin values */
+.markdown-body blockquote, .markdown-body dl, .markdown-body ol, .markdown-body p, .markdown-body pre, .markdown-body table, .markdown-body ul {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+eq { display: inline-block; }
+eqn { display: block; margin: 0; }
+section.eqno {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    align-items: center;
+    
+}
+section.eqno > eqn {
+    width: 100%;
+    margin-left: 3em;
+}
+section.eqno > span {
+    width:3em;
+    text-align:right;
+}
+
+/* When the document is actually printed */
+@media print {
+	html, body {
+		/* Reset the document's background color */
+		background-color: #fff;
+	}
+}

@@ -1,9 +1,9 @@
 {
 	"name": "microjam",
-	"description": "Most minimalistic JAMStack",
-	"version": "0.2.0",
+	"description": "Most minimalistic JAMStack environment",
 	"author": "Stefan Goessner <fang03@web.de>",
 	"publisher": "goessner",
+	"version": "0.2.1",
 	"keywords": [
 		"JAMStack",
 		"deploy",
@@ -29,20 +29,24 @@
 				"category": "Markdown"
 			}
 		],
+		"markdown.previewStyles": [
+			"./node_modules/katex/dist/katex.min.css",
+			"./css/texmath.css",
+			"./css/vscode-texmath.css"
+		],
 		"markdown.markdownItPlugins": true,
-		"markdown.enableExperimentalExtensionApi": true,
 		"markdown.previewScripts": [
-			"./bin/g2.html.js"
+			"./dist/g2.html.js"
 		]
 	},
 	"main": "./extension",
 	"dependencies": {
 		"markdown-it": "^10.0.0",
-		"argparse": "^1.0.7",
+		"argparse": "^1.0.9",
 		"entities": "~2.0.0",
-		"linkify-it": "^2.0.0",
+		"linkify-it": "^2.2.0",
 		"mdurl": "^1.0.1",
-		"uc.micro": "^1.0.5",
+		"uc.micro": "^1.0.6",
 		"katex": "0.11.1",
 		"commander": "^2.19.0",
 		"markdown-it-texmath": "^0.6.0"

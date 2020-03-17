@@ -11,7 +11,9 @@ exports.activate = function activate(context) {
           tmpltDir = './tmplt',      // user config ...
           tmpltName = './std.js'; 
 
-    const infoMsg = (msg) => {
+    const kt = require('katex'),
+        tm = require('markdown-it-texmath').use(kt),
+        infoMsg = (msg) => {
             vscode.window.showInformationMessage(`microjam: ${msg}`);
         },
         errMsg = (msg) => {
@@ -33,10 +35,10 @@ exports.activate = function activate(context) {
                     uri = doc && doc.uri,
                     parsed = path.parse(uri.fsPath),
                     savepath = path.resolve(parsed.dir, `./${parsed.name}.html`),
-                    template = require(path.resolve(parsed.dir,'../tmplt/std.js')).template,
+                    template = require(path.resolve(parsed.dir,'./style/template.js')).template,
                     content = mdit.render(doc.getText()),
                     html = template({content});
-log(content);
+//log(content);
                 fs.writeFileSync(savepath, html, 'utf8');
                 infoMsg(`Html saved to ${savepath} !`);
             } catch (err) {
@@ -49,32 +51,17 @@ log('#')
 
     return {
         extendMarkdownIt: (md) => {
-            return (mdit = md);
+            return (mdit = md).use(tm);
         }
     }
 }
 // this method is called when extension is deactivated ..
 exports.deactivate = function deactivate() {};
 
-/*
-			"./bin/g2.js",
-			"./bin/g2.selector.js",
-			"./bin/g2.element.js",
-			"./bin/canvasInteractor.js"
-*/
-/*
-const htmlTmpl = (html) => `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js">
-</head><body class="markdown-body">
-${html}
-</body></html>`;
-*/
 function log(arg) {
     if (!log.outchannel) {
         log.outchannel = vscode.window.createOutputChannel('log');
         log.outchannel.show(true);
     }
-//    log.outchannel.appendLine(arg);
     log.outchannel.appendLine(JSON.stringify(arg));
 }

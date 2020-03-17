@@ -953,12 +953,14 @@ g2.io = function() {
 };
 g2.handler.factory.push((ctx) => ctx instanceof g2.io ? ctx : false);
 
+// depricated ... call JSON.parse outside of this library, due to direct syntax error handling ... !
 g2.io.parse = function(str) {
     let model = JSON.parse(str);
     return g2.io.parseGrp(model,'main');
 }
-g2.io.parseGrp = function(model, id) {
+g2.io.parseGrp = function(model, id, onErr) {
     let g;
+    onErr = onErr || console.error;
     if (id in model) {
         g = g2({id});
         for (let cmd of model[id]) {
@@ -969,13 +971,15 @@ g2.io.parseGrp = function(model, id) {
             else if (g[cmd.c])
                 cmd.a ? g[cmd.c](cmd.a) : g[cmd.c]();
             else  // invalid g2 command !
-               console.error(`io: Unable to handle command '${cmd.c}'`)
+               onErr(`io: Unable to handle command '${cmd.c}'`)
         }
         return g;
     }
     else if (id in g2.symbol)
         return g2.symbol[id];
-    return null;
+    else
+        onErr(`io: Unable to find group with id '${id}'!`);
+    return false;
 }
 
 g2.io.prototype = {
@@ -2798,7 +2802,7 @@ const canvasInteractor = {
 
 class G2Element extends HTMLElement {
     static get observedAttributes() {
-        return ['width', 'height','cartesian','grid', 'x0', 'y0', 'darkmode'];
+        return ['width', 'height','cartesian','grid', 'x0', 'y0', 'darkmode', 'interactive'];
     }
 
     constructor() {
@@ -2819,30 +2823,52 @@ class G2Element extends HTMLElement {
     get grid() { return this.hasAttribute('grid') || false; }
     set grid(q) { q ? this.setAttribute('grid','') : this.removeAttribute('grid'); }
     get darkmode() { return this.hasAttribute('darkmode') || false; }
+    get interactive() { return this.hasAttribute('interactive') || false; }
     get g() { return this._g; }
     get canvas() { return  this._ctx && this._ctx.canvas || false }
 
     init() {
+        const state = {x:this.x0,y:this.y0,cartesian:this.cartesian};
         // add shadow dom
         this._root.innerHTML = G2Element.template({width:this.width,height:this.height,darkmode:this.darkmode});
         // cache elements of shadow dom
+        this._logview = this._root.getElementById('logview');
+        // set up canvas interactor 
         this._ctx = this._root.getElementById('cnv').getContext('2d');
         // set up canvas interactor 
-        this._interactor = canvasInteractor.create(this._ctx,{x:this.x0,y:this.y0,cartesian:this.cartesian});
-        this._g = g2().clr().view(this._interactor.view);
-        if (this.grid) this._g.grid({color:this._show.darkmode?'#999':'#ccc'});
-        if (this.innerHTML) { // g-2 element has potential content ...
-            const content = g2.io.parse(this.innerHTML);
-            if (content.commands)  // content is a valid g2 object.
-                this._g.use({grp:'main'})
-                       .ins(content);
+        if (this.interactive) {
+            this._interactor = canvasInteractor.create(this._ctx, state);
+            this._interactor.on('drag', e => this.ondrag(e))
+                            .on('tick', e => this.ontick(e))
+                            .startTimer();
+            this._selector = g2.selector(this._interactor.evt);
         }
-        this._selector = g2.selector(this._interactor.evt);
+        this._g = g2().clr().view(this.interactive && this._interactor.view || state);
+        if (this.grid) this._g.grid({color:this.darkmode?'#999':'#ccc'});
+        if (this.innerHTML) // g-2 element has potential content ...
+            this.initContent(e => this.log(e));
         this._g.exe(this._ctx);
-        this._interactor.on('drag', e => this.ondrag(e))
-                        .on('tick', e => this.ontick(e))
-                        .startTimer();
         this.dispatchEvent(new CustomEvent('init'));
+    }
+    initContent(onErr) {
+        let content = this.innerHTML;
+        try { 
+            content = JSON.parse(content);                      // is valid JSON string ?
+            content = g2.io.parseGrp(content, 'main', onErr);   // is valid g2 json string
+            if (content && content.commands)                    // content is a valid g2 object.
+                this._g.use({grp:'main'})
+                    .ins(content);
+        }
+        catch(e) {
+            const w = this.width, h = this.height, x0 = this.x0, y0 = this.y0, dx = w/20, dy = h/20,
+                  x = q => q*w-x0, y = q => q*h-y0;
+
+            content = g2({id:'main'}).stroke({"d":`M${x(0.05)},${y(0.05)} ${x(0.45)},${y(0.45)}M${x(0.55)},${y(0.55)} ${x(0.95)},${y(0.95)}M${x(0.05)},${y(0.95)} ${x(0.45)},${y(0.55)}M${x(0.55)},${y(0.45)} ${x(0.95)},${y(0.05)}`,lw:10,ls:"red",lc:"round"});
+            this._g.use({grp:'main'})
+                .ins(content);
+            onErr(e.message);
+        }
+        return !!content;
     }
     deinit() {
         delete this._selector;

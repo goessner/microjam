@@ -1,0 +1,397 @@
+
+/*
+  Mostly override colours, plus support the article styling.
+  The latter should be made into a separate CSS at some point, that can just be reused by whoever
+  likes it.
+*/
+
+@import url('./node_modules/normalize.css/normalize.css');
+@import url('./fonts/libre-baskerville-regular.css');
+@import url('./fonts/libre-baskerville-bold.css');
+@import url('./fonts/libre-baskerville-italic.css');
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Libre Baskerville", Times, serif;
+  background: #f7f7f7;
+  color: #434343;
+}
+header {
+  border-top: 8px solid #2196f3;
+  border-bottom: 2px solid #BDD5E9;
+  box-shadow: 2px 0 4px #BCBCBC;
+  margin-bottom: 64px;
+  background: #fff;
+}
+header p.title, header p.subtitle {
+  max-width: 900px;
+  padding: 0 10px;
+  font-variant: small-caps;
+  margin: 0 auto;
+}
+header p.title {
+  font-size: 32px;
+  margin-top: 16px;
+}
+header p.subtitle {
+  margin-bottom: 8px;
+}
+
+body > section, article {
+  padding: 0 10px;
+  margin: 0 auto 120px auto;
+  max-width: 900px;
+}
+section:target h2, section:target h3, article:target h1 {
+  color: #2196f3;
+}
+article {
+  /* the padding is 116px 116px 80px 116px, from which we remove the border */
+  padding: 88px 88px 72px 108px;
+  background: #fff;
+  border-top: 28px solid transparent;
+  border-right: 28px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 4px solid transparent;
+  border-image: url('card-bg.png') 28 28 8 4 repeat;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 24px;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+h1, h2, h3 {
+  font-variant: small-caps;
+  text-align: center;
+  font-weight: 300;
+}
+h1 {
+  padding-top:  16px;
+  padding-bottom: 16px;
+  letter-spacing: .75px;
+  font-size: 24px;
+  line-height: 32px;
+}
+h2 {
+  padding-top: 16px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  letter-spacing: .75px;
+  font-size: 20px;
+}
+h3 {
+  padding-top: 16px;
+  padding-bottom: 0;
+  letter-spacing:.5px;
+  font-size: 16px;
+}
+dfn {
+  text-decoration: underline;
+}
+a {
+  color: #2196f3;
+}
+a, :link, :visited {
+  text-decoration: none;
+  color: #2196f3;
+}
+a:active {
+  color: #64b5f6;
+}
+article img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+pre, code, a[property="schema:citation"] {
+  -moz-hyphens: none;
+  hyphens: none;
+}
+code:not([class]) {
+  color: darkorange;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.3em;
+  padding: 0.2em;
+  background: #FDFDFD;
+}
+article pre[class*="language-"] {
+  max-height: 100%;
+}
+footer {
+  font-size: 13px;
+  box-shadow: -1px 0px 2px #BCBCBC;
+  background: #BDD5E9;
+  /*border-top: 2px solid #F9EABD;*/
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+footer p {
+  max-width: 900px;
+  padding: 14px 10px;
+  margin: 0 auto;
+  text-align: center;
+}
+footer a:link, footer a:visited {
+  color: white;
+}
+footer img {
+  vertical-align: -4px;
+  background: white;
+  border-radius: 3px;
+  padding: 1px;
+  box-sizing: content-box;
+}
+
+section {
+  margin-top: 90px;
+}
+section[typeof='sa:ReferenceList'] dt {
+  float: left;
+  margin-right: 5px;
+}
+section[typeof='sa:ReferenceList'] dt::after {
+  content: ',';
+}
+section[typeof='sa:ReferenceList'] dd {
+  margin-bottom: 16px;
+}
+section[typeof='sa:ReferenceList'] cite::before {
+  content: '«';
+}
+section[typeof='sa:ReferenceList'] cite::after {
+  content: '»';
+}
+
+figure[typeof~="schema:Table"] {
+  overflow-x: scroll;
+}
+
+table {
+  width: 100%;
+  font: sans-serif;
+  letter-spacing: .25px;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  background: #fff;
+}
+table th {
+  padding: 8px 16px 8px 16px;
+  white-space: nowrap;
+  border-bottom: 0px;
+  border-top: 0px;
+  letter-spacing: .5px;
+  line-height: 15px;
+  text-align: left;
+}
+table td {
+  padding: 12px;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  line-height: 18px;
+  vertical-align: top;
+  font-weight: 300;
+}
+table tbody tr:hover {
+  background-color: #F5F5F5;
+}
+caption {
+  font-family: "Libre Baskerville", Times, serif;
+  text-align: left;
+  padding: 16px;
+  margin-top: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  caption-side: bottom;
+  font-style: italic;
+  /* we're removing the border (28+4=32) + horizontal padding (88+108=196px) = 228px */
+  max-width: calc(100vw - 228px)
+}
+
+figure {
+  text-align: center;
+  box-sizing: border-box;
+  margin: 24px 0px;
+  padding-top: 32px;
+}
+figcaption {
+  text-align: left;
+  font: normal normal 300 13px/18px;
+  color: #9E9E9E;
+  margin: 24px 0px 32px 0px;
+  padding: 0 0px 24px 0;
+  letter-spacing: .35px;
+  border-bottom: 1px solid #eee;
+  font-style: italic;
+  hyphens: auto;
+}
+figure[typeof="sa:Image"] {
+  border-top: 1px solid #eee;
+}
+
+
+/*
+  The first section is always the users
+*/
+article > section:first-of-type {
+  margin-top: 30px;
+}
+/* the authors' list */
+article > section:first-of-type ol::before {
+  display: block;
+  float: left;
+  width: 150px;
+  margin-left: -150px;
+  font-variant: small-caps;
+  color: #9E9E9E;
+}
+article > section:first-of-type ol:first-of-type::before {
+  content: 'Authors';
+}
+article > section:first-of-type ol:not(:first-of-type)::before {
+  content: 'Affiliations';
+}
+article > section:first-of-type ol {
+  list-style-type: none;
+  margin-left: 150px;
+  counter-reset: affiliations;
+}
+article > section:first-of-type ol:not(:first-of-type) li::before {
+  counter-increment: affiliations;
+  content: counter(affiliations, lower-latin) '.';
+  font-size: 12px;
+  display: inline;
+}
+article > section:first-of-type li {
+  display: inline;
+}
+article > section:first-of-type li::after {
+  content: ',';
+}
+article > section:first-of-type li:last-child::after {
+  content: normal;
+}
+article > section:first-of-type a[property="sa:roleAffiliation"] {
+  font-size: 12px;
+  vertical-align: super;
+}
+
+/* have less vertical space in structured abstracts */
+section[typeof='sa:Abstract'] > section {
+  margin: 0;
+}
+section[typeof='sa:Abstract'] > section > h3 {
+  display: inline;
+  font-variant: small-caps;
+  float: left;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 16px 8px 0 0;
+  color: #9E9E9E
+}
+
+aside[typeof="schema:WPSideBar"] {
+  font-style: italic;
+  background: #F0F6FA;
+}
+
+
+/* this is for a bug in PrismJS 1.3.0 that renders code as pre */
+:not(pre) > code[class*='language-'] {
+  white-space: normal;
+}
+
+/* wide screen */
+@media screen and (min-width: 1900px) {
+  article {
+    max-width: 1200px;
+    font-size: 16px;
+    line-height: 30px;
+  }
+  header p.title, header p.subtitle, footer p {
+    max-width: 1200px;
+  }
+  footer {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 979px) {
+  article {
+    width: 100%;
+    padding: 115px 116px 79px 116px;
+    border-top: 1px solid #E0E0E0;
+    border-bottom: 1px solid #E0E0E0;
+    border-left: none;
+    border-right: none;
+  }
+  caption {
+    /* we're removing the horizontal padding (116px*2 = 232px) */
+    max-width: calc(100vw - 232px)
+  }
+}
+@media screen and (max-width: 799px) {
+  article {
+    padding: 57px 58px 39px 58px;
+  }
+  caption {
+    /* we're removing the horizontal padding (58px*2 = 116px) */
+    max-width: calc(100vw - 116px)
+  }
+}
+@media screen and (max-width: 399px) {
+  article {
+    padding: 28px 29px 19px 29px;
+  }
+  caption {
+    /* we're removing the horizontal padding (29px*2 = 58px) */
+    max-width: calc(100vw - 58px)
+  }
+  footer {
+    font-size: 10px;
+  }
+  article > section:first-of-type ol::before {
+    float: none;
+    width: auto;
+    margin-left: 0;
+  }
+  article > section:first-of-type ol {
+    margin-left: 0;
+    padding: 0;
+  }
+  section[typeof="sa:Abstract"] {
+    margin-top: 30px;
+  }
+}
+
+@media print {
+  header {
+    display: none;
+  }
+  footer {
+    background: #fff;
+    border: none;
+    color: #434343;
+  }
+  body {
+    margin: 0;
+    background: #fff;
+  }
+  article {
+    width: 100%;
+    border: none;
+    padding: 2em;
+  }
+  footer a:link, footer a:visited, a:link, a:visited {
+    color: inherit;
+  }
+  pre {
+    background: transparent;
+  }
+  figure {
+    background: transparent;
+  }
+}
