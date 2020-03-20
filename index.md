@@ -12,7 +12,7 @@
 
 
 <figure>
-  <img src="../mu-jam.01.png">
+  <img src="./img/mu-jam.01.png">
   <figcaption>Fig. 1: Starting with a blank editor.</figcaption>
 </figure>
 
