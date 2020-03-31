@@ -22,7 +22,6 @@ ${!category || !category.contains('math') ? '' : `
 <main>
 ${layout !== 'article' ? content : `
   <article>
-${content}
   </article>`}
 </main>
 <footer>&copy; My Site</footer>

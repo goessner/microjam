@@ -1,3 +1,5 @@
+/* style for vscode markdown preview */
+
 p { text-align: justify; }
 
 table {
@@ -16,14 +18,14 @@ table th, table td {
 }
 
 figure {
-    margin: 0.5em auto !important;
+    margin: 0.5em auto;
 }
-figure > * {
+figure > img {
     display: block;
     margin: 0 auto;
     page-break-inside: avoid;
 }
-figure > figcaption { 
+figcaption { 
     display: block;
     text-align: center;
     margin-top: 0.5em;

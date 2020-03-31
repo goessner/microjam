@@ -8,8 +8,10 @@
 		"JAMStack",
 		"deploy",
 		"github-pages",
-		"markdown"
+		"markdown",
+		"microjam"
 	],
+    "microjam": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/goessner/microjam.git"
@@ -25,60 +27,65 @@
 		"commands": [
 			{
 				"command": "extension.saveAsHtml",
-				"title": "Save JAMStack document as HTML",
-				"category": "microjam",
-				"icon": {
-					"light": "./media/save-as.svg",
-					"dark": "./media/save-as.dark.svg"
-				}			
+				"title": "Save as HTML",
+				"category": "Markdown"
 			}
 		],
-	    "menus": {
-		    "editor/title": [
-				{
-					"when": "resourceLangId == markdown",
-					"command": "extension.saveAsHtml",
-					"alt": "oops",
-					"group": "navigation"
-				}
-			]
+		"menus": {
+			"editor/title": []
 		},
+		"keybindings": [
+			{
+				"key": "ctrl+k -",
+				"command": "editor.action.insertSnippet",
+				"when": "editorTextFocus",
+				"args": {
+					"snippet": "---\n\"layout\": \"$1\",\n\"title\": \"$2\",\n\"date\": \"$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\"\n---\n$0"
+				}
+			},
+			{
+				"command": "extension.saveAsHtml",
+				"key": "ctrl+K ,",
+				"when": "editorTextFocus"
+			}
+		],
 		"markdown.previewStyles": [
 			"./node_modules/katex/dist/katex.min.css",
-			"./css/texmath.css",
-			"./css/vscode-texmath.css"
+			"./node_modules/markdown-it-texmath/css/texmath.css",
+			"./css/previewstyle.css"
 		],
 		"markdown.markdownItPlugins": true,
 		"markdown.previewScripts": [
 			"./dist/g2.html.js"
 		],
 		"configuration": {
-			"title": "mujam",
+			"title": "microjam",
 			"properties": {
-				"mujam.template": {
-					"type": "string",
-					"default": "../minimal",
-					"description": "styles"
+				"microjam.showSaveMessage": {
+					"type": "boolean",
+					"default": true,
+					"description": "Visibility of 'showInformationMessage' for display successful storage of 'html' file."
 				},
-				"mujam.savePath": {
-					"type": "string",
-					"default": "../docs",
-					"description": "Relative path to save generated HTML files. \nPaths are to be interpreted relative to the source file location with the workspace folder as the root directory."
+				"microjam.markdownItPlugins": {
+					"type": "array",
+					"default": [],
+					"description": "markdown-it-plugins to install at initialization time."
 				}
 			}
 		}
 	},
 	"main": "./extension",
 	"dependencies": {
-		"markdown-it": "^10.0.0",
 		"argparse": "^1.0.9",
-		"entities": "~2.0.0",
-		"linkify-it": "^2.2.0",
-		"mdurl": "^1.0.1",
-		"uc.micro": "^1.0.6",
-		"katex": "0.11.1",
 		"commander": "^2.19.0",
-		"markdown-it-texmath": "^0.6.0"
+		"entities": "~2.0.0",
+		"katex": "0.11.1",
+		"linkify-it": "^2.2.0",
+		"markdown-it": "^10.0.0",
+		"markdown-it-footnote": "^3.0.2",
+		"markdown-it-texmath": "^0.6.0",
+		"mdurl": "^1.0.1",
+		"uc.micro": "^1.0.6"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.34.0"

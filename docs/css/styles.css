@@ -1,57 +1,87 @@
-/* minimal microjam style for html (+math) inside of browsers (c) stefan goessner */
+@media screen {
 body {
-  background: #e0e0e0;
-  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  padding: 10px 8px;
   font-size: 12pt;
-  hyphens: none;
-  text-align: justify; 
+  font-family: Helvetica, Arial, Geneva, sans-serif;
+}
+@media screen and (min-width: 768px) {
+  body {
+    max-width: 768px;
+    margin: 0 auto;
+  }
 }
 
-article {
-    background: snow;
-    padding: 20px;
-    margin: 0 auto; 
-    min-width: 640px;
-    max-width: 675px;
-    font-size: 12pt;
+header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;  /* vertical align */
+  justify-items: stretch;
+  padding: 5px 16px;
+  color: white;
+  background-color: darkslategray;
+  border-radius: 10px;
 }
+header > a {
+  color: white;
+  text-decoration: none;
+}
+header > a:hover {
+  color: #aaa;
+}
+header > .left {
+  text-align: left;
+  font-size: 2em;
+}
+header > .right {
+  text-align: right;
+}
+main {
+  padding: 5px 16px;
+  word-wrap: break-word;
+}
+time {
+  color: #666;
+}
+
+table {
+    display: table;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto; 
+    border-collapse: collapse;
+}
+table th, table td {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
 figure {
+    margin: 0.5em auto;
+}
+figure > * {
+    display: block;
+    margin: 0 auto;
+    page-break-inside: avoid;
+}
+figcaption { 
     text-align: center;
-    width: 100%;
-    margin: 20px auto; 
-}
-figcaption {
-  font-size: 11pt;
+    margin-top: 0.5em;
 }
 
-/* align KaTeX font-size to surrounding text */
-.katex { font-size: 1em !important; }
-/* supress effect of display formulas with eqno having bigger margin */
-.katex-display { margin:0 !important; }
-/* overwrite github-markdown.css asymmetric margin values */
-.markdown-body blockquote, .markdown-body dl, .markdown-body ol, .markdown-body p, .markdown-body pre, .markdown-body table, .markdown-body ul {
-    margin-top: 8px;
-    margin-bottom: 8px;
+/* highlighted code sections */
+pre > code.code-line > div {
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 0.5em;
+  white-space: pre-wrap;
 }
 
-.markdown-body h1 {
-    font-size: 1.75em;
+footer {
+  text-align: center;
+  font-size: 0.8em;
+  color: #666;
 }
-
-eq { display: inline-block; }
-eqn { display: block; margin: 0; }
-section.eqno {
-    display: flex;
-    flex-direction: row;
-    align-content: space-between;
-    align-items: center;
-    
-}
-section.eqno > eqn {
-    width: 100%;
-    margin-left: 3em;
-}
-section.eqno > span {
-    width:3em;
-    text-align:right;
-}
+}  /* end @media screen */
