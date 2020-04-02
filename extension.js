@@ -1,47 +1,59 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Stefan Goessner - 2020. All rights reserved.
- *--------------------------------------------------------------------------------------------*/
+/**
+ * microjam extension.js (c) 2020 Stefan Goessner
+ * @author Stefan Goessner
+ * @license MIT License
+ * @link https://github.com/goessner/microjam
+ */
 'use strict';
 
 const vscode = require('vscode'),
       fs = require('fs'),
       path = require('path');
-
-// Static extension structure ...
+/**
+ * Static Extension Object.
+ */
 const ext = {
-    mdit: null,    // markdown-it object cached ... !
+    /**
+     * Cached markdown-it object
+     */
+    mdit: null, 
+    /**
+     * Access microjam configuration keys in 'package.json'
+     * @method
+     * @returns {any}
+     */
     cfg(key) { 
         return vscode.workspace.getConfiguration('microjam')[key];
     },
+    /**
+     * Show information message
+     * @method
+     */
     infoMsg(msg) {
         vscode.window.showInformationMessage(`microjam: ${msg}`);
     },
+    /**
+     * Show error message
+     * @method
+     */
     errMsg(msg) {
         vscode.window.showErrorMessage(`microjam: ${msg}`);
     },
-    curDate() {
-        const date = new Date();
-        return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    },
+    /**
+     * Markdown => Html
+     * @method
+     * @returns {string}
+     */
     toHtml(md) {
         return ext.mdit.render(md) // ... remove some vscode stuff ...
                        .replace(/\sclass=\"code-line\"/g,() => '')
                        .replace(/\sdata-line=\"[0-9]+\"/g,() => '')
-                       .replace(/<h([1-6])\sid=\".+\"/g,($0,$1) => `<h${$1}`);
+//                       .replace(/<h([1-6])\sid=\".+\"/g,($0,$1) => `<h${$1}`);  // use auto-generated ids for toc insertion .. ?
     },
-    onWillSaveTextDocument(obj) {    // lives until first call only ... doing some initializing stuff in future ...
-/*
-        const plugins = ext.cfg('markdownItPlugins');
-        if (plugins)
-            for (const plugin of plugins) {
-                ext.mdit.use(require(plugin));
-            }
-*/
-        ext.saveCurrentDocAsHtml(obj.document); 
-        ext.onWillSaveTextDocument = function(obj) {    // substitute on first call ! 
-             ext.saveCurrentDocAsHtml(obj.document);
-        };
-    },
+    /**
+     * Separate Frontmatter section and content.
+     * Parse Frontmatter (strict JSON required).
+     */
     pageStructure(text,basedir) {
         const page = {layout:"page",title:"",date:"",description:"",tags:[],category:[]};
         if (text) {
@@ -53,15 +65,15 @@ const ext = {
                 try { 
                     frontmatter = JSON.parse(`{${frontmatter}}`);
                     Object.assign(page, frontmatter);
-                    if (!["page","article","post","index"].includes(page.layout))
-                        ext.errMsg(`'layout' type must be one of ["page","article","post","index"]!`);
+                    if (!["page","article","index"].includes(page.layout))
+                        ext.errMsg(`'layout' type must be one of ["page","article","index"]!`);
                     else if (page.layout === 'article') {
                         page.content.replace(/#{2}\s[Aa]bstract\s*([^#]+?)\s*?#/g, ($0,$1) => { page.abstract = $1; return '';});
                         if (page.abstract)
                             page.abstract = ext.toHtml(page.abstract);
                     }
                     else if (page.layout === 'index')
-                        page.articles = JSON.parse(fs.readFileSync(path.resolve(basedir,'./src/pages.json'),'utf8'))
+                        page.articles = JSON.parse(fs.readFileSync(path.resolve(basedir,'./pages.json'),'utf8'))
                                             .filter((e) => e.layout === 'article');
                 }
                 catch (err) {
@@ -75,31 +87,48 @@ const ext = {
         }
         return page;        
     },
+    /**
+     * Find base directory path from document uri.
+     * @method
+     * @param {string} - uri of markdown file.
+     * @returns {string}  base directory path ('docs').
+     */
     baseOfValidRepo(uri) {
         for (let base=path.parse(uri); base.root !== base.dir; base = path.parse(base.dir)) {
-            if (   base.base === 'src' 
+            if (   base.base === 'docs'  // might be enough as condition in future ... ?
                 && fs.existsSync(path.resolve(base.dir,'./package.json'))
                 && !!JSON.parse(fs.readFileSync(path.resolve(base.dir,'./package.json'),'utf8')).microjam
             ) {
-                return base.dir;
+                return path.resolve(base.dir,'./docs');
             }
         }
         return false;
     },
+    /**
+     * (Initially) validate repository.
+     * @method
+     * @param {string}  basedir - absolute base directory path
+     */
     validateRepo(basedir) {   // assume minimum-valid repo-directory ...
         let uri;
-        if (!fs.existsSync(uri=path.resolve(basedir,'./src/pages.json')))
+        if (!fs.existsSync(uri=path.resolve(basedir,'./pages.json')))
             fs.writeFileSync(uri, '[]', 'utf8');
-        if (!fs.existsSync(uri=path.resolve(basedir,'./src/template.js')))
-            fs.writeFileSync(uri, ext.defaults.templates, 'utf8');
-        if (!fs.existsSync((uri=path.resolve(basedir,'./docs')))) {
+        if (!fs.existsSync(uri=path.resolve(basedir,'./theme')))
             fs.mkdirSync(uri);
-            fs.mkdirSync((uri=path.resolve(uri,'./css')));
-            fs.writeFileSync(path.resolve(uri,'./styles.css'), ext.defaults.css, 'utf8');
-        }
+        if (!fs.existsSync(uri=path.resolve(basedir,'./theme/template.js')))  // assume to exist together with './theme' folder ?
+            fs.writeFileSync(uri, ext.defaults.templates, 'utf8');
+        if (!fs.existsSync(uri=path.resolve(basedir,'./theme/styles.css')))   // assume to exist together with './theme' folder ?
+            fs.writeFileSync(uri, ext.defaults.css, 'utf8');
     },
-    updatePages(pagesdatauri, entry, basedir) {
-        const list = JSON.parse(fs.readFileSync(pagesdatauri,'utf8'));
+    /**
+     * Update 'pages.json'
+     * @method
+     * @param {string}  pagesuri - uri of 'pages.json'
+     * @param {object}  entry - frontmatter object of entry.
+     * @param {string}  basedir - absolute base directory path
+     */
+    updatePages(pagesuri, entry, basedir) {
+        const list = JSON.parse(fs.readFileSync(pagesuri,'utf8'));
         let   found = false, dirtyindex = false;
 
         for (let i=0; i < list.length; i++) {
@@ -109,7 +138,7 @@ const ext = {
                 dirtyindex = dirtyindex || entry.layout === 'article';
             }
             else if (!fs.existsSync(list[i].uri)) { // ... so remove potentially existing *.html file.
-                const htmlpath = path.resolve(basedir,'./docs',list[i].reluri+'.html');
+                const htmlpath = path.resolve(basedir,list[i].reluri+'.html');
                 if (fs.existsSync(htmlpath))
                     fs.unlinkSync(htmlpath);
                 if (list[i].layout === 'article') dirtyindex = true;  // need to refresh index ...
@@ -122,22 +151,30 @@ const ext = {
             dirtyindex = dirtyindex || entry.layout === 'article';
         }
 
-        fs.writeFileSync(pagesdatauri, JSON.stringify(list), 'utf8');
+        fs.writeFileSync(pagesuri, JSON.stringify(list), 'utf8');
 
         if (dirtyindex) {      // providently refresh `index.html` ...
             list.forEach((e) => { if (e.layout === 'index') ext.saveAsHtml(e.uri, basedir); } );
         }
     },
-    saveAsHtml(fspath, basedir, mdtext) {       // imply existing 'src' directory ...
+    /**
+     * Save Html file
+     * @method
+     * @param {string}  fspath - absolute markdown file uri
+     * @param {string}  basedir - absolute base directory path
+     * @param {string}  [mdtext=undefined] - markdown text
+     */
+    saveAsHtml(fspath, basedir, mdtext) {       // imply existing 'docs' directory ...
         if (!mdtext) mdtext = fs.readFileSync(fspath,'utf8');
 
         const page = ext.pageStructure(mdtext, basedir);
-        const reluri = path.relative(path.resolve(basedir,'./src'), fspath).replace(/\.md/g,'');
+        const reluri = path.relative(basedir, fspath).replace(/\.md/g,'');
 
         try {
-            const template = require(path.resolve(basedir, './src/template.js'));
+            const template = require(path.resolve(basedir, './theme/template.js'));
             const html = template[page.layout || 'page'](page);
-            const outuri = path.resolve(basedir,'./docs',reluri+'.html');
+            const outuri = path.resolve(basedir, reluri+'.html');
+
             fs.writeFileSync(outuri, html, 'utf8');
             if (ext.cfg('showSaveMessage')) ext.infoMsg(`Html saved to ${outuri}`);
         } catch (e) {
@@ -149,8 +186,13 @@ const ext = {
         page.uri = fspath;
         page.reluri = reluri;
 
-        ext.updatePages(path.resolve(basedir, './src/pages.json'), page, basedir);
+        ext.updatePages(path.resolve(basedir, './pages.json'), page, basedir);
     },
+    /**
+     * Save Markdown document command handler.
+     * @method
+     * @param {object}  doc - document.
+     */
     saveCurrentDocAsHtml(doc) {
         doc = doc || vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
         if (doc && doc.languageId === 'markdown' && doc.isDirty) {
@@ -169,12 +211,13 @@ const ext = {
 // extension is activated ..
 exports.activate = function activate(context) {
     // `onWillSaveTextDocument` shows us actual 'isDirty' flag in contrast to `onDidSaveTextDocument`. 
-    vscode.workspace.onWillSaveTextDocument((obj) => ext.onWillSaveTextDocument(obj)); 
+    vscode.workspace.onWillSaveTextDocument((obj) => ext.saveCurrentDocAsHtml(obj.document));
 
+//    const mdplugins = vscode.workspace.getConfiguration('microjam')['markdownItPlugins'];
     return {
         extendMarkdownIt: (md) => {
             const kt = require('katex'),
-                  tm = require('markdown-it-texmath').use(kt);
+                  tm = require('markdown-it-texmath').use(kt);  // todo use of 'katex' => options ...
             return (ext.mdit = md).use(tm);
         }
     }
@@ -205,9 +248,9 @@ base(data) {
 \${data.tags ? \`<meta name="keywords" content="\${data.tags.join()}">\` : ''}
 <title>\${data.title}</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github-gist.min.css">
-<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">
-<link rel="stylesheet" href="./css/styles.css">
+<link rel="stylesheet" href="./theme/styles.css">
 </head>
 <body>
 <header>
@@ -264,6 +307,7 @@ body {
   padding: 10px 8px;
   font-size: 12pt;
   font-family: Helvetica, Arial, Geneva, sans-serif;
+  background-color: #eee;
 }
 @media screen and (min-width: 768px) {
   body {
@@ -271,7 +315,11 @@ body {
     margin: 0 auto;
   }
 }
-
+main, footer {
+  padding: 5px 1em;
+  background-color: white;
+  word-wrap: break-word;
+}
 header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -296,12 +344,17 @@ header > .left {
 header > .right {
   text-align: right;
 }
-main {
-  padding: 5px 16px;
-  word-wrap: break-word;
+p, blockquote { 
+  text-align: justify; 
 }
-time {
-  color: #666;
+blockquote {
+    font-size: 11pt;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-left: .25em solid green;
+    color: #666;
+    background-color: #f6f6f6;
+    padding: 0 0.5em;
 }
 
 table {
@@ -325,20 +378,38 @@ figure > * {
     display: block;
     margin: 0 auto;
     page-break-inside: avoid;
+    text-align: center;
+}
+figure  img {
+  border-radius: 3px;
+  margin: 4px;
+  box-shadow: 7px 5px #ccc;
 }
 figcaption { 
-    text-align: center;
+    font-size: 11pt;
     margin-top: 0.5em;
 }
-
-/* highlighted code sections */
+/* code sections */
+pre > code > code > div,
 pre > code.code-line > div {
+  font-size: 10pt;
   background-color: #eee;
   border-radius: 5px;
   padding: 0.5em;
   white-space: pre-wrap;
 }
-
+kbd {
+  font-size: 10pt;
+  border-radius: 3px;
+  padding: 1px 2px 0;
+  margin: 0 2px;
+  color: #444;
+  border: 1px solid #999;
+  background-color: #eee;
+}
+time {
+  color: #666;
+}
 footer {
   text-align: center;
   font-size: 0.8em;

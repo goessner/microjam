@@ -20,13 +20,13 @@ table th, table td {
 figure {
     margin: 0.5em auto;
 }
-figure > img {
+figure > * {
     display: block;
     margin: 0 auto;
     page-break-inside: avoid;
+    text-align: center;
 }
 figcaption { 
-    display: block;
-    text-align: center;
+    font-size: 11pt;
     margin-top: 0.5em;
 }

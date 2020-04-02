@@ -11,19 +11,21 @@ ${data.date ? `<meta name="date" content="${new Date(data.date).toString()}">` :
 ${data.tags ? `<meta name="keywords" content="${data.tags.join()}">` : ''}
 <title>${data.title}</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github-gist.min.css">
-<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">
-<link rel="stylesheet" href="./css/styles.css">
+<link rel="stylesheet" href="./theme/styles.css">
 </head>
 <body>
 <header>
-  <a href="./index.html" class="left">My Site</a>
-  <a href="./about.html" class="right">About</a>
+  <a href="./index.html" class="left"><b>&mu;jam</b></a>
+  <div class="right">
+      <a href="./installationGuide.html">Installation</a> | <a href="./about.html">About</a>
+  </div>
 </header>
 <main>
 ${data.content}
 </main>
-<footer>&copy; My Site</footer>
+<footer>&copy; &mu;jam</footer>
 </body>
 </html>` 
 },

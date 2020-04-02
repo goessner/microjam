@@ -4,6 +4,7 @@ body {
   padding: 10px 8px;
   font-size: 12pt;
   font-family: Helvetica, Arial, Geneva, sans-serif;
+  background-color: #eee;
 }
 @media screen and (min-width: 768px) {
   body {
@@ -11,7 +12,11 @@ body {
     margin: 0 auto;
   }
 }
-
+main, footer {
+  padding: 5px 1em;
+  background-color: white;
+  word-wrap: break-word;
+}
 header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -22,11 +27,11 @@ header {
   background-color: darkslategray;
   border-radius: 10px;
 }
-header > a {
+header  a {
   color: white;
   text-decoration: none;
 }
-header > a:hover {
+header  a:hover {
   color: #aaa;
 }
 header > .left {
@@ -36,12 +41,17 @@ header > .left {
 header > .right {
   text-align: right;
 }
-main {
-  padding: 5px 16px;
-  word-wrap: break-word;
+p, blockquote { 
+  text-align: justify; 
 }
-time {
-  color: #666;
+blockquote {
+    font-size: 11pt;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-left: .25em solid green;
+    color: #666;
+    background-color: #f6f6f6;
+    padding: 0 0.5em;
 }
 
 table {
@@ -63,22 +73,39 @@ figure {
 }
 figure > * {
     display: block;
-    margin: 0 auto;
+    margin: 4px auto;
     page-break-inside: avoid;
+    text-align: center;
+}
+figure  img {
+  border-radius: 3px;
+  box-shadow: 7px 5px #ccc;
 }
 figcaption { 
-    text-align: center;
+    font-size: 11pt;
     margin-top: 0.5em;
 }
-
-/* highlighted code sections */
+/* code sections */
+pre > code > code > div,
 pre > code.code-line > div {
+  font-size: 10pt;
   background-color: #eee;
   border-radius: 5px;
   padding: 0.5em;
   white-space: pre-wrap;
 }
-
+kbd {
+  font-size: 10pt;
+  border-radius: 3px;
+  padding: 1px 2px 0;
+  margin: 0 2px;
+  color: #444;
+  border: 1px solid #999;
+  background-color: #eee;
+}
+time {
+  color: #666;
+}
 footer {
   text-align: center;
   font-size: 0.8em;

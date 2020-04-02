@@ -3,7 +3,7 @@
 	"description": "Most minimalistic JAMStack environment",
 	"author": "Stefan Goessner <fang03@web.de>",
 	"publisher": "goessner",
-	"version": "0.2.1",
+	"version": "0.2.4",
 	"keywords": [
 		"JAMStack",
 		"deploy",
@@ -11,7 +11,7 @@
 		"markdown",
 		"microjam"
 	],
-    "microjam": {},
+	"microjam": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/goessner/microjam.git"
@@ -83,6 +83,7 @@
 		"linkify-it": "^2.2.0",
 		"markdown-it": "^10.0.0",
 		"markdown-it-footnote": "^3.0.2",
+		"markdown-it-task-lists": "^2.1.1",
 		"markdown-it-texmath": "^0.6.0",
 		"mdurl": "^1.0.1",
 		"uc.micro": "^1.0.6"
