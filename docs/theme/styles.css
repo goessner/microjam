@@ -3,7 +3,8 @@ body {
   margin: 0;
   padding: 10px 8px;
   font-size: 12pt;
-  font-family: Helvetica, Arial, Geneva, sans-serif;
+  /*font-family: 'EB Garamond', Helvetica, Arial, Geneva, sans-serif;*/
+  font-family: 'EB Garamond';
   background-color: #eee;
 }
 @media screen and (min-width: 768px) {
@@ -41,6 +42,11 @@ header > .left {
 header > .right {
   text-align: right;
 }
+
+h1, h2, h3, h4 {
+  color: darkslategray;
+}
+
 p, blockquote { 
   text-align: justify; 
 }
