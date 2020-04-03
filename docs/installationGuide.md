@@ -55,13 +55,14 @@ For a new project we need a project folder, where everything necessary can resid
   <figcaption>Fig. 2: Create a project folder.</figcaption>
 </figure>
 
-3. We navigate to our newly created folder via `cd` (`change directory`). 
+3. We navigate to our newly created folder via `cd` (`change directory`) and create there another directory `docs`.
 ```
-> cd <new folder path>
+> cd first
+> mkdir docs
 ```
 <figure>
   <img src="./img/mu-jam.03.png">
-  <figcaption>Fig. 3: Navigate to project folder.</figcaption>
+  <figcaption>Fig. 3: Navigate to project folder / create new directory 'docs'.</figcaption>
 </figure>
 
 We want to create the first file in our nearly empty directory `first`.
