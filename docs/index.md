@@ -30,7 +30,7 @@ then the minimalistic and powerful approach of **&mu;jam** might convice you.
 
 * ## ok, how can I try out your ... &mu;jam approach ?
 
-Chances are that you already [installed](https://code.visualstudio.com/Download) the `vscode` editor. You can also do that later and first read about creating the webpages of [this  example repository]() step-by-step by yourself manually in three simple steps:
+Chances are that you already [installed](https://code.visualstudio.com/Download) the `vscode` editor. You can also do that later and first read about creating the webpages of [this  example repository](https://goessner.github.io/microjam-first/) step-by-step by yourself manually in three simple steps:
 
 1. A new Project
 2. Generating Content
