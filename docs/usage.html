@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
+<meta name="description" content="Creating Web Pages with `&mu;jam`">
+<meta name="date" content="Mon Mar 30 2020 02:00:00 GMT+0200 (Mitteleuropäische Sommerzeit)">
+<meta name="keywords" content="2D Vector,Graphics,Web,SVG,HTML Canvas,Path Segment">
+<title>Using μjam</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github-gist.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">
+<link rel="stylesheet" href="./theme/styles.css">
+</head>
+<body>
+<header>
+  <a href="./index.html" class="left"><b>&mu;jam</b></a>
+  <div class="right">
+      <a href="./usage.html">Users Guide</a> | <a href="./installationGuide.html">Installation</a> | <a href="./about.html">About</a>
+  </div>
+</header>
+<main>
+<h1 id="using-%CE%BCjam">Using <em>μjam</em></h1>
+<h2 id="1-prerequisites">1. Prerequisites</h2>
+<p>It is assumed, that you</p>
+<ul>
+<li>have basic knowledge, how to use <a href="https://code.visualstudio.com/" data-href="https://code.visualstudio.com/"><em>Visual Studio Code</em></a>.</li>
+<li>successfully <a href="./installationGuide.html" data-href="./installationGuide.html">installed</a> <strong>μjam</strong>.</li>
+</ul>
+<h2 id="2-activation">2. Activation</h2>
+<p><em>μjam</em> is an extension to VSCode and VSCode will activate it under certain conditions. As <em>μjam</em> deals primarily – or more precise exclusively – with markdown files, it will get activated, when you</p>
+<ul>
+<li>open your first markdown file, or ...</li>
+<li>start VSCode with a markdown file as its active document</li>
+</ul>
+<figure>
+  <img src="./img/mu-jam.use.01.png" alt="md = make directory">
+  <figcaption>Fig. 1: &mu;jam activation message.</figcaption>
+</figure>
+<p>You will see an activation message in the lower right corner of VSCode window.
+You do not necessarily have your repository folder opened in VSCode. <em>μjam</em> will work with single file mode also.</p>
+<p>But ... having <em>μjam</em> activated properly does not mean, it works with every markdown file. It accepts files</p>
+<ul>
+<li>being in a <code>docs</code> directory or one of its subdirectories <code>docs/**</code> and ...</li>
+<li>belonging to a repository having an entry <code>&quot;microjam&quot;: {...}</code> in its <code>package.json</code></li>
+</ul>
+<p>only.</p>
+<h2 id="3-generating-webpages">3. Generating Webpages</h2>
+<p><em>μjam</em> can do exactly <em>two things</em> for you:</p>
+<ul>
+<li>generate/update a <code>html</code> file from a single <code>md</code> file ...</li>
+<li>generate/update <code>html</code> files from <strong>all</strong> <code>md</code> files in a repository</li>
+</ul>
+<h3 id="31-working-with-single-markdown-files">3.1 Working with Single Markdown Files</h3>
+<p>Whenever you are working at a markdown file and save it via</p>
+<ul>
+<li>menu <code>File &gt; Save As</code> or (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>) or ...</li>
+<li>menu <code>File &gt; Save</code> or (<kbd>Ctrl</kbd> + <kbd>S</kbd>)</li>
+</ul>
+<p>its corresponding <code>html</code> file will be generated automatically by <em>μjam</em>, which will also update the <code>pages.json</code> file and possibly some <em>index</em> files, if you happened to have modified a <code>&quot;layout&quot;:&quot;article&quot;</code> document.</p>
+<figure>
+  <img src="./img/mu-jam.use.02.png">
+  <figcaption>Fig. 2: &mu;jam Html saved message.</figcaption>
+</figure>
+<blockquote>
+<p><strong>Note:</strong><br>
+That <code>File &gt; Save</code> command <strong>only</strong> saves its markdown file, if it has been modified since its last storage command. Only in this case the corresponding <code>html</code> file is updated.</p>
+</blockquote>
+<p>In order to assist you to <em>force an update of a single file</em>, <em>μjam</em> provides us with the command <kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>H</kbd> (think <strong>H</strong>tml). This is also available via different menus (see below).</p>
+<h3 id="32-working-with-all-markdown-files">3.2 Working with All Markdown Files</h3>
+<p>There might come up the necessity to rebuild all <code>html</code> files. One scenario is, we just had modified our templates in <code>template.js</code>.</p>
+<p>To achieve this, we can use the <em>μjam</em> command <kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>A</kbd> (think <strong>A</strong>ll).</p>
+<figure>
+  <img src="./img/mu-jam.use.03.png">
+  <figcaption>Fig. 3: &mu;jam command - force rebuild all Html files</figcaption>
+</figure>
+<p>Please note, only the last three rebuilt files are shown as <em>μjam</em> messages then.</p>
+<h3 id="33-menus">3.3 Menus</h3>
+<figure>
+  <div><img src="./img/mu-jam.use.04-1.png">
+  <img src="./img/mu-jam.use.04-2.png"></div><br>
+  <img src="./img/mu-jam.use.04-3.png"><br>
+  <img src="./img/mu-jam.use.04-4.png">
+  <figcaption>Fig. 4: &mu;jam commands - accessible through different menus</figcaption>
+</figure>
+<p>Both <em>μjam</em> commands are accessible through</p>
+<ol>
+<li>Editor context menu (a)</li>
+<li>Editor title menu (b)</li>
+<li>VSCode global command palette (c)</li>
+<li>Explorer context menu (d)</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong><br>
+Menus in VSCode are defined statically with extensions like μjam. So above menus are always shown while editing any markdown document. But with markdown documents <strong>not</strong> belonging to a valid repository invoking these menu commands will <strong>silently</strong> have no effect.</p>
+</blockquote>
+<h3 id="34-remove-auto-generated-files">3.4 Remove auto-generated Files</h3>
+<p>You won't want to remove auto-generated files usually, which are regularly updated by μjam. But if you explicitely want to do that, it is best to use the explorer view (Fig. 5).</p>
+<figure>
+  <img src="./img/mu-jam.use.05.png">
+  <figcaption>Fig. 5: Explorer view - manually remove these files only</figcaption>
+</figure>
+<ul>
+<li>It is safe to remove all <code>*.html</code> files as well as <code>pages.json</code> (<kbd>Delete</kbd> or <kbd>Shift</kbd>+<kbd>Delete</kbd>).</li>
+<li>If you manually remove a markdown file, its corresponding <code>html</code> file will be consistently deleted by μjam during next command execution. <code>pages.json</code> will be also updating accordingly.</li>
+<li>You can delete the <code>docs/theme</code> folder and even the <code>.vscode</code> directory. μjam will generate them again using default content. So be aware, that your possible customizations might get lost then.</li>
+<li>You shouldn't delete any other files from your repository, except you know, what you are doing.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong><br>
+Sort order of files by <em>type</em> makes sense in explorer view, but it's not VSCode's default order. So μjam adds an entry <code>&quot;explorer.sortOrder&quot;:&quot;type&quot;</code> to user settings file <code>.vscode/settings.json</code>. You can add more individual settings to that file. It is recommended, to leave the sort order setting intakt.</p>
+</blockquote>
+<h2 id="4-editing-markdown-files">4. Editing Markdown Files</h2>
+<p>It is not much to say here, since markdown editing is excellently done by VSCode editor. There are only a few assisting μjam features worth mentioning.</p>
+<h3 id="41-frontmatter-snippet">4.1 Frontmatter Snippet</h3>
+<p>When starting a new markdown file, μjam assists you by inserting a partial filled <em>frontmatter</em> template at current editor location.</p>
+<figure>
+  <img src="./img/mu-jam.use.06.png">
+  <figcaption>Fig. 5: Explorer view - manually remove these files only</figcaption>
+</figure>
+<p>Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>-</kbd> for getting this.</p>
+<h3 id="42-markdown-it-plugins">4.2 <code>markdown-it</code> Plugins</h3>
+<p>VSCode uses <a href="https://github.com/markdown-it/markdown-it" data-href="https://github.com/markdown-it/markdown-it">markdown-it</a> as its markdown parser internally. There are a lot of markdown-it plugins available.
+μjam potentially supports only two of them at current:</p>
+<ul>
+<li>Math plugin <code>markdown-it-texmath</code></li>
+<li>Footnotes plugin <code>markdown-it-footnotes</code></li>
+</ul>
+<p>Since they are both inactive initially, we can activate them – if we want – by appending the following to <code>.vscode/settings.json</code> ...</p>
+<pre><code class="code-line language-json"><div>	<span class="hljs-string">"microjam.markdownItPlugins"</span>: {
+		<span class="hljs-attr">"markdown-it-texmath"</span>: {
+			<span class="hljs-attr">"engine"</span>: <span class="hljs-string">"katex"</span>,
+            <span class="hljs-attr">"delimiters"</span>: <span class="hljs-string">"dollars"</span>,
+            <span class="hljs-attr">"macros"</span>: {<span class="hljs-attr">"\\RR"</span>: <span class="hljs-string">"\\mathbb{R}"</span>}
+		},
+		<span class="hljs-attr">"markdown-it-footnote"</span>: {}
+	}
+}
+</div></code></pre>
+<h2 id="5-publishing-documents-to-github">5. Publishing Documents to GitHub</h2>
+<p>We are assuming here, that you have a valid local <code>git</code> and remote GitHub repository already. Read <a href="./installationGuide.html" data-href="./installationGuide.html">installation guide</a> otherwise.</p>
+<figure>
+  <img src="./img/mu-jam.16-4.png">
+  <figcaption>Fig. 16: Workflow: Adding 'readme.md' and modifying 'one.md'.</figcaption>
+</figure>
+<p>For publishing your generated or modified files to GitHub, you might want to use the <em>Source control</em> view.</p>
+<ul>
+<li>Type in a commit message string.</li>
+<li>Send it by <kbd>Ctrl</kbd> + <kbd>Enter</kbd>.</li>
+<li>Press the <em>up arrow</em> symbol in the status bar.</li>
+</ul>
+<h2 id="references-1">References</h2>
+
+</main>
+<footer>&copy; &mu;jam</footer>
+</body>
+</html>

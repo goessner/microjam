@@ -51,43 +51,6 @@ const ext = {
 //                       .replace(/<h([1-6])\sid=\".+\"/g,($0,$1) => `<h${$1}`);  // use auto-generated ids for toc insertion .. ?
     },
     /**
-     * Separate Frontmatter section and content.
-     * Parse Frontmatter (strict JSON required).
-     */
-    pageStructure(text,basedir) {
-        const page = {layout:"page",title:"",date:"",description:"",tags:[],category:[]};
-        if (text) {
-            let frontmatter;
-
-            page.content = text.replace(/^\s*?[{\-]{3}([\s\S]+?)[}\-.]{3}\s*?/g, ($0,$1) => { frontmatter = $1; return '';});
-
-            if (frontmatter) {
-                try { 
-                    frontmatter = JSON.parse(`{${frontmatter}}`);
-                    Object.assign(page, frontmatter);
-                    if (!["page","article","index"].includes(page.layout))
-                        ext.errMsg(`'layout' type must be one of ["page","article","index"]!`);
-                    else if (page.layout === 'article') {
-                        page.content.replace(/#{2}\s[Aa]bstract\s*([^#]+?)\s*?#/g, ($0,$1) => { page.abstract = $1; return '';});
-                        if (page.abstract)
-                            page.abstract = ext.toHtml(page.abstract);
-                    }
-                    else if (page.layout === 'index')
-                        page.articles = JSON.parse(fs.readFileSync(path.resolve(basedir,'./pages.json'),'utf8'))
-                                            .filter((e) => e.layout === 'article');
-                }
-                catch (err) {
-                    const transform = (pos) => `in frontmatter: … ${frontmatter.substring(Math.max(0,pos-15),pos-1)}¿${frontmatter.substring(pos-1,Math.min(pos+15,frontmatter.length-1))} …`;
-                    const errstr = err.message.replace(/in JSON at position (\d+)/, ($0,$1) => { return transform(+$1)});
-                    ext.errMsg(errstr); 
-                }
-            }
-            if (!page.description && page.title) page.description = page.title;
-            page.content = ext.toHtml(page.content);
-        }
-        return page;        
-    },
-    /**
      * Find base directory path from document uri.
      * @method
      * @param {string} - uri of markdown file.
@@ -109,116 +72,237 @@ const ext = {
      * @method
      * @param {string}  basedir - absolute base directory path
      */
-    validateRepo(basedir) {   // assume minimum-valid repo-directory ...
+
+    validateRepo(basedir) {  // assume minimum-valid repo-directory ...
         let uri;
         if (!fs.existsSync(uri=path.resolve(basedir,'./pages.json')))
             fs.writeFileSync(uri, '[]', 'utf8');
-        if (!fs.existsSync(uri=path.resolve(basedir,'./theme')))
+        if (!fs.existsSync(uri=path.resolve(basedir,'./theme'))) {
             fs.mkdirSync(uri);
-        if (!fs.existsSync(uri=path.resolve(basedir,'./theme/template.js')))  // assume to exist together with './theme' folder ?
-            fs.writeFileSync(uri, ext.defaults.templates, 'utf8');
-        if (!fs.existsSync(uri=path.resolve(basedir,'./theme/styles.css')))   // assume to exist together with './theme' folder ?
-            fs.writeFileSync(uri, ext.defaults.css, 'utf8');
+            fs.writeFileSync(path.resolve(uri,'./template.js'), ext.defaults.templates, 'utf8');
+            fs.writeFileSync(path.resolve(uri,'./styles.css'), ext.defaults.css, 'utf8');
+        }
+        if (!fs.existsSync(uri=path.resolve(basedir,'../.vscode')))
+            fs.mkdirSync(uri);
+        if (!fs.existsSync(uri=path.resolve(basedir,'../.vscode/settings.json')))
+            fs.writeFileSync(uri, ext.defaults.settings, 'utf8');
+    },
+    /**
+     * Rebuild repository.
+     * Rebuild `*.html` and `pages.json` files in `docs` folder.
+     * @param {string}  basedir - absolute base directory path
+     * @method
+     */
+    rebuild(basedir) {
+        const mdfiles = fs.readdirSync(basedir)
+                          .filter((uri) => uri.match(/.*\.md$/)),
+              pages = [],
+              articles = [];
+
+        // build complete in-memory pages-structure
+        for (const uri of mdfiles) {
+            const mdpath = path.resolve(basedir,uri),
+                  page = ext.pageStructure(mdpath, basedir, fs.readFileSync(mdpath,'utf8'));
+            pages.push(page);
+            if (page.layout === 'article')
+                articles.push(page);
+            else if (page.layout === 'index')
+                page.articles = articles;
+        }
+
+        // create / overwrite *.html files
+        for (const page of pages) {
+            ext.saveAsHtml(basedir, page);
+            delete page.content;
+            delete page.articles;
+        }
+
+        // store 'pages.json'.
+        fs.writeFileSync(path.resolve(basedir,'./pages.json'), JSON.stringify(pages), 'utf8');
+    },
+    /**
+     * Separate Frontmatter section and content.
+     * Parse Frontmatter (strict JSON required).
+     * @param {string}  mdpath - absolute markdown file path
+     * @param {string}  basedir - absolute base directory path
+     * @param {string}  text - page markdown text (including frontmatter)
+     * @returns {object} page object.
+     */
+    pageStructure(mdpath, basedir, text) {
+        const page = { layout:"page",
+                       title:"",
+                       date:"",
+                       description:"",
+                       tags:[],
+                       category:[],
+                       math: ext.cfg("markdownItPlugins")['markdown-it-texmath'] ? "math" : undefined
+                    };
+        if (text) {
+            let frontmatter;
+
+            page.content = text.replace(/^\s*?[{\-]{3}([\s\S]+?)[}\-.]{3}\s*?/g, ($0,$1) => { frontmatter = $1; return '';});
+
+            if (frontmatter) {
+                try { 
+                    frontmatter = JSON.parse(`{${frontmatter}}`);
+                    Object.assign(page, frontmatter);
+                    if (!["page","article","index"].includes(page.layout))
+                        ext.errMsg(`'layout' type must be one of ["page","article","index"]!`);
+                    else if (page.layout === 'article') {
+                        page.content.replace(/#{2}\s[Aa]bstract\s*([^#]+?)\s*?#/g, ($0,$1) => { page.abstract = $1; return '';});
+                        if (page.abstract)
+                            page.abstract = ext.toHtml(page.abstract);
+                    }
+                }
+                catch (err) {
+                    const transform = (pos) => `in frontmatter: … ${frontmatter.substring(Math.max(0,pos-15),pos-1)}¿${frontmatter.substring(pos-1,Math.min(pos+15,frontmatter.length-1))} …`;
+                    const errstr = err.message.replace(/in JSON at position (\d+)/, ($0,$1) => { return transform(+$1)});
+                    ext.errMsg(errstr); 
+                }
+            }
+            if (!page.description && page.title) 
+                page.description = page.title;
+
+            page.uri = mdpath;
+            page.reluri = path.relative(basedir, mdpath).replace(/\.md/g,'');
+        }
+        return page;        
+    },
+    /**
+     * Extract page markdown content.
+     * @param {string}  text - page text (including frontmatter)
+     * @returns {string} page markdown content (without frontmatter).
+     */
+    pageContent(text) {
+        return text.replace(/^\s*?[{\-]{3}([\s\S]+?)[}\-.]{3}\s*?/g, '');
     },
     /**
      * Update 'pages.json'
      * @method
      * @param {string}  pagesuri - uri of 'pages.json'
-     * @param {object}  entry - frontmatter object of entry.
+     * @param {object}  entry - frontmatter object of current entry.
      * @param {string}  basedir - absolute base directory path
      */
     updatePages(pagesuri, entry, basedir) {
-        const list = JSON.parse(fs.readFileSync(pagesuri,'utf8'));
+        const pages = JSON.parse(fs.readFileSync(pagesuri,'utf8'));
         let   found = false, dirtyindex = false;
 
-        for (let i=0; i < list.length; i++) {
-            if (!found && list[i].uri === entry.uri) {    // entry found in list ...
-                list.splice(i,1,entry);             // ... so substitute ...
+        for (let i=0; i < pages.length; i++) {
+            if (!found && pages[i].uri === entry.uri) {    // entry found in pages ...
+                pages.splice(i,1,entry);             // ... so substitute ...
                 found = true;
                 dirtyindex = dirtyindex || entry.layout === 'article';
             }
-            else if (!fs.existsSync(list[i].uri)) { // ... so remove potentially existing *.html file.
-                const htmlpath = path.resolve(basedir,list[i].reluri+'.html');
+            else if (!fs.existsSync(pages[i].uri)) { // ... so remove potentially existing *.html file.
+                const htmlpath = path.resolve(basedir,pages[i].reluri+'.html');
                 if (fs.existsSync(htmlpath))
                     fs.unlinkSync(htmlpath);
-                if (list[i].layout === 'article') dirtyindex = true;  // need to refresh index ...
-                list.splice(i,1);                   // remove from list ...
+                if (pages[i].layout === 'article') dirtyindex = true;  // need to refresh index ...
+                pages.splice(i,1);                   // remove from pages ...
             }
         }
 
         if (!found) {                               // is a new entry ...
-            list.push(entry);                       // ... add it to list.
+            pages.push(entry);                       // ... add it to pages.
             dirtyindex = dirtyindex || entry.layout === 'article';
         }
 
-        fs.writeFileSync(pagesuri, JSON.stringify(list), 'utf8');
-
         if (dirtyindex) {      // providently refresh `index.html` ...
-            list.forEach((e) => { if (e.layout === 'index') ext.saveAsHtml(e.uri, basedir); } );
+            pages.forEach((ent) => { 
+                if (ent.layout === 'index') {
+                    ent.content = ext.pageContent(fs.readFileSync(ent.uri,'utf8'));
+                    ent.articles = pages.filter((e) => e.layout === 'article');
+                    ext.saveAsHtml(basedir, ent);
+                    delete ent.articles;
+                    delete ent.content;
+                }
+            });
         }
+
+        fs.writeFileSync(pagesuri, JSON.stringify(pages), 'utf8');
     },
     /**
      * Save Html file
      * @method
-     * @param {string}  fspath - absolute markdown file uri
      * @param {string}  basedir - absolute base directory path
-     * @param {string}  [mdtext=undefined] - markdown text
+     * @param {object}  page - page object
      */
-    saveAsHtml(fspath, basedir, mdtext) {       // imply existing 'docs' directory ...
-        if (!mdtext) mdtext = fs.readFileSync(fspath,'utf8');
-
-        const page = ext.pageStructure(mdtext, basedir);
-        const reluri = path.relative(basedir, fspath).replace(/\.md/g,'');
+    saveAsHtml(basedir, page) {       // imply existing 'docs' directory ...
+        page.content = ext.toHtml(page.content);
 
         try {
             const template = require(path.resolve(basedir, './theme/template.js'));
             const html = template[page.layout || 'page'](page);
-            const outuri = path.resolve(basedir, reluri+'.html');
+            const outuri = path.resolve(basedir, page.reluri+'.html');
 
             fs.writeFileSync(outuri, html, 'utf8');
             if (ext.cfg('showSaveMessage')) ext.infoMsg(`Html saved to ${outuri}`);
         } catch (e) {
             ext.errMsg('Saving html failed: ' + e.message);
         }
+    },
+    /**
+     * Rebuild repository command.
+     * Remove `*.html` and `pages.json` files from `docs` folder.
+     * @method
+     */
+    rebuildCmd() {
+        const doc = vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
+        const basedir = doc && doc.languageId === 'markdown' && ext.baseOfValidRepo(doc.uri.fsPath);
 
-        delete page.content;
-        delete page.articles;   // for layout:'index' pages only ...
-        page.uri = fspath;
-        page.reluri = reluri;
-
-        ext.updatePages(path.resolve(basedir, './pages.json'), page, basedir);
+        if (basedir) {
+            ext.validateRepo(basedir);   // possibly first command invocation ... !
+            ext.rebuild(basedir);
+        }
+        else
+            ext.errMsg(`${basedir} is not a valid 'microjam' repository.`);
     },
     /**
      * Save Markdown document command handler.
      * @method
-     * @param {object}  doc - document.
+     * @param {object}  arg - document or uri object ... depends from where it was invoked.
      */
-    saveCurrentDocAsHtml(doc) {
-        doc = doc || vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
-        if (doc && doc.languageId === 'markdown' && doc.isDirty) {
-            const fspath = doc.uri.fsPath,
-                  basedir = ext.baseOfValidRepo(fspath);
+    saveAsHtmlCmd(arg) {
+        const doc = arg && arg.uri ? arg : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
+        const dirty = arg && (arg.isDirty || arg.isDirty === undefined);  // if unknown state imply 'dirty'
+        const mdpath = dirty && doc && doc.languageId === 'markdown' && doc.uri.fsPath;
+        const basedir = mdpath && ext.baseOfValidRepo(mdpath);
 
-            if (!basedir)
-                return;     // markdown file does not belong to a valid repo ... return silently ...
-            else
-                ext.validateRepo(basedir);
+        if (basedir) {
+            ext.validateRepo(basedir);   // first *.md file save ... !
 
-            ext.saveAsHtml(fspath, basedir, doc.getText());
+            const page = ext.pageStructure(mdpath, basedir, doc.getText());
+            const pagesuri = path.resolve(basedir,'./pages.json');
+
+            if (page.layout === 'index')
+                page.articles = JSON.parse(fs.readFileSync(pagesuri,'utf8'))
+                                    .filter((e) => e.layout === 'article');
+
+            ext.saveAsHtml(basedir, page);
+            delete page.content;
+            delete page.articles;
+
+            ext.updatePages(pagesuri, page, basedir);
         }
+    //  else   // no markdown file or markdown file does not belong to a valid repo ... return silently ...
     }
 }
 // extension is activated ..
 exports.activate = function activate(context) {
+    const mdplugins = vscode.workspace.getConfiguration('microjam')['markdownItPlugins'];
     // `onWillSaveTextDocument` shows us actual 'isDirty' flag in contrast to `onDidSaveTextDocument`. 
-    vscode.workspace.onWillSaveTextDocument((obj) => ext.saveCurrentDocAsHtml(obj.document));
+    vscode.workspace.onWillSaveTextDocument((obj) => ext.saveAsHtmlCmd(obj.document));
 
-//    const mdplugins = vscode.workspace.getConfiguration('microjam')['markdownItPlugins'];
+    context.subscriptions.push(vscode.commands.registerCommand('extension.saveAsHtml', ext.saveAsHtmlCmd));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.rebuild', ext.rebuildCmd));
+
+    ext.infoMsg(`Extension activated!`);
+
     return {
         extendMarkdownIt: (md) => {
-            const kt = require('katex'),
-                  tm = require('markdown-it-texmath').use(kt);  // todo use of 'katex' => options ...
-            return (ext.mdit = md).use(tm);
+            for (const key of Object.keys(mdplugins))  // see user settings
+                md.use(require(key));
+            return (ext.mdit = md);
         }
     }
 }
@@ -247,9 +331,7 @@ base(data) {
 \${data.date ? \`<meta name="date" content="\${new Date(data.date).toString()}">\` : ''}
 \${data.tags ? \`<meta name="keywords" content="\${data.tags.join()}">\` : ''}
 <title>\${data.title}</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github-gist.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/github-gist.min.css">
 <link rel="stylesheet" href="./theme/styles.css">
 </head>
 <body>
@@ -415,5 +497,8 @@ footer {
   font-size: 0.8em;
   color: #666;
 }
-}  /* end @media screen */`
+}  /* end @media screen */`,
+settings: `{
+	"explorer.sortOrder": "type"
+}`
 };

@@ -19,7 +19,7 @@ ${data.tags ? `<meta name="keywords" content="${data.tags.join()}">` : ''}
 <header>
   <a href="./index.html" class="left"><b>&mu;jam</b></a>
   <div class="right">
-      <a href="./installationGuide.html">Installation</a> | <a href="./about.html">About</a>
+      <a href="./usage.html">Users Guide</a> | <a href="./installationGuide.html">Installation</a> | <a href="./about.html">About</a>
   </div>
 </header>
 <main>

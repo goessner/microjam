@@ -47,6 +47,15 @@ h1, h2, h3, h4 {
   color: darkslategray;
 }
 
+h1>a,h2>a,h3>a,h4>a {
+  display: none;
+  text-decoration: none;
+  color: inherit;
+}
+h1:hover>a,h2:hover>a,h3:hover>a,h4:hover>a {
+  display: initial;
+}
+
 p, blockquote { 
   text-align: justify; 
 }
