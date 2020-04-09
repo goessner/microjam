@@ -4,10 +4,14 @@
   "date": "2020-03-30",
   "description": "Creating Web Pages with `&mu;jam`",
   "tags": ["2D Vector","Graphics","Web","SVG","HTML Canvas","Path Segment"],
-  "category": ["math"]
+  "category": ["math"],
+  "permalink": "#"
 ---
 
 # Using *&mu;jam* 
+
+## Contents
+
 
 ## 1. Prerequisites
 
@@ -88,7 +92,7 @@ Please note, only the last three rebuilt files are shown as *&mu;jam* messages t
 
 Both *&mu;jam* commands are accessible through
 
-1. Editor context menu (a)
+1. Editor context menu (right click) (a)
 2. Editor title menu (b)
 3. VSCode global command palette (c)
 4. Explorer context menu (d)
@@ -123,12 +127,30 @@ When starting a new markdown file, &mu;jam assists you by inserting a partial fi
 
 <figure>
   <img src="./img/mu-jam.use.06.png">
-  <figcaption>Fig. 5: Explorer view - manually remove these files only</figcaption>
+  <figcaption>Fig. 6: Explorer view - manually remove these files only</figcaption>
 </figure>
 
 Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>-</kbd> for getting this.
 
-### 4.2 `markdown-it` Plugins
+### 4.2 Table Of Content Snippet
+
+When finishing a markdown document containing several headings possibly in multiple levels, we would welcome an automatical generation of table of contents (toc). This is how &mu;jam assists us by inserting at current editor location at our fingertips.
+
+<figure>
+  <img src="./img/mu-jam.use.07.png">
+  <figcaption>Fig. 7: Explorer view - manually remove these files only</figcaption>
+</figure>
+
+Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>t</kbd> (think &nbsp;**t** oc) for getting this.
+
+> **Note:**   
+> The table of content inserted is static and not configurable, i.e. minimalistic:
+> * If you do not want to have a heading in the toc (maybe 'Contents'), simple delete it from the generated list in the markdown document.
+> * If you edit the text of a heading, the toc won't update automatically. Recreate the toc then manually.
+> * Generating certain toc levels only is not supported. Simply remove the unwanted entries manually then.
+
+
+### 4.3 `markdown-it` Plugins
 
 VSCode uses [markdown-it](https://github.com/markdown-it/markdown-it) as its markdown parser internally. There are a lot of markdown-it plugins available.
 &mu;jam potentially supports only two of them at current:

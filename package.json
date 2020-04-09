@@ -3,7 +3,7 @@
 	"description": "Most minimalistic JAMStack environment",
 	"author": "Stefan Goessner <fang03@web.de>",
 	"publisher": "goessner",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"keywords": [
 		"JAMStack",
 		"deploy",
@@ -92,13 +92,13 @@
 		},
 		"keybindings": [
 			{
-				"command": "extension.saveAsHtml",
 				"key": "ctrl+k h",
+				"command": "extension.saveAsHtml",
 				"when": "editorTextFocus"
 			},
 			{
-				"command": "extension.rebuild",
 				"key": "ctrl+k a",
+				"command": "extension.rebuild",
 				"when": "editorTextFocus"
 			},
 			{
@@ -106,8 +106,13 @@
 				"command": "editor.action.insertSnippet",
 				"when": "editorTextFocus",
 				"args": {
-					"snippet": "---\n\"layout\": \"$1\",\n\"title\": \"$TM_FILENAME_BASE\",\n\"date\": \"$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\"\n\"description\": \"$3\",\n\"tags\": [$3]\n---\n$0"
+					"snippet": "---\n\"layout\": \"$1\",\n\"title\": \"$TM_FILENAME_BASE\",\n\"date\": \"$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\",\n\"description\": \"$3\",\n\"tags\": [$3]\n---\n$0"
 				}
+			},
+			{
+				"key": "ctrl+k t",
+				"command": "extension.insertToc",
+				"when": "editorTextFocus"
 			}
 		],
 		"markdown.previewStyles": [

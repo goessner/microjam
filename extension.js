@@ -44,12 +44,15 @@ const ext = {
      * @method
      * @returns {string}
      */
-    toHtml(md) {
-        return ext.mdit.render(md) // ... remove some vscode stuff ...
-                       .replace(/\sclass=\"code-line\"/g,() => '')
-                       .replace(/\sdata-line=\"[0-9]+\"/g,() => '')
-//                       .replace(/<h([1-6])\sid=\".+\"/g,($0,$1) => `<h${$1}`);  // use auto-generated ids for toc insertion .. ?
+    toHtml(md, permalink) {
+        const html = ext.mdit.render(md) // ... remove some vscode stuff ...
+                        .replace(/\sclass=\"code-line\"/g,() => '')
+                        .replace(/\sdata-line=\"[0-9]+\"/g,() => '')
+                        .replace(/<h([1-6])\sid=\"(.+)-\d\">(.+)<\/h[1-6]>/g,
+                                 ($0,$1,$2,$3) => `<h${$1} id="${$2}">${$3}${permalink ? ` <a href="#${$2}">${permalink}</a>` : ''}</h${$1}>`);
+        return html;
     },
+//                       .replace(/<h([1-6])\sid=\".+\"/g,($0,$1) => `<h${$1}`);  // use auto-generated ids for toc insertion .. ?
     /**
      * Find base directory path from document uri.
      * @method
@@ -135,7 +138,7 @@ const ext = {
                        description:"",
                        tags:[],
                        category:[],
-                       math: ext.cfg("markdownItPlugins")['markdown-it-texmath'] ? "math" : undefined
+                       math: ext.cfg("markdownItPlugins")['markdown-it-texmath'] ? true : undefined
                     };
         if (text) {
             let frontmatter;
@@ -175,6 +178,24 @@ const ext = {
      */
     pageContent(text) {
         return text.replace(/^\s*?[{\-]{3}([\s\S]+?)[}\-.]{3}\s*?/g, '');
+    },
+    /**
+     * Extract headings from content.
+     * @param {string}  text - page text (including frontmatter)
+     * @returns {string} page markdown content (without frontmatter).
+     */
+    extractHeadings(text) {
+        const hds = [... text.matchAll(/([#]+)\s+?(.*)/g)];
+        const headings = [];
+
+        for (const h of hds) {
+            const level = h[1].length;
+            const str = h[2].trim();
+            const permalink = ext.mdit.render(h[0]).match(/.+?id=\"([^"]*?)\".*/)[1]
+                                                   .replace(/-\d$/g, '');  // remove trailing hyphen and digit ?
+            headings.push({str,permalink,level});
+        }
+        return headings;
     },
     /**
      * Update 'pages.json'
@@ -228,7 +249,7 @@ const ext = {
      * @param {object}  page - page object
      */
     saveAsHtml(basedir, page) {       // imply existing 'docs' directory ...
-        page.content = ext.toHtml(page.content);
+        page.content = ext.toHtml(page.content,page.permalink || ext.cfg('permalink'));
 
         try {
             const template = require(path.resolve(basedir, './theme/template.js'));
@@ -285,6 +306,16 @@ const ext = {
             ext.updatePages(pagesuri, page, basedir);
         }
     //  else   // no markdown file or markdown file does not belong to a valid repo ... return silently ...
+    },
+    insertTocCmd(arg) {
+        const doc = arg && arg.uri ? arg : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
+        const headings = ext.extractHeadings(doc.getText());
+        let   toc = '';
+        for (const h of headings)
+            toc += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](#${h.permalink})\n`;
+
+        vscode.env.clipboard.writeText(toc);
+        vscode.commands.executeCommand('editor.action.insertSnippet', {snippet: "$CLIPBOARD"} );
     }
 }
 // extension is activated ..
@@ -295,6 +326,7 @@ exports.activate = function activate(context) {
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.saveAsHtml', ext.saveAsHtmlCmd));
     context.subscriptions.push(vscode.commands.registerCommand('extension.rebuild', ext.rebuildCmd));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.insertToc', ext.insertTocCmd));
 
     ext.infoMsg(`Extension activated!`);
 
