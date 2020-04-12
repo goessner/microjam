@@ -3,7 +3,7 @@
 	"description": "Most minimalistic JAMStack environment",
 	"author": "Stefan Goessner <fang03@web.de>",
 	"publisher": "goessner",
-	"version": "0.2.6",
+	"version": "0.2.7",
 	"keywords": [
 		"JAMStack",
 		"deploy",

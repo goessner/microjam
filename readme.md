@@ -1,4 +1,7 @@
-# A minimal sample and template repository for *&mu;jam*
+# *&mu;jam* ... Minimalistic Jamstack approach 
+
+[![npm version](https://badge.fury.io/js/microjam.svg)](https://badge.fury.io/js/microjam)
+[![Dependency Status](./media/badge-dependency-none.svg)](./media/badge-dependency-none.svg)
 
 * ## &mu; ... what ?
 

@@ -52,7 +52,6 @@ const ext = {
                                  ($0,$1,$2,$3) => `<h${$1} id="${$2}">${$3}${permalink ? ` <a href="#${$2}">${permalink}</a>` : ''}</h${$1}>`);
         return html;
     },
-//                       .replace(/<h([1-6])\sid=\".+\"/g,($0,$1) => `<h${$1}`);  // use auto-generated ids for toc insertion .. ?
     /**
      * Find base directory path from document uri.
      * @method
@@ -89,39 +88,6 @@ const ext = {
             fs.mkdirSync(uri);
         if (!fs.existsSync(uri=path.resolve(basedir,'../.vscode/settings.json')))
             fs.writeFileSync(uri, ext.defaults.settings, 'utf8');
-    },
-    /**
-     * Rebuild repository.
-     * Rebuild `*.html` and `pages.json` files in `docs` folder.
-     * @param {string}  basedir - absolute base directory path
-     * @method
-     */
-    rebuild(basedir) {
-        const mdfiles = fs.readdirSync(basedir)
-                          .filter((uri) => uri.match(/.*\.md$/)),
-              pages = [],
-              articles = [];
-
-        // build complete in-memory pages-structure
-        for (const uri of mdfiles) {
-            const mdpath = path.resolve(basedir,uri),
-                  page = ext.pageStructure(mdpath, basedir, fs.readFileSync(mdpath,'utf8'));
-            pages.push(page);
-            if (page.layout === 'article')
-                articles.push(page);
-            else if (page.layout === 'index')
-                page.articles = articles;
-        }
-
-        // create / overwrite *.html files
-        for (const page of pages) {
-            ext.saveAsHtml(basedir, page);
-            delete page.content;
-            delete page.articles;
-        }
-
-        // store 'pages.json'.
-        fs.writeFileSync(path.resolve(basedir,'./pages.json'), JSON.stringify(pages), 'utf8');
     },
     /**
      * Separate Frontmatter section and content.
@@ -168,6 +134,7 @@ const ext = {
 
             page.uri = mdpath;
             page.reluri = path.relative(basedir, mdpath).replace(/\.md/g,'');
+            page.reldir = path.relative(path.parse(mdpath).dir, basedir);
         }
         return page;        
     },
@@ -204,7 +171,7 @@ const ext = {
      * @param {object}  entry - frontmatter object of current entry.
      * @param {string}  basedir - absolute base directory path
      */
-    updatePages(pagesuri, entry, basedir) {
+    updatePages(pagesuri, entry, basedir, template) {
         const pages = JSON.parse(fs.readFileSync(pagesuri,'utf8'));
         let   found = false, dirtyindex = false;
 
@@ -233,7 +200,7 @@ const ext = {
                 if (ent.layout === 'index') {
                     ent.content = ext.pageContent(fs.readFileSync(ent.uri,'utf8'));
                     ent.articles = pages.filter((e) => e.layout === 'article');
-                    ext.saveAsHtml(basedir, ent);
+                    ext.saveAsHtml(basedir, ent, template);
                     delete ent.articles;
                     delete ent.content;
                 }
@@ -248,35 +215,54 @@ const ext = {
      * @param {string}  basedir - absolute base directory path
      * @param {object}  page - page object
      */
-    saveAsHtml(basedir, page) {       // imply existing 'docs' directory ...
-        page.content = ext.toHtml(page.content,page.permalink || ext.cfg('permalink'));
+    saveAsHtml(basedir, page, template) {       // imply existing 'docs' directory ...
+        page.content = ext.toHtml(page.content, page.permalink || ext.cfg('permalink'));
+        // remove template.js from node.js cache !
+//        const tmpltPath = path.resolve(basedir, './theme/template.js');
 
         try {
-            const template = require(path.resolve(basedir, './theme/template.js'));
-            const html = template[page.layout || 'page'](page);
+            const layout = page.layout || 'page';
+            const html = template[layout](page);
             const outuri = path.resolve(basedir, page.reluri+'.html');
 
             fs.writeFileSync(outuri, html, 'utf8');
             if (ext.cfg('showSaveMessage')) ext.infoMsg(`Html saved to ${outuri}`);
         } catch (e) {
-            ext.errMsg('Saving html failed: ' + e.message);
+            ext.errMsg(`Saving '${page.reluri+'.html'}' failed:  ${e.message}`);
         }
     },
     /**
-     * Rebuild repository command.
-     * Remove `*.html` and `pages.json` files from `docs` folder.
+     * Rebuild repository.
+     * Rebuild `*.html` and `pages.json` files in `docs` folder.
+     * @param {string}  basedir - absolute base directory path
      * @method
      */
-    rebuildCmd() {
-        const doc = vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
-        const basedir = doc && doc.languageId === 'markdown' && ext.baseOfValidRepo(doc.uri.fsPath);
+    rebuild(basedir, template) {
+        const mdfiles = fs.readdirSync(basedir)
+                          .filter((uri) => uri.match(/.*\.md$/)),
+              pages = [],
+              articles = [];
 
-        if (basedir) {
-            ext.validateRepo(basedir);   // possibly first command invocation ... !
-            ext.rebuild(basedir);
+        // build complete in-memory pages-structure
+        for (const uri of mdfiles) {
+            const mdpath = path.resolve(basedir,uri),
+                  page = ext.pageStructure(mdpath, basedir, fs.readFileSync(mdpath,'utf8'));
+            pages.push(page);
+            if (page.layout === 'article')
+                articles.push(page);
+            else if (page.layout === 'index')
+                page.articles = articles;
         }
-        else
-            ext.errMsg(`${basedir} is not a valid 'microjam' repository.`);
+
+        // create / overwrite *.html files
+        for (const page of pages) {
+            ext.saveAsHtml(basedir, page, template);
+            delete page.content;
+            delete page.articles;
+        }
+
+        // store 'pages.json'.
+        fs.writeFileSync(path.resolve(basedir,'./pages.json'), JSON.stringify(pages), 'utf8');
     },
     /**
      * Save Markdown document command handler.
@@ -293,19 +279,44 @@ const ext = {
             ext.validateRepo(basedir);   // first *.md file save ... !
 
             const page = ext.pageStructure(mdpath, basedir, doc.getText());
-            const pagesuri = path.resolve(basedir,'./pages.json');
+            const pagesuri = path.resolve(basedir, './pages.json');
+            const tmplturi = path.resolve(basedir, './theme/template.js');
+            const template = require(tmplturi);
 
             if (page.layout === 'index')
                 page.articles = JSON.parse(fs.readFileSync(pagesuri,'utf8'))
                                     .filter((e) => e.layout === 'article');
 
-            ext.saveAsHtml(basedir, page);
+            ext.saveAsHtml(basedir, page, template);
             delete page.content;
             delete page.articles;
 
-            ext.updatePages(pagesuri, page, basedir);
+            ext.updatePages(pagesuri, page, basedir, template);
+            // see https://stackoverflow.com/questions/23685930/clearing-require-cache
+            delete require.cache[tmplturi];  // still need to refresh files twice after changes in 'template.js'
         }
     //  else   // no markdown file or markdown file does not belong to a valid repo ... return silently ...
+    },
+    /**
+     * Rebuild repository command.
+     * Remove `*.html` and `pages.json` files from `docs` folder.
+     * @method
+     */
+    rebuildCmd() {
+        const doc = vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
+        const basedir = doc && doc.languageId === 'markdown' && ext.baseOfValidRepo(doc.uri.fsPath);
+
+        if (basedir) {
+            ext.validateRepo(basedir);   // possibly first command invocation ... !
+
+            const tmplturi = path.resolve(basedir, './theme/template.js');
+            const template = require(tmplturi);
+
+            ext.rebuild(basedir, template);
+            delete require.cache[tmplturi];  // still need to refresh files twice after changes in 'template.js'
+        }
+        else
+            ext.errMsg(`${basedir} is not a valid 'microjam' repository.`);
     },
     insertTocCmd(arg) {
         const doc = arg && arg.uri ? arg : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
@@ -355,7 +366,7 @@ ext.defaults = {
 // base layout ... used by other templates
 base(data) {
   return \`<!doctype html>
-<html>
+<html class="theme-dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
@@ -364,6 +375,8 @@ base(data) {
 \${data.tags ? \`<meta name="keywords" content="\${data.tags.join()}">\` : ''}
 <title>\${data.title}</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/github-gist.min.css">
+\${data.math ? \`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">\` : ''}
 <link rel="stylesheet" href="./theme/styles.css">
 </head>
 <body>
@@ -374,7 +387,11 @@ base(data) {
 <main>
 \${data.content}
 </main>
-<footer>&copy; My Site</footer>
+<footer>
+  <span class="left">&copy; My Site</span>
+  <span class="center">powered by &mu;JAM &amp; VSCode &mdash; hosted by GitHub</span>
+  <span class="right" onclick="document.documentElement.className = document.documentElement.className === 'theme-dark' ? 'theme-light' : 'theme-dark';">&#9788;</span>
+</footer>
 </body>
 </html>\` 
 },
@@ -415,41 +432,71 @@ dateElement(date) {
 }
 `,
 
-css: `@media screen {
+css: `:root {
+    --color-footer: #e2f3f3;
+    --bgcol-footer: #1f3939;
+    --color-code: #1f3939;
+    --bgcol-code: #e2f3f3;
+    --color-shade: #666;
+}
+
+.theme-light {
+    --color-main: #1f3939;
+    --bgcol-main: snow;
+    --color-header: #e2f3f3;
+    --bgcol-header: #3c6362;
+    --color-link: #4b7776;
+    --color-hover: #87acac;
+}
+.theme-dark {
+    --color-main: snow;
+    --bgcol-main: #3c6362;
+    --color-header: #3c6362;
+    --bgcol-header: #e2f3f3;
+    --color-link: #c6dddb;
+    --color-hover: #6f9999;
+}
+
+@media screen {
 body {
-  margin: 0;
-  padding: 10px 8px;
+  margin: 1em 1em;
+  padding: 0;
+  background-color: #ddd;
   font-size: 12pt;
   font-family: Helvetica, Arial, Geneva, sans-serif;
-  background-color: #eee;
+  box-shadow: 0 0 0.5em var(--color-shade);
 }
 @media screen and (min-width: 768px) {
   body {
     max-width: 768px;
-    margin: 0 auto;
+    margin: 1em auto;
   }
 }
 main, footer {
   padding: 5px 1em;
-  background-color: white;
+}
+main {
+  color: var(--color-main);
+  background-color: var(--bgcol-main);
   word-wrap: break-word;
 }
 header {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   align-items: center;  /* vertical align */
   justify-items: stretch;
-  padding: 5px 16px;
-  color: white;
-  background-color: darkslategray;
-  border-radius: 10px;
+  padding: 5px 1em;
+  color: var(--color-header);
+  background-color: var(--bgcol-header);
 }
-header > a {
-  color: white;
-  text-decoration: none;
-}
-header > a:hover {
-  color: #aaa;
+footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;  /* vertical align */
+  justify-items: stretch;
+  font-size: 0.8em;
+  color: var(--color-footer);
+  background-color: var(--bgcol-footer);
 }
 header > .left {
   text-align: left;
@@ -458,6 +505,42 @@ header > .left {
 header > .right {
   text-align: right;
 }
+footer > .left {
+  grid-column: 1;
+  text-align: left;
+}
+footer > .center {
+  grid-column: 2;
+  text-align: center;
+}
+footer > .right {
+  grid-column: 3;
+  text-align: right;
+}
+footer > .right:hover {
+  cursor: pointer;
+  color: var(--color-hover);
+}
+
+a:link, a:visited {
+  color: var(--color-link);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-hover);
+  text-decoration: none;
+}
+footer > a {
+  color: var(--color-footer);
+}
+header > a:link, header > a:visited {
+  color: var(--color-header);
+  text-decoration: none;
+}
+header > a:hover {
+  color: var(--color-hover);
+}
+
 p, blockquote { 
   text-align: justify; 
 }
@@ -494,9 +577,8 @@ figure > * {
     page-break-inside: avoid;
     text-align: center;
 }
-figure  img {
+figure img {
   border-radius: 3px;
-  margin: 4px;
   box-shadow: 7px 5px #ccc;
 }
 figcaption { 
@@ -507,7 +589,8 @@ figcaption {
 pre > code > code > div,
 pre > code.code-line > div {
   font-size: 10pt;
-  background-color: #eee;
+  color: var(--color-code);
+  background-color: var(--bgcol-code);
   border-radius: 5px;
   padding: 0.5em;
   white-space: pre-wrap;
@@ -522,15 +605,7 @@ kbd {
   background-color: #eee;
 }
 time {
-  color: #666;
+  color: var(--color-link);
 }
-footer {
-  text-align: center;
-  font-size: 0.8em;
-  color: #666;
-}
-}  /* end @media screen */`,
-settings: `{
-	"explorer.sortOrder": "type"
-}`
+}  /* end @media screen */`
 };

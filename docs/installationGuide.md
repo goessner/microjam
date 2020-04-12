@@ -1,20 +1,20 @@
 ---
   "layout": "page",
-  "title": "Creating and Authoring Web Pages with μjam",
+  "title": "Creating and Authoring Web Pages with μJam",
   "date": "2020-03-30",
-  "description": "Creating Web Pages with `&mu;jam`",
+  "description": "Creating Web Pages with `&mu;Jam`",
   "tags": ["2D Vector","Graphics","Web","SVG","HTML Canvas","Path Segment"],
   "category": ["math"]
 ---
 
 # Creating Serverless Web Pages
 
-This is an installation guide for **&mu;jam**, an extension to [*Visual Studio Code*](https://code.visualstudio.com/). VS Code is a powerful and heavily used open source editor from Microsoft available on Linux, Mac and Windows platforms. The most important feature in this context of website creation and authoring is *VS Code being a highly sophisticated Markdown Editor*.
+This is an installation guide for **&mu;Jam**, an extension to [*Visual Studio Code*](https://code.visualstudio.com/). VS Code is a powerful and heavily used open source editor from Microsoft available on Linux, Mac and Windows platforms. The most important feature in this context of website creation and authoring is *VS Code being a highly sophisticated Markdown Editor*.
 
 So in using this installation guide we need only few prerequisites.
 
 * VS Code installed. You can download it from [here](https://code.visualstudio.com/download).
-* Install **&mu;jam** ... (todo)
+* Install **&mu;Jam** ... (todo)
 * Minimal knowledge of markdown. Here is an overview of its [basic syntax](https://www.markdownguide.org/basic-syntax/).
 
 You may like to hear that ...
@@ -95,7 +95,7 @@ With that we finished our first step in creating a new project and will proceed 
 We now start to write some Markdown documents using `vscode` as markdown editor. 
 
 > ### Information
-> **μjam** basically differentiates between three different types of documents:
+> **μJam** basically differentiates between three different types of documents:
 >
 > * `page` represents a stand-alone web page like an `about` page.
 > * `article`s are web pages building a consecutive list of entries like *blog posts*.
@@ -125,7 +125,7 @@ Let's create an `about` page for our first web site.
 
 # About this Site 
   
-This site was created as a simple collection of markdown files using minimalistic *Static Site Generator* **&mu;jam**.
+This site was created as a simple collection of markdown files using minimalistic *Static Site Generator* **&mu;Jam**.
 ```
 2. Save it to file `about.md` in the new `docs` directory (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
 3. Show preview window by pressing the *red-circled* preview-button (<kbd>Ctrl</kbd> + <kbd>K</kbd> <kbd>V</kbd>). 
@@ -159,7 +159,7 @@ We now want to open our complete project folder in `vscode`.
 >   * `template.json`, which holds the default templates for generating `html`-files from `md`-files.
 >   * a single stylesheet file `styles.css` used by `html`-files.
 >
-> If you want to extend this directory structure, add files or modify your templates &ndash; maybe you want to add some scripts &ndash; you can do this manually at any time from now on. `μjam` won't touch your folder structure and templates anymore. This was an initial one-time action only.
+> If you want to extend this directory structure, add files or modify your templates &ndash; maybe you want to add some scripts &ndash; you can do this manually at any time from now on. `μJam` won't touch your folder structure and templates anymore. This was an initial one-time action only.
 
 Now you can view your first web page in the browser of your choice.
 
@@ -254,7 +254,7 @@ $$e^{i\pi} + 1 = 0$$ (1)
 </figure>
 
 > ### Explanation
-> While having saved these two `*.md` documents for the first time, their corresponding `*.html` documents were created and also their *front matter metadata* have been extracted, slightly extended and appended to the list of the pages metadata in `pages.json`. Please note, that `μjam` will update metadata during consecutive files storages and even remove them together with the `*.html` files, when you delete a markdown file manually from the file system.
+> While having saved these two `*.md` documents for the first time, their corresponding `*.html` documents were created and also their *front matter metadata* have been extracted, slightly extended and appended to the list of the pages metadata in `pages.json`. Please note, that `μJam` will update metadata during consecutive files storages and even remove them together with the `*.html` files, when you delete a markdown file manually from the file system.
 >
 > You also might have noticed that we mixed LaTeX math and SVG markup into our markdown text of file `two.md` (Fig. 8).
 
@@ -280,7 +280,7 @@ Let's create the homepage of our website now.
 "category": ["web","math","graphics"]
 ---
 
-This is a demo site containing some articles. It was made by **μjam**, a minimalistic static site generator.
+This is a demo site containing some articles. It was made by **μJam**, a minimalistic static site generator.
 ```
 <figure>
   <img src="./img/mu-jam.09.png">
@@ -348,7 +348,7 @@ How helpful git now is for us becomes apparent, when we change the content of ..
 > 3. `pages.json` was modified automatically.
 > 4. Since `one.md` is an `article` file, the article list of `index.html` is potentially affected and file `index.html` was updated.
 >
-> Steps 1-3 are always performed under the hood by **μjam** on markdown file storage.
+> Steps 1-3 are always performed under the hood by **μJam** on markdown file storage.
 
 We can again directly commit these changes now or do that later, while going on and continue to work on other markdown source files.
 
@@ -424,7 +424,7 @@ I would like to show you how working at your website looks like from now on. We 
 
 1. Add a `readme.md` file (content below) as requested and save (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
 ```
-# A minimal sample repository for *&mu;jam*
+# A minimal sample repository for *&mu;Jam*
 ```
 2. Modify the content of `one.md` again and save (<kbd>Ctrl</kbd> + <kbd>S</kbd>).
 3. Type in a *commit message* `'Add readme'` (<kbd>Ctrl</kbd> + <kbd>Enter</kbd>).
@@ -442,7 +442,7 @@ I would like to show you how working at your website looks like from now on. We 
   <figcaption>Fig. 16: Workflow: Adding 'readme.md' and modifying 'one.md'.</figcaption>
 </figure>
 
-That's it. Please verify the arrival of the readme file at Github and the successful update of your website.
+That's it. Please verify the arrival of the readme file at Github and successful update of your website.
 
 Steps `2-3-5` above i.e. 
 
@@ -452,7 +452,7 @@ Steps `2-3-5` above i.e.
 
 is all you need to do from now on. 
 
-Good question &ndash; thanks &ndash; this installation guide was in fact authored by **&mu;jam** &ndash; during a process called [*dogfooding*](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) `:)`.
+Good question &ndash; thanks &ndash; this installation guide was in fact authored by **&mu;Jam** &ndash; during a process called [*dogfooding*](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) `:)`.
 
 *Happy publishing ...*   
 `--`   
@@ -463,7 +463,7 @@ Stefan G.
 [1] [jamstack.wtf](https://jamstack.wtf/)   
 [2] [Not Your Dad's IT](http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-studio-code)    
 [3] [Where can I find the GitHub ID in my account?](https://stackoverflow.com/questions/17308954/where-can-i-find-the-github-id-in-my-account/40695228)    
-[^4]: [Version Control Basics with Github and VS Code](https://medium.com/@brygrill/version-control-basics-with-github-and-vs-code-1c1906cadd33)  
+[4]: [Version Control Basics with Github and VS Code](https://medium.com/@brygrill/version-control-basics-with-github-and-vs-code-1c1906cadd33)  
 [5] [Version Controlling with Git in Visual Studio Code and GitHub](https://azuredevopslabs.com/labs/azuredevops/github/)  
 [6] [Versionskontrolle mit Git auf einem Hoster wie GitHub, GitLab, BitBucket unter Visual Studio Code einrichten](https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/)   
 [7] [Git Integration in Visual Studio Code](https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code)
