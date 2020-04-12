@@ -217,8 +217,6 @@ const ext = {
      */
     saveAsHtml(basedir, page, template) {       // imply existing 'docs' directory ...
         page.content = ext.toHtml(page.content, page.permalink || ext.cfg('permalink'));
-        // remove template.js from node.js cache !
-//        const tmpltPath = path.resolve(basedir, './theme/template.js');
 
         try {
             const layout = page.layout || 'page';

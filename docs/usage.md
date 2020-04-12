@@ -173,6 +173,7 @@ This feature is shamelessly copied from GitHub. In the browser ... Whenever you 
   <figcaption>Fig. 8: Explorer view - manually remove these files only</figcaption>
 </figure>
 
+With this feature enabled, your visitors are allowed to link into your pages using these *permalinks*.
 
 ### 4.4 `markdown-it` Plugins
 
