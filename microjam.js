@@ -62,8 +62,7 @@ const ext = {
         for (let base=path.parse(uri); base.root !== base.dir; base = path.parse(base.dir)) {
             if (   base.base === 'docs'  // might be enough as condition in future ... ?
                 && fs.existsSync(path.resolve(base.dir,'./package.json'))
-                && !!JSON.parse(fs.readFileSync(path.resolve(base.dir,'./package.json'),'utf8')).microjam
-            ) {
+                && !!JSON.parse(fs.readFileSync(path.resolve(base.dir,'./package.json'),'utf8')).microjam) {
                 return path.resolve(base.dir,'./docs');
             }
         }
@@ -531,11 +530,11 @@ a:hover {
 footer > a {
   color: var(--color-footer);
 }
-header > a:link, header > a:visited {
+header a:link, header a:visited {
   color: var(--color-header);
   text-decoration: none;
 }
-header > a:hover {
+header a:hover {
   color: var(--color-hover);
 }
 
@@ -576,8 +575,7 @@ figure > * {
     text-align: center;
 }
 figure img {
-  border-radius: 3px;
-  box-shadow: 7px 5px #ccc;
+  max-width: 100%;
 }
 figcaption { 
     font-size: 11pt;
