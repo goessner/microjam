@@ -48,8 +48,8 @@ const ext = {
         const html = ext.mdit.render(md) // ... change / remove some vscode stuff ...
                         .replace(/\sclass=\"code-line\"/g,() => '')
                         .replace(/\sdata-line=\"[0-9]+\"/g,() => '')
-                        .replace(/<h([1-6])\s+id=\"(.+)(-\d)\">(.+)<\/h[1-6]>/g,
-                                 ($0,$1,$2,$3,$4) => `<h${$1} id="${$2}">${$4}${permalink ? ` <a href="#${$2}">${permalink===true?'#':permalink}</a>` : ''}</h${$1}>`);
+                        .replace(/<h([1-6])\s+id=\"(.+)(-\d)?\">(.+)<\/h[1-6]>/g,    // investigate different effects of '?' in '(-\d)?'  !!!
+                                 ($0,$1,$2,$3,$4) => `<h${$1} id="${$2}">${$4}${permalink ? ` <a href="#${$2}">${(permalink===true)?'#':permalink}</a>` : ''}</h${$1}>`);
         return html;
     },
     /**
