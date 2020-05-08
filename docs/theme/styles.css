@@ -57,7 +57,6 @@ footer {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;  /* vertical align */
-  justify-items: stretch;
   padding: 5px 1em;
   font-size: 0.8em;
   color: var(--color-footer);
@@ -199,6 +198,7 @@ table {
     border-collapse: collapse;
 }
 table th, table td {
+    padding: 0.2rem 0.5rem;
     border-left: none;
     border-right: none;
     border-top: 1px solid #000;

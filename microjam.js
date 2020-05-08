@@ -476,7 +476,7 @@ body {
   padding: 0;
   background-color: #ddd;
   font-size: 12pt;
-  font-family: Helvetica, Arial, Geneva, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   box-shadow: 0 0 0.5em var(--color-shade);
 }
 @media screen and (min-width: 768px) {
@@ -497,7 +497,6 @@ header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;  /* vertical align */
-  justify-items: stretch;
   padding: 5px 1em;
   color: var(--color-header);
   background-color: var(--bgcol-header);
@@ -506,7 +505,6 @@ footer {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;  /* vertical align */
-  justify-items: stretch;
   font-size: 0.8em;
   color: var(--color-footer);
   background-color: var(--bgcol-footer);
@@ -535,11 +533,11 @@ footer > .right:hover {
   color: var(--color-hover);
 }
 
-a:link, a:visited {
+main a:link, main a:visited {
   color: var(--color-link);
   text-decoration: none;
 }
-a:hover {
+main a:hover {
   color: var(--color-hover);
   text-decoration: none;
 }
@@ -583,6 +581,7 @@ table {
     border-collapse: collapse;
 }
 table th, table td {
+    padding: 0.2rem 0.5rem;
     border-left: none;
     border-right: none;
     border-top: 1px solid #000;
