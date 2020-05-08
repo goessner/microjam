@@ -45,11 +45,11 @@ const ext = {
      * @returns {string}
      */
     toHtml(md, permalink) {
-        const html = ext.mdit.render(md) // ... remove some vscode stuff ...
+        const html = ext.mdit.render(md) // ... change / remove some vscode stuff ...
                         .replace(/\sclass=\"code-line\"/g,() => '')
                         .replace(/\sdata-line=\"[0-9]+\"/g,() => '')
-                        .replace(/<h([1-6])\sid=\"(.+)-\d\">(.+)<\/h[1-6]>/g,
-                                 ($0,$1,$2,$3) => `<h${$1} id="${$2}">${$3}${permalink ? ` <a href="#${$2}">${permalink}</a>` : ''}</h${$1}>`);
+                        .replace(/<h([1-6])\s+id=\"(.+)(-\d)\">(.+)<\/h[1-6]>/g,
+                                 ($0,$1,$2,$3,$4) => `<h${$1} id="${$2}">${$4}${permalink ? ` <a href="#${$2}">${permalink===true?'#':permalink}</a>` : ''}</h${$1}>`);
         return html;
     },
     /**
@@ -97,7 +97,7 @@ const ext = {
      * @returns {object} page object.
      */
     pageStructure(mdpath, basedir, text) {
-        const page = { layout:"page",
+        const page = { layout:"none",
                        title:"",
                        date:"",
                        description:"",
@@ -114,13 +114,21 @@ const ext = {
                 try { 
                     frontmatter = JSON.parse(`{${frontmatter}}`);
                     Object.assign(page, frontmatter);
-                    if (!["page","article","index"].includes(page.layout))
-                        ext.errMsg(`'layout' type must be one of ["page","article","index"]!`);
-                    else if (page.layout === 'article') {
-                        page.content.replace(/#{2}\s[Aa]bstract\s*([^#]+?)\s*?#/g, ($0,$1) => { page.abstract = $1; return '';});
-                        if (page.abstract)
-                            page.abstract = ext.toHtml(page.abstract);
+                    if (["page","article","index"].includes(page.layout)) {
+                        if (page.layout === 'article') {
+                            page.content.replace(/#{2}\s[Aa]bstract\s*([^#]+?)\s*?#/g, ($0,$1) => { page.abstract = $1; return '';});
+                            if (page.abstract)
+                                page.abstract = ext.toHtml(page.abstract, false);
+                        }
+                        if (page.use) {
+                            for (const use of page.use) {
+                                const file = path.resolve(basedir,use.uri);
+                                if (fs.existsSync(file))
+                                    use.content = ext.toHtml(fs.readFileSync(file,'utf8'), false);
+                            }
+                        }
                     }
+                 // else  // do silently nothing ... !
                 }
                 catch (err) {
                     const transform = (pos) => `in frontmatter: … ${frontmatter.substring(Math.max(0,pos-15),pos-1)}¿${frontmatter.substring(pos-1,Math.min(pos+15,frontmatter.length-1))} …`;
@@ -148,7 +156,7 @@ const ext = {
     /**
      * Extract headings from content.
      * @param {string}  text - page text (including frontmatter)
-     * @returns {string} page markdown content (without frontmatter).
+     * @returns {array} headings as `{str,permalink,level}` objects.
      */
     extractHeadings(text) {
         const hds = [... text.matchAll(/([#]+)\s+?(.*)/g)];
@@ -158,7 +166,7 @@ const ext = {
             const level = h[1].length;
             const str = h[2].trim();
             const permalink = ext.mdit.render(h[0]).match(/.+?id=\"([^"]*?)\".*/)[1]
-                                                   .replace(/-\d$/g, '');  // remove trailing hyphen and digit ?
+                                                   .replace(/-\d$/g, '');  // remove trailing hyphen and digit !
             headings.push({str,permalink,level});
         }
         return headings;
@@ -202,6 +210,10 @@ const ext = {
                     ext.saveAsHtml(basedir, ent, template);
                     delete ent.articles;
                     delete ent.content;
+                    if (page.use)
+                        for (const use of page.use)
+                            delete use.content;
+
                 }
             });
         }
@@ -244,7 +256,8 @@ const ext = {
         for (const uri of mdfiles) {
             const mdpath = path.resolve(basedir,uri),
                   page = ext.pageStructure(mdpath, basedir, fs.readFileSync(mdpath,'utf8'));
-            pages.push(page);
+            if (page.layout !== 'none')
+                pages.push(page);
             if (page.layout === 'article')
                 articles.push(page);
             else if (page.layout === 'index')
@@ -284,7 +297,8 @@ const ext = {
                 page.articles = JSON.parse(fs.readFileSync(pagesuri,'utf8'))
                                     .filter((e) => e.layout === 'article');
 
-            ext.saveAsHtml(basedir, page, template);
+            if (page.layout !== 'none')
+                ext.saveAsHtml(basedir, page, template);
             delete page.content;
             delete page.articles;
 
@@ -317,10 +331,12 @@ const ext = {
     },
     insertTocCmd(arg) {
         const doc = arg && arg.uri ? arg : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
+        const uri = doc.uri.fsPath;
+        const basedir = doc && doc.languageId === 'markdown' && ext.baseOfValidRepo(uri);
         const headings = ext.extractHeadings(doc.getText());
         let   toc = '';
         for (const h of headings)
-            toc += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](#${h.permalink})\n`;
+            toc += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](${path.relative(basedir, uri).replace(/\.md/g,'.html')}#${h.permalink})\n`;
 
         vscode.env.clipboard.writeText(toc);
         vscode.commands.executeCommand('editor.action.insertSnippet', {snippet: "$CLIPBOARD"} );
@@ -538,6 +554,14 @@ header a:hover {
   color: var(--color-hover);
 }
 
+h1>a,h2>a,h3>a {
+  display: none;
+  text-decoration: none;
+  color: inherit;
+}
+h1:hover>a,h2:hover>a,h3:hover>a {
+  display: initial;
+}
 p, blockquote { 
   text-align: justify; 
 }

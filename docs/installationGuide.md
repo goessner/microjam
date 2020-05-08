@@ -3,11 +3,12 @@
   "title": "Creating and Authoring Web Pages with μJam",
   "date": "2020-03-30",
   "description": "Creating Web Pages with `&mu;Jam`",
-  "tags": ["2D Vector","Graphics","Web","SVG","HTML Canvas","Path Segment"],
-  "category": ["math"]
+  "tags": ["jamstack","static","serverless","web pages","markdown"],
+  "use": [ { "uri": "navigation.md" } ],
+  "permalink": true
 ---
 
-# Creating Serverless Web Pages
+# Installation
 
 This is an installation guide for **&mu;Jam**, an extension to [*Visual Studio Code*](https://code.visualstudio.com/). VS Code is a powerful and heavily used open source editor from Microsoft available on Linux, Mac and Windows platforms. The most important feature in this context of website creation and authoring is *VS Code being a highly sophisticated Markdown Editor*.
 
@@ -15,13 +16,13 @@ So in using this installation guide we need only few prerequisites.
 
 * VS Code installed. You can download it from [here](https://code.visualstudio.com/download).
 * Install **&mu;Jam** ... (todo)
-* Minimal knowledge of markdown. Here is an overview of its [basic syntax](https://www.markdownguide.org/basic-syntax/).
+* Minimal knowledge of markdown. Here is an overview of its [basic syntax](https://commonmark.org/help/).
 
 You may like to hear that ...
 
 * no programming skills are required.
 * initializing and creating websites can be done completely inside of VS Code.
-* interested but impatient persons can skip all *Information* and *Explanation* labeled sections below.
+* interested but impatient persons can skip all **Information** and **Explanation** labeled sections below.
 
 We will do that in three simple steps:
 
@@ -29,7 +30,7 @@ We will do that in three simple steps:
 2. [Generating Content](#2-generating-content-1)
 3. [Publish to the World](#3-publish-to-the-world-1)
 
-## 1. A New Project
+## A New Project
 
 For a new project we need a project folder, where everything necessary can reside in. For creating that new folder
 
@@ -47,7 +48,7 @@ For a new project we need a project folder, where everything necessary can resid
 > mkdir <new folder path>
 ```
 
-> ### **Important** !
+> **Important** !   
 > For simplicity reasons the root directory `'/'` is taken here as the location of the project folder. This should be avoided in general and is even restricted under Unix / OSX. Take your `/home` directory instead (`> cd ~`). 
 
 <figure>
@@ -90,11 +91,11 @@ We want to create the first file in our nearly empty directory `first`.
 With that we finished our first step in creating a new project and will proceed in generating some content.
 
 
-## 2. Generating Content
+## Generating Content
 
 We now start to write some Markdown documents using `vscode` as markdown editor. 
 
-> ### Information
+> **Information** !   
 > **μJam** basically differentiates between three different types of documents:
 >
 > * `page` represents a stand-alone web page like an `about` page.
@@ -111,7 +112,7 @@ At this moment we have a tiny directory structure:
 |_ /docs   (empty folder)
 ```
 
-### 2.1 `page` Documents
+### `page` Document
 
 Let's create an `about` page for our first web site. 
 
@@ -127,6 +128,7 @@ Let's create an `about` page for our first web site.
   
 This site was created as a simple collection of markdown files using minimalistic *Static Site Generator* **&mu;Jam**.
 ```
+
 2. Save it to file `about.md` in the new `docs` directory (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
 3. Show preview window by pressing the *red-circled* preview-button (<kbd>Ctrl</kbd> + <kbd>K</kbd> <kbd>V</kbd>). 
 
@@ -135,12 +137,12 @@ This site was created as a simple collection of markdown files using minimalisti
   <figcaption>Fig. 5: Writing the 'about' page document.</figcaption>
 </figure>
 
-> ### Explanation
+>  **Explanation** !   
 > While working on a markdown file you can always examine the html-result visually side-by-side in a preview window (Fig. 5). Please note some *front matter metadata* at the top of our `about.md` file. These metadata are enclosed between two lines of three dashes `---` and so separated from the following markdown text. That separator style is taken from `yaml`, but the metadata itself has to follow `json`-syntax strictly.
 
 We now want to open our complete project folder in `vscode`.
 
-> ### Explanation
+> **Explanation** !   
 > After having successfully saved `about.md` into the `docs` folder &ndash; which is our *first* content file in this project &ndash; we might have realized, that the project directory structure has changed significantly &ndash; magically. We want to proof that by `vscode`'s  comfortable Explorer View.
 
 4. Switch on the Explorer View by pressing the uppermost symbol of the [*Activity Bar*](https://code.visualstudio.com/docs/getstarted/userinterface#_basic-layout), located on the far left-hand side of the editor. 
@@ -151,7 +153,7 @@ We now want to open our complete project folder in `vscode`.
   <figcaption>Fig. 6: Extended project folder structure after saving the first markdown file.</figcaption>
 </figure>
 
-> ### Explanation
+> **Explanation** !   
 > * In our `docs` folder two additional files appeared:
 >    * all generated `html`-files, which got the filename from their corresponding `md`-files. So we have here `about.html` solely.
 >   * `pages.json` holding a list of extended metadata extracted from all markdown files. At that time it contains an array literal including metadata of a single `page`-file now.
@@ -171,11 +173,11 @@ Now you can view your first web page in the browser of your choice.
 </figure>
 
 
-### 2.2 `article` Documents
+### `article` Document
 
 We want to maintain a series of `article` documents, possibly as posts for use with a weblog.
 
-> ### Information
+> **Information** !   
 >  `article` documents are not so much different from `page` documents. In the *front matter metadata* we need to have a `date` member. Adding a `description` member is recommended. 
 
 The workflow is illustrated now by the creation of two articles:
@@ -185,7 +187,7 @@ The workflow is illustrated now by the creation of two articles:
 3. Save it to file `one.md` in the `docs` directory (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
 
 `one.md`
-```
+```markdown
 ---
 "layout": "article",
 "title": "Article One",
@@ -220,7 +222,7 @@ This is the first article. We are mainly testing `syntax highlighting` here.
 6. Save it to file `two.md` in the `docs` directory (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
 
 `two.md`
-```
+``` markdown
 ---
 "layout": "article",
 "title": "Article Two",
@@ -242,7 +244,8 @@ $$e^{i\pi} + 1 = 0$$ (1)
 
 <figure>
 <svg width="200" height="100">
-   <path d="M100,10L123.5,82.4L61,37.6L138,37.6L76.5,82.4Z" stroke="darkslategray" stroke-width="4" fill="orange"/>
+   <path d="M100,10L123.5,82.4L61,37.6L138,37.6L76.5,82.4Z"
+         stroke="darkslategray" stroke-width="4" fill="orange"/>
 </svg>
   <figcaption>Fig. 1: SVG Star</figcaption>
 </figure>
@@ -253,23 +256,23 @@ $$e^{i\pi} + 1 = 0$$ (1)
   <figcaption>Fig. 8: Article document 'two.md'.</figcaption>
 </figure>
 
-> ### Explanation
+> **Explanation** !   
 > While having saved these two `*.md` documents for the first time, their corresponding `*.html` documents were created and also their *front matter metadata* have been extracted, slightly extended and appended to the list of the pages metadata in `pages.json`. Please note, that `μJam` will update metadata during consecutive files storages and even remove them together with the `*.html` files, when you delete a markdown file manually from the file system.
 >
 > You also might have noticed that we mixed LaTeX math and SVG markup into our markdown text of file `two.md` (Fig. 8).
 
-### 2.3 `index` Document
+### `index` Document
 
 Let's create the homepage of our website now.
 
-> ### Information
+> **Information** !   
 > Any markdown document marked as `"index"` in its *frontmatter layout* entry will get appended a list of all `article`s immediately after its normal `content` section. 
 
 1. Open a new file via `File > New File` (<kbd>Ctrl</kbd> + <kbd>N</kbd>).
 2. Copy and paste the following text into that window (<kbd>Ctrl</kbd> + <kbd>C</kbd>, <kbd>Ctrl</kbd> + <kbd>V</kbd>)
 3. Save it to file `index.md` in the `src` directory (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
 
-```
+``` 
 ---
 "layout": "index",
 "title": "My Site",
@@ -287,29 +290,28 @@ This is a demo site containing some articles. It was made by **μJam**, a minima
   <figcaption>Fig. 9: Index page.</figcaption>
 </figure>
 
-> ### Explanation
+> **Explanation** !   
 > Since both `article` documents have `abstract` sections, that content is used for articles' short description. In case of a missing `abstract` section, the `description` entry from *frontmatter metadata* would have been taken instead.
 
 The content generation process of the demo site is complete now.
 
-
-## 3. Publish to the World
+## Publish to the World
 
 We want to use well known [GitHub](https://www.edureka.co/blog/how-to-use-github/) here.
 And we want this *version control hosting platform* be connected with our local project repository via `vscode`.
 
-> ### Information
+> **Information** !    
 > *GitHub* as a highly used platform is a code sharing service. But in contrast to mere cloud storage providers GitHub primarily supports project work, where files are regularly edited, uploaded and needed to be managed through version control. This is exactly, what we want to have with our website project and best of all: GitHub provides us with an online repository for free. We then simply have a storage space, called *repository*, where our project resides on the web. This is not a classical webserver. In the sense of *Jam* it is a CDN &ndash; *content delivery network*.
 
-### 3.1 Creating a Local Git Repository
+### The Local Git Repository
 
 [Git](https://git-scm.com/) is a powerful version control tool, which allows us to create and manage a *local repository*. 
 
-> ### Information
+> **Information** !    
 > With it we then have a **version control tool** *Git* collaborating with the **version control hosting platform** *GitHub*. 
 And Visual Studio Code comes with *source control integration* and especially has excellent [Git support](https://code.visualstudio.com/docs/editor/versioncontrol#_git-support). 
 
-> ### **Important** !
+> **Important** !    
 > Chances are good that Git is already installed on your local machine. Input `'> git --version'` at your terminal command line. will show you the current version installed.
 Otherwise, if you are told that `git` is unknown, you need to install it. Don't worry, this can be easily done by visiting that [download site](https://git-scm.com/downloads). I will wait here.
 
@@ -326,7 +328,7 @@ Otherwise, if you are told that `git` is unknown, you need to install it. Don't 
   <figcaption>Fig. 10: Initialize local git repository</figcaption>
 </figure>
 
-> ### Explanation
+> **Explanation** !   
 > * By initializing our local repository we added a hidden directory named `.git` to our project folder. Fortunately, we don't have to worry about it at all. 
 > * In the source control view with step 3 we see our 12 files labeled `U`, which stands for *untracked file*. 
 > * After `Stage All Changes` in step 4 all files were labeled `A` then, meaning *added* to the repository.
@@ -341,7 +343,7 @@ How helpful git now is for us becomes apparent, when we change the content of ..
   <figcaption>Fig. 11: Index page.</figcaption>
 </figure>
 
-> ### Explanation
+> **Explanation** !   
 > The git view shows four files labeled `M`, meaning *modified*. 
 > 1. We changed `one.md` manually. 
 > 2. While saving it, `one.html` was newly created/overwritten.
@@ -353,11 +355,11 @@ How helpful git now is for us becomes apparent, when we change the content of ..
 We can again directly commit these changes now or do that later, while going on and continue to work on other markdown source files.
 
 
-### 3.2 Online Repository
+### The Online Repository
 
 You want to see your pages online now? So you need a personal *user GitHub account* for proceeding.
 
-> ### **Important** !
+> **Important** !    
 > If you do not have a personal user GitHub account, you need to [sign up for a new free GitHub account here](https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account) .
 > Please also note, that you are requested to provide a working email address during verification process.
 
@@ -391,7 +393,7 @@ Now that you are the owner `<username>` of a GitHub account ...
 > git remote add origin https://github.com/<username>/<repository name>.git
 > git push -u origin master
 ```
-> ### Explanation
+> **Explanation** !   
 > Please note, that use of these terminal commands is necessary for the first time file transfer to GitHub only. So having done that once, you can forget it forever.
 
 The result of that action on your GitHub account page will be something like this ... (refresh page!)
@@ -416,55 +418,3 @@ We will take care about the *README* in a minute. Now we can't wait to see our w
 </figure>
 
 **Congrats, your first website is online now !**
-
-
-### 3.3 The Final Workflow
-
-I would like to show you how working at your website looks like from now on. We will return to our `vscode` editor and ...
-
-1. Add a `readme.md` file (content below) as requested and save (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
-```
-# A minimal sample repository for *&mu;Jam*
-```
-2. Modify the content of `one.md` again and save (<kbd>Ctrl</kbd> + <kbd>S</kbd>).
-3. Type in a *commit message* `'Add readme'` (<kbd>Ctrl</kbd> + <kbd>Enter</kbd>).
-4. In a possibly upcoming `vscode` message window `Would you like to automatically ...` select `Always` .
-5. In status bar select either the little `cloud` or the `up-arrow` symbol for uploading the changed files to GitHub.
-
-<figure>
-  <img src="./img/mu-jam.16-1.png">
-  <br>
-  <img src="./img/mu-jam.16-2.png">
-  <br>
-  <img src="./img/mu-jam.16-3.png">
-  <br>
-  <img src="./img/mu-jam.16-4.png">
-  <figcaption>Fig. 16: Workflow: Adding 'readme.md' and modifying 'one.md'.</figcaption>
-</figure>
-
-That's it. Please verify the arrival of the readme file at Github and successful update of your website.
-
-Steps `2-3-5` above i.e. 
-
-* modify content 
-* type commit message
-* upload to GitHub
-
-is all you need to do from now on. 
-
-Good question &ndash; thanks &ndash; this installation guide was in fact authored by **&mu;Jam** &ndash; during a process called [*dogfooding*](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) `:)`.
-
-*Happy publishing ...*   
-`--`   
-Stefan G.
-
-## References 
-
-[1] [jamstack.wtf](https://jamstack.wtf/)   
-[2] [Not Your Dad's IT](http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-studio-code)    
-[3] [Where can I find the GitHub ID in my account?](https://stackoverflow.com/questions/17308954/where-can-i-find-the-github-id-in-my-account/40695228)    
-[4]: [Version Control Basics with Github and VS Code](https://medium.com/@brygrill/version-control-basics-with-github-and-vs-code-1c1906cadd33)  
-[5] [Version Controlling with Git in Visual Studio Code and GitHub](https://azuredevopslabs.com/labs/azuredevops/github/)  
-[6] [Versionskontrolle mit Git auf einem Hoster wie GitHub, GitLab, BitBucket unter Visual Studio Code einrichten](https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/)   
-[7] [Git Integration in Visual Studio Code](https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code)
-

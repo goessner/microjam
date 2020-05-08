@@ -2,79 +2,119 @@
 <html class="theme-light">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
-<meta name="description" content="μJam – a Minimal Jamstack Approach.">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
+<meta name="description" content="Introduction">
 
 <meta name="keywords" content="">
-<title>μJam – a Minimal Jamstack Approach.</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/github-gist.min.css">
+<title>Introduction</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">
 
 <link rel="stylesheet" href="./theme/styles.css">
 </head>
-<body>
+<body id="top">
 <header>
-  <a href="./index.html" class="left">&mu;Jam</a>
-  <div class="right">
-      <a href="./usage.html">Users Guide</a> | <a href="./installationGuide.html">Installation</a> | <a href="./about.html">About</a>
-  </div>
+  <span class="left"><img src="./img/icon128.png"></span>
+  <h1 class="right">&mu;Jam &ndash; Documentation</h1>
 </header>
 <main>
-<figure>
-  <img src="./img/icon128.png">
-</figure>
-<h1 id="cebcjam-e28093-a-minimalistic-jamstack-approach">μJam – a Minimalistic Jamstack Approach.</h1>
-<ul>
+  <nav>
+     <h2 style="margin: 0.5em"><a href="#top">Documentation</a></h2>
+     <ul>
 <li>
-<h2 id="cebc--what">μ ... what ?</h2>
+<p><a href="index.html#introduction" data-href="index.html#introduction">Introduction</a></p>
+<ul>
+<li><a href="index.html#what-is-it" data-href="index.html#what-is-it">What is it ?</a></li>
+<li><a href="index.html#what-can-i-do-with-it" data-href="index.html#what-can-i-do-with-it">What can I do with it ?</a></li>
+<li><a href="index.html#i-am-not-a-programmer" data-href="index.html#i-am-not-a-programmer">I am not a programmer !</a></li>
+<li><a href="index.html#yet-another-jamstack-approach" data-href="index.html#yet-another-jamstack-approach">Yet another Jamstack Approach ?</a></li>
+</ul>
+</li>
+<li>
+<p><a href="installationGuide.html#installation" data-href="installationGuide.html#installation">Installation</a></p>
+<ul>
+<li><a href="installationGuide.html#a-new-project" data-href="installationGuide.html#a-new-project">A New Project</a></li>
+<li><a href="installationGuide.html#generating-content" data-href="installationGuide.html#generating-content">Generating Content</a></li>
+<li><a href="installationGuide.html#publish-to-the-world" data-href="installationGuide.html#publish-to-the-world">Publish to the World</a></li>
+</ul>
+</li>
+<li>
+<p><a href="usage.html#usage" data-href="usage.html#usage">Usage</a></p>
+<ul>
+<li><a href="usage.html#prerequisites" data-href="usage.html#prerequisites">Prerequisites</a></li>
+<li><a href="usage.html#activation" data-href="usage.html#activation">Activation</a></li>
+<li><a href="usage.html#generating-webpages" data-href="usage.html#generating-webpages">Generating Webpages</a></li>
+<li><a href="usage.html#editing-markdown-files" data-href="usage.html#editing-markdown-files">Editing Markdown Files</a></li>
+<li><a href="usage.html#publishing-to-github" data-href="usage.html#publishing-to-github">Publishing to GitHub</a></li>
+<li><a href="usage.html#the-usual-workflow" data-href="usage.html#the-usual-workflow">The Usual Workflow</a></li>
+<li><a href="usage.html#keyboard-commands" data-href="usage.html#keyboard-commands">Keyboard Commands</a></li>
+<li><a href="usage.html#references" data-href="usage.html#references">References</a></li>
+</ul>
+</li>
+<li>
+<p><a href="faq.html#faqs" data-href="faq.html#faqs">FaQ's</a></p>
+<ul>
+<li><a href="faq.html#styles" data-href="faq.html#styles">Styles</a></li>
+<li><a href="faq.html#templates" data-href="faq.html#templates">Templates</a></li>
+<li><a href="faq.html#deployment" data-href="faq.html#deployment">Deployment</a></li>
+</ul>
 </li>
 </ul>
-<p>Greek letter <code>'μ'</code> is pronounced <code>'my'</code> as in <code>micro</code> or <code>'mee'</code> according to <a href="https://www.thoughtco.com/the-greek-alphabet-1705558" data-href="https://www.thoughtco.com/the-greek-alphabet-1705558">modern Greek</a> .</p>
-<ul>
-<li>
-<h2 id="ok--myjam">ok ... myJam ?</h2>
-</li>
-</ul>
-<p><code>'Jam'</code> comes from <code>Jamstack</code> and means the collection of the three attributes</p>
+
+  </nav>
+  <article>
+<h1 id="introduction">Introduction <a href="#introduction">#</a></h1>
+<h2 id="what-is-it">What is it ? <a href="#what-is-it">#</a></h2>
+<p>Greek letter <code>'μ'</code> is pronounced <code>'my'</code> as in <code>micro</code>, <code>'mu'</code> as in <code>'music'</code> or <code>'mee'</code> according to <a href="https://www.thoughtco.com/the-greek-alphabet-1705558" data-href="https://www.thoughtco.com/the-greek-alphabet-1705558">modern Greek</a>. In that context here it simply means <em>tiny</em> or  <em>minimalistic</em>.</p>
+<p>That <code>'Jam'</code> in μJam comes from <code>Jamstack</code> and means the collection of the three attributes</p>
 <ul>
 <li><strong>J</strong> avaScript</li>
 <li><strong>A</strong> PI</li>
 <li><strong>M</strong> arkup</li>
 </ul>
-<p>It is mostly about the creation of <em>serverless</em> websites and you might want to <a href="https://jamstack.org/" data-href="https://jamstack.org/">read more</a> about that modern way to build lightweight web pages <a href="https://jamstack.wtf/" data-href="https://jamstack.wtf/">here</a>.</p>
-<ul>
-<li>
-<h2 id="what-can-i-do-with--cebcjam">what can I do with ... μJam ?</h2>
-</li>
-</ul>
+<p>It is mostly about the creation of static web pages or <em>serverless</em> websites and you might want to <a href="https://jamstack.org/" data-href="https://jamstack.org/">read more</a> about that modern way to build lightweight web pages <a href="https://jamstack.wtf/" data-href="https://jamstack.wtf/">here</a> and <a href="https://jamstack.email/" data-href="https://jamstack.email/">there</a>.</p>
+<h2 id="what-can-i-do-with-it">What can I do with it ? <a href="#what-can-i-do-with-it">#</a></h2>
 <p>If you want to</p>
 <ul>
-<li>create a small to medium web site</li>
-<li>write down the contents of your web pages in the easy to learn and use Markdown language</li>
-<li>publish your web-pages to your GitHub repository and GitHub pages</li>
+<li>create a small to medium website</li>
+<li>write down the contents of your web pages in that easy to learn and use <a href="https://commonmark.org/help/" data-href="https://commonmark.org/help/">Markdown language</a></li>
+<li>publish your web-pages to your GitHub repository and <a href="https://pages.github.com/" data-href="https://pages.github.com/">GitHub pages</a></li>
 <li>do that all from inside free <a href="https://code.visualstudio.com/" data-href="https://code.visualstudio.com/"><em>Visual Studio Code</em></a> (<code>vscode</code>) editor</li>
 </ul>
-<p>then the minimalistic and powerful approach of <em>μjam</em> might convice you.</p>
+<p>then the minimalistic and powerful approach of μJam might convice you.</p>
+<h2 id="i-am-not-a-programmer">I am not a programmer ! <a href="#i-am-not-a-programmer">#</a></h2>
+<p>You don't need to be one ... promised.</p>
+<p>At first you need to install the free and open source <a href="https://code.visualstudio.com/Download" data-href="https://code.visualstudio.com/Download">Visual Studio Code</a> editor. Chances are you already have it. But you can also do that later.</p>
+<h2 id="yet-another-jamstack-approach">Yet another Jamstack Approach ? <a href="#yet-another-jamstack-approach">#</a></h2>
+<p>Hmm ... there are in fact a <a href="https://www.staticgen.com/" data-href="https://www.staticgen.com/">lot static site generators</a> available and here are <a href="https://www.netlify.com/blog/2020/04/14/what-is-a-static-site-generator-and-3-ways-to-find-the-best-one/" data-href="https://www.netlify.com/blog/2020/04/14/what-is-a-static-site-generator-and-3-ways-to-find-the-best-one/">some ways</a> to find your <a href="https://www.stackbit.com/blog/choosing-your-ssg/" data-href="https://www.stackbit.com/blog/choosing-your-ssg/">best Jamstack approach</a>.</p>
+<p>Many of them</p>
 <ul>
-<li>
-<h2 id="ok-how-can-i-try-out-your--cebcjam-approach">ok, how can I try out your ... μJam approach ?</h2>
-</li>
+<li>are highly configurable.</li>
+<li>depend on a certain programming language.</li>
+<li>have fine grained control via command line usage.</li>
 </ul>
-<p>At first you need to install a few things. Chances are that you already installed the <a href="https://code.visualstudio.com/Download" data-href="https://code.visualstudio.com/Download">VSCode editor</a>. First read about creating the webpages of [this repository] step-by-step by yourself manually in three simple steps:</p>
-<ol>
-<li><a href="https://goessner.github.io/microjam/installationGuide.html#1-a-new-project-1" data-href="https://goessner.github.io/microjam/installationGuide.html#1-a-new-project-1">A new Project</a></li>
-<li><a href="https://goessner.github.io/microjam/installationGuide.html#2-generating-content-1" data-href="https://goessner.github.io/microjam/installationGuide.html#2-generating-content-1">Generating Content</a></li>
-<li><a href="https://goessner.github.io/microjam/installationGuide.html#3-publish-to-the-world-1" data-href="https://goessner.github.io/microjam/installationGuide.html#3-publish-to-the-world-1">Publish to the World</a></li>
-</ol>
+<p>So if this is exactly what you want, go on ... I recommend to have a closer look at <a href="https://www.11ty.dev" data-href="https://www.11ty.dev">Eleventy</a>.</p>
+<blockquote>
+<p>With μJam I want to offer my mechanical engineering students and a certain number of interested colleagues a tool, which</p>
 <ul>
-<li>
-<h2 id="ok-now--where-is-the-users-guide">ok, now ... where is the users guide?</h2>
-</li>
+<li>allows to create small to medium project specific websites.</li>
+<li>is easy to learn and use.</li>
+<li>does not require programming skills.</li>
+<li>can handle LaTeX math expressions natively,</li>
+<li>integrates static or dynamic vector graphics</li>
+<li>offers comfortable Html previewing</li>
+<li>supports high quality research paper <code>pdf</code>-format output.</li>
 </ul>
-<p>Here is the <a href="https://goessner.github.io/microjam/usage.html" data-href="https://goessner.github.io/microjam/usage.html">users guide</a>.</p>
+<p>As a result μJam is considered a <a href="https://en.wikipedia.org/wiki/Low-code_development_platform" data-href="https://en.wikipedia.org/wiki/Low-code_development_platform">low code publishing tool</a> for scientists, engineers and students.</p>
+</blockquote>
+<p>In this sense μJam is minimalistic, as it does quite well, what it is intended to do, but not more. And as you can easily leave that <em>math</em>, <em>vector graphics</em> and <em>research paper</em> stuff out, it may serve your publishing wishes well.
+In this possible case you are invited to read on.</p>
+<p>This is my second relevant VSCode extension. My other one is <a href="https://marketplace.visualstudio.com/items?itemName=goessner.mdmath" data-href="https://marketplace.visualstudio.com/items?itemName=goessner.mdmath">Markdown+Math</a>.
+If you want to know a bit more about myself, you might get a compact overview on my <a href="https://www.researchgate.net/profile/Stefan_Goessner" data-href="https://www.researchgate.net/profile/Stefan_Goessner">research gate</a> profile.</p>
 
+  </article>
 </main>
 <footer>
-  <span class="left">&copy; &mu;Jam</span>
+  <span class="left">&copy; Documentation</span>
   <span class="center">powered by &mu;Jam &amp; VSCode &mdash; hosted by GitHub</span>
   <span class="right" onclick="document.documentElement.className = document.documentElement.className === 'theme-dark' ? 'theme-light' : 'theme-dark';">&#9788;</span>
 </footer>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html class="theme-light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
+<meta name="description" content="Introduction">
+
+<meta name="keywords" content="">
+<title>Introduction</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">
+
+<link rel="stylesheet" href="./theme/styles.css">
+</head>
+<body id="top">
+<header>
+  <span class="left"><img src="./img/icon128.png"></span>
+  <h1 class="right">&mu;Jam &ndash; Documentation</h1>
+</header>
+<main>
+  <nav>
+     <h2 style="margin: 0.5em"><a href="#top">Documentation</a></h2>
+     <ul>
+<li>
+<p><a href="index.html#introduction" data-href="index.html#introduction">Introduction</a></p>
+<ul>
+<li><a href="index.html#what-is-it" data-href="index.html#what-is-it">What is it ?</a></li>
+<li><a href="index.html#what-can-i-do-with-it" data-href="index.html#what-can-i-do-with-it">What can I do with it ?</a></li>
+<li><a href="index.html#i-am-not-a-programmer" data-href="index.html#i-am-not-a-programmer">I am not a programmer !</a></li>
+<li><a href="index.html#yet-another-jamstack-approach" data-href="index.html#yet-another-jamstack-approach">Yet another Jamstack Approach ?</a></li>
+</ul>
+</li>
+<li>
+<p><a href="installationGuide.html#installation" data-href="installationGuide.html#installation">Installation</a></p>
+<ul>
+<li><a href="installationGuide.html#a-new-project" data-href="installationGuide.html#a-new-project">A New Project</a></li>
+<li><a href="installationGuide.html#generating-content" data-href="installationGuide.html#generating-content">Generating Content</a></li>
+<li><a href="installationGuide.html#publish-to-the-world" data-href="installationGuide.html#publish-to-the-world">Publish to the World</a></li>
+</ul>
+</li>
+<li>
+<p><a href="usage.html#usage" data-href="usage.html#usage">Usage</a></p>
+<ul>
+<li><a href="usage.html#prerequisites" data-href="usage.html#prerequisites">Prerequisites</a></li>
+<li><a href="usage.html#activation" data-href="usage.html#activation">Activation</a></li>
+<li><a href="usage.html#generating-webpages" data-href="usage.html#generating-webpages">Generating Webpages</a></li>
+<li><a href="usage.html#editing-markdown-files" data-href="usage.html#editing-markdown-files">Editing Markdown Files</a></li>
+<li><a href="usage.html#publishing-to-github" data-href="usage.html#publishing-to-github">Publishing to GitHub</a></li>
+<li><a href="usage.html#the-usual-workflow" data-href="usage.html#the-usual-workflow">The Usual Workflow</a></li>
+<li><a href="usage.html#keyboard-commands" data-href="usage.html#keyboard-commands">Keyboard Commands</a></li>
+<li><a href="usage.html#references" data-href="usage.html#references">References</a></li>
+</ul>
+</li>
+<li>
+<p><a href="faq.html#faqs" data-href="faq.html#faqs">FaQ's</a></p>
+<ul>
+<li><a href="faq.html#styles" data-href="faq.html#styles">Styles</a></li>
+<li><a href="faq.html#templates" data-href="faq.html#templates">Templates</a></li>
+<li><a href="faq.html#deployment" data-href="faq.html#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+  <article>
+<h1 id="faqs">FaQ's <a href="#faqs">#</a></h1>
+<h2 id="styles">Styles <a href="#styles">#</a></h2>
+<ul>
+<li>
+<p><strong>Where are the style sheets ?</strong><br>
+The CSS styles are defined in the file <code>/docs/theme/styles.css</code>. They are referenced by the templates in file <code>/docs/theme/template.js</code>.</p>
+</li>
+<li>
+<p><strong>Can we change the styles ?</strong><br>
+Yes. Change them in file <code>/docs/theme/styles.css</code> or rename it or use multiple CSS files. You only need to reference them from the templates in <code>/docs/theme/template.js</code>.</p>
+</li>
+</ul>
+<h2 id="templates">Templates <a href="#templates">#</a></h2>
+<ul>
+<li>
+<p><strong>Where are the templates ?</strong><br>
+The templates are defined in file <code>/docs/theme/template.js</code>. They are basically delivered by simple JavaScript functions returning <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" data-href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template literals</a>. Those recieve extended versions of the frontmatter metadata.</p>
+</li>
+<li>
+<p><strong>Can we change the templates ?</strong><br>
+Yes, of course. New themes are generated exactly by that. So go on and do it.</p>
+</li>
+<li>
+<p><strong>Are other template engines supported ?</strong><br>
+No sorry, it's due to <em>minimalism</em> paradigma.</p>
+</li>
+</ul>
+<h2 id="deployment">Deployment <a href="#deployment">#</a></h2>
+<ul>
+<li><strong>Is it possible to deploy to other hosting platforms ?</strong><br>
+Yes, it should be easy in principle. External help regarding this would be welcome.</li>
+</ul>
+
+  </article>
+</main>
+<footer>
+  <span class="left">&copy; Documentation</span>
+  <span class="center">powered by &mu;Jam &amp; VSCode &mdash; hosted by GitHub</span>
+  <span class="right" onclick="document.documentElement.className = document.documentElement.className === 'theme-dark' ? 'theme-light' : 'theme-dark';">&#9788;</span>
+</footer>
+</body>
+</html>

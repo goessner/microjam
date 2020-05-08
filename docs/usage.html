@@ -2,55 +2,75 @@
 <html class="theme-light">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
 <meta name="description" content="Creating Web Pages with `&mu;Jam`">
 <meta name="date" content="Mon Mar 30 2020 02:00:00 GMT+0200 (Mitteleuropäische Sommerzeit)">
-<meta name="keywords" content="2D Vector,Graphics,Web,SVG,HTML Canvas,Path Segment">
+<meta name="keywords" content="jamstack,static,serverless,web pages,markdown">
 <title>Using μjam</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/github-gist.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">
 
 <link rel="stylesheet" href="./theme/styles.css">
 </head>
-<body>
+<body id="top">
 <header>
-  <a href="./index.html" class="left">&mu;Jam</a>
-  <div class="right">
-      <a href="./usage.html">Users Guide</a> | <a href="./installationGuide.html">Installation</a> | <a href="./about.html">About</a>
-  </div>
+  <span class="left"><img src="./img/icon128.png"></span>
+  <h1 class="right">&mu;Jam &ndash; Documentation</h1>
 </header>
 <main>
-<h1 id="using-%CE%BCjam">Using <em>μJam</em></h1>
-<h2 id="contents">Contents</h2>
+  <nav>
+     <h2 style="margin: 0.5em"><a href="#top">Documentation</a></h2>
+     <ul>
+<li>
+<p><a href="index.html#introduction" data-href="index.html#introduction">Introduction</a></p>
 <ul>
-<li><a href="#1-prerequisites" data-href="#1-prerequisites">1. Prerequisites</a></li>
-<li><a href="#2-activation" data-href="#2-activation">2. Activation</a></li>
-<li><a href="#3-generating-webpages" data-href="#3-generating-webpages">3. Generating Webpages</a>
-<ul>
-<li><a href="#31-working-with-single-markdown-files" data-href="#31-working-with-single-markdown-files">3.1 Working with Single Markdown Files</a></li>
-<li><a href="#32-working-with-all-markdown-files" data-href="#32-working-with-all-markdown-files">3.2 Working with All Markdown Files</a></li>
-<li><a href="#33-menus" data-href="#33-menus">3.3 Menus</a></li>
-<li><a href="#34-remove-auto-generated-files" data-href="#34-remove-auto-generated-files">3.4 Remove auto-generated Files</a></li>
+<li><a href="index.html#what-is-it" data-href="index.html#what-is-it">What is it ?</a></li>
+<li><a href="index.html#what-can-i-do-with-it" data-href="index.html#what-can-i-do-with-it">What can I do with it ?</a></li>
+<li><a href="index.html#i-am-not-a-programmer" data-href="index.html#i-am-not-a-programmer">I am not a programmer !</a></li>
+<li><a href="index.html#yet-another-jamstack-approach" data-href="index.html#yet-another-jamstack-approach">Yet another Jamstack Approach ?</a></li>
 </ul>
 </li>
-<li><a href="#4-editing-markdown-files" data-href="#4-editing-markdown-files">4. Editing Markdown Files</a>
+<li>
+<p><a href="installationGuide.html#installation" data-href="installationGuide.html#installation">Installation</a></p>
 <ul>
-<li><a href="#41-frontmatter-snippet" data-href="#41-frontmatter-snippet">4.1 Frontmatter Snippet</a></li>
-<li><a href="#42-table-of-content-snippet" data-href="#42-table-of-content-snippet">4.2 Table Of Content Snippet</a></li>
-<li><a href="#43-permalinks" data-href="#43-permalinks">4.3 Permalinks</a></li>
-<li><a href="#44-markdown-it-plugins" data-href="#44-markdown-it-plugins">4.4 <code>markdown-it</code> Plugins</a></li>
+<li><a href="installationGuide.html#a-new-project" data-href="installationGuide.html#a-new-project">A New Project</a></li>
+<li><a href="installationGuide.html#generating-content" data-href="installationGuide.html#generating-content">Generating Content</a></li>
+<li><a href="installationGuide.html#publish-to-the-world" data-href="installationGuide.html#publish-to-the-world">Publish to the World</a></li>
 </ul>
 </li>
-<li><a href="#5-publishing-documents-to-github" data-href="#5-publishing-documents-to-github">5. Publishing Documents to GitHub</a></li>
-<li><a href="#references" data-href="#references">References</a></li>
+<li>
+<p><a href="usage.html#usage" data-href="usage.html#usage">Usage</a></p>
+<ul>
+<li><a href="usage.html#prerequisites" data-href="usage.html#prerequisites">Prerequisites</a></li>
+<li><a href="usage.html#activation" data-href="usage.html#activation">Activation</a></li>
+<li><a href="usage.html#generating-webpages" data-href="usage.html#generating-webpages">Generating Webpages</a></li>
+<li><a href="usage.html#editing-markdown-files" data-href="usage.html#editing-markdown-files">Editing Markdown Files</a></li>
+<li><a href="usage.html#publishing-to-github" data-href="usage.html#publishing-to-github">Publishing to GitHub</a></li>
+<li><a href="usage.html#the-usual-workflow" data-href="usage.html#the-usual-workflow">The Usual Workflow</a></li>
+<li><a href="usage.html#keyboard-commands" data-href="usage.html#keyboard-commands">Keyboard Commands</a></li>
+<li><a href="usage.html#references" data-href="usage.html#references">References</a></li>
 </ul>
-<h2 id="1-prerequisites">1. Prerequisites</h2>
+</li>
+<li>
+<p><a href="faq.html#faqs" data-href="faq.html#faqs">FaQ's</a></p>
+<ul>
+<li><a href="faq.html#styles" data-href="faq.html#styles">Styles</a></li>
+<li><a href="faq.html#templates" data-href="faq.html#templates">Templates</a></li>
+<li><a href="faq.html#deployment" data-href="faq.html#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+  <article>
+<h1 id="usage">Usage <a href="#usage">#</a></h1>
+<h2 id="prerequisites">Prerequisites <a href="#prerequisites">#</a></h2>
 <p>It is assumed, that you</p>
 <ul>
 <li>have basic knowledge, how to use <a href="https://code.visualstudio.com/" data-href="https://code.visualstudio.com/"><em>Visual Studio Code</em></a>.</li>
-<li>successfully <a href="./installationGuide.html" data-href="./installationGuide.html">installed</a> <strong>μJam</strong>.</li>
+<li>successfully <a href="./installationGuide.html" data-href="./installationGuide.html">installed</a> <strong>μJam</strong> extension to VSCode.</li>
 </ul>
-<h2 id="2-activation">2. Activation</h2>
-<p><em>μJam</em> is an extension to VSCode and VSCode will activate it under certain conditions. As <em>μJam</em> deals primarily – or more precise exclusively – with markdown files, it will get activated, when you</p>
+<h2 id="activation">Activation <a href="#activation">#</a></h2>
+<p>μJam is an extension to VSCode and VSCode will activate it under certain conditions. As μJam deals primarily – or more precise exclusively – with markdown files, it will get activated, when you either</p>
 <ul>
 <li>open your first markdown file, or ...</li>
 <li>start VSCode with a markdown file as its active document</li>
@@ -60,26 +80,26 @@
   <figcaption>Fig. 1: &mu;Jam activation message.</figcaption>
 </figure>
 <p>You will see an activation message in the lower right corner of VSCode window.
-You do not necessarily have your repository folder opened in VSCode. <em>μJam</em> will work with single file mode also.</p>
-<p>But ... having <em>μJam</em> activated properly does not mean, it works with every markdown file. It accepts files</p>
+You do not necessarily have your repository folder opened in VSCode. μJam will work with single file mode also.</p>
+<p>But ... having μJam activated properly does not mean, it works with every markdown file. It accepts files</p>
 <ul>
 <li>being in a <code>docs</code> directory or one of its subdirectories <code>docs/**</code> and ...</li>
 <li>belonging to a repository having an entry <code>&quot;microjam&quot;: {...}</code> in its <code>package.json</code></li>
 </ul>
 <p>only.</p>
-<h2 id="3-generating-webpages">3. Generating Webpages</h2>
-<p><em>μJam</em> can do exactly <em>two things</em> for you:</p>
+<h2 id="generating-webpages">Generating Webpages <a href="#generating-webpages">#</a></h2>
+<p>μJam can do exactly <em>two things</em> for you:</p>
 <ul>
 <li>generate/update a <code>html</code> file from a single <code>md</code> file ...</li>
 <li>generate/update <code>html</code> files from <strong>all</strong> <code>md</code> files in a repository</li>
 </ul>
-<h3 id="31-working-with-single-markdown-files">3.1 Working with Single Markdown Files</h3>
+<h3 id="single-markdown-files">Single Markdown Files <a href="#single-markdown-files">#</a></h3>
 <p>Whenever you are working at a markdown file and save it via</p>
 <ul>
 <li>menu <code>File &gt; Save As</code> or (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>) or ...</li>
 <li>menu <code>File &gt; Save</code> or (<kbd>Ctrl</kbd> + <kbd>S</kbd>)</li>
 </ul>
-<p>its corresponding <code>html</code> file will be generated automatically by <em>μJam</em>, which will also update the <code>pages.json</code> file and possibly some <em>index</em> files, if you happened to have modified a <code>&quot;layout&quot;:&quot;article&quot;</code> document.</p>
+<p>its corresponding <code>html</code> file will be generated automatically by μJam, which will also update the <code>pages.json</code> file and possibly some <em>index</em> files, if you happened to have modified a <code>&quot;layout&quot;:&quot;article&quot;</code> document.</p>
 <figure>
   <img src="./img/mu-jam.use.02.png">
   <figcaption>Fig. 2: &mu;Jam Html saved message.</figcaption>
@@ -88,16 +108,16 @@ You do not necessarily have your repository folder opened in VSCode. <em>μJam</
 <p><strong>Note:</strong><br>
 That <code>File &gt; Save</code> command <strong>only</strong> saves its markdown file, if it has been modified since its last storage command. Only in this case the corresponding <code>html</code> file is updated.</p>
 </blockquote>
-<p>In order to assist you to <em>force an update of a single file</em>, <em>μJam</em> provides us with the command <kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>H</kbd> (think <strong>H</strong>tml). This is also available via different menus (see below).</p>
-<h3 id="32-working-with-all-markdown-files">3.2 Working with All Markdown Files</h3>
+<p>In order to assist you to <em>force an update of a single file</em>, μJam provides us with the command <kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>H</kbd> (think <strong>H</strong>tml). This is also available via different menus (see below).</p>
+<h3 id="all-markdown-files">All Markdown Files <a href="#all-markdown-files">#</a></h3>
 <p>There might come up the necessity to rebuild all <code>html</code> files. One scenario is, we just had modified our templates in <code>template.js</code>.</p>
-<p>To achieve this, we can use the <em>μJam</em> command <kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>A</kbd> (think <strong>A</strong>ll).</p>
+<p>To achieve this, we can use the μJam command <kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>A</kbd> (think <strong>A</strong>ll).</p>
 <figure>
   <img src="./img/mu-jam.use.03.png">
   <figcaption>Fig. 3: &mu;Jam command - force rebuild all Html files</figcaption>
 </figure>
-<p>Please note, only the last three rebuilt files are are visible after completion as <em>μJam</em> messages then.</p>
-<h3 id="33-menus">3.3 Menus</h3>
+<p>Please note, only the last three rebuilt files are are visible after completion as μJam messages then.</p>
+<h3 id="menus">Menus <a href="#menus">#</a></h3>
 <figure>
   <div><img src="./img/mu-jam.use.04-1.png">
   <img src="./img/mu-jam.use.04-2.png"></div><br>
@@ -105,7 +125,7 @@ That <code>File &gt; Save</code> command <strong>only</strong> saves its markdow
   <img src="./img/mu-jam.use.04-4.png">
   <figcaption>Fig. 4: &mu;Jam commands - accessible through different menus</figcaption>
 </figure>
-<p>Both <em>μJam</em> commands are accessible through</p>
+<p>Both μJam commands are accessible through</p>
 <ol>
 <li>Editor context menu (right click) (a)</li>
 <li>Editor title menu (b)</li>
@@ -116,8 +136,8 @@ That <code>File &gt; Save</code> command <strong>only</strong> saves its markdow
 <p><strong>Note:</strong><br>
 Menus in VSCode are defined statically with extensions like μJam. So above menus are always shown while editing any markdown document. But with markdown documents <strong>not</strong> belonging to a valid repository invoking these menu commands will <strong>silently</strong> have no effect.</p>
 </blockquote>
-<h3 id="34-remove-auto-generated-files">3.4 Remove auto-generated Files</h3>
-<p>You won't want to remove auto-generated files usually, as they are regularly updated by μJam. But if you explicitely want to do that, it is best to use the explorer view (Fig. 5).</p>
+<h3 id="manually-remove-files">Manually Remove Files <a href="#manually-remove-files">#</a></h3>
+<p>You won't want to remove auto-generated files usually, as they are regularly updated by μJam. But if you explicitely want to do that, it you can use the explorer view (Fig. 5).</p>
 <figure>
   <img src="./img/mu-jam.use.05.png">
   <figcaption>Fig. 5: Explorer view - manually remove these files only</figcaption>
@@ -125,27 +145,27 @@ Menus in VSCode are defined statically with extensions like μJam. So above menu
 <ul>
 <li>It is safe to remove all <code>*.html</code> files as well as <code>pages.json</code> (<kbd>Delete</kbd> or <kbd>Shift</kbd>+<kbd>Delete</kbd>).</li>
 <li>If you manually remove a markdown file, its corresponding <code>html</code> file will be consistently deleted by μJam during next command execution. <code>pages.json</code> will be also updating accordingly.</li>
-<li>You can delete the <code>docs/theme</code> folder and even the <code>.vscode</code> directory. μJam will generate them again using default content. But be aware, that possible customizations of you get lost then.</li>
+<li>You can delete the <code>docs/theme</code> folder and even the <code>.vscode</code> directory. μJam will generate them again using default content. But be aware, that possible customizations or ccopies get lost then. You usually don't want to do that.</li>
 <li>You shouldn't delete any other files from your repository, except you know, what you are doing.</li>
 </ul>
 <blockquote>
 <p><strong>Note:</strong><br>
-Sort order of files by <em>type</em> makes sense in explorer view, but it's not VSCode's default order. So μJam adds an entry <code>&quot;explorer.sortOrder&quot;:&quot;type&quot;</code> to user settings file <code>.vscode/settings.json</code>. You can add more individual settings to that file. It is recommended, to leave this sort order setting intakt.</p>
+Sort order of files by <em>type</em> makes sense in explorer view, but it's not VSCode's default order. So μJam adds an entry <code>&quot;explorer.sortOrder&quot;:&quot;type&quot;</code> to user settings file <code>.vscode/settings.json</code>. You can add more individual settings to that file.</p>
 </blockquote>
-<h2 id="4-editing-markdown-files">4. Editing Markdown Files</h2>
+<h2 id="editing-markdown-files">Editing Markdown Files <a href="#editing-markdown-files">#</a></h2>
 <p>It is not much to say here, since markdown editing is excellently done by VSCode editor. There are only a few assisting μJam features worth mentioning.</p>
-<h3 id="41-frontmatter-snippet">4.1 Frontmatter Snippet</h3>
+<h3 id="frontmatter-snippet">Frontmatter Snippet <a href="#frontmatter-snippet">#</a></h3>
 <p>When starting a new markdown file, μJam assists you by inserting a partial filled <em>frontmatter</em> template at current editor location.</p>
 <figure>
   <img src="./img/mu-jam.use.06.png">
-  <figcaption>Fig. 6: Explorer view - manually remove these files only</figcaption>
+  <figcaption>Fig. 6: Auto-create frontmatter snippet sceleton</figcaption>
 </figure>
 <p>Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>-</kbd> for getting this.</p>
-<h3 id="42-table-of-content-snippet">4.2 Table Of Content Snippet</h3>
+<h3 id="table-of-content-snippet">Table Of Content Snippet <a href="#table-of-content-snippet">#</a></h3>
 <p>When finishing a markdown document containing several headings possibly in multiple levels, we would welcome an automatic generation of a table of contents (toc). This is inserted at current editor location by μJam at our fingertips.</p>
 <figure>
   <img src="./img/mu-jam.use.07.png">
-  <figcaption>Fig. 7: Explorer view - manually remove these files only</figcaption>
+  <figcaption>Fig. 7: Auto-create table of content</figcaption>
 </figure>
 <p>Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>t</kbd> (think  <strong>t</strong> oc) for getting this.</p>
 <blockquote>
@@ -155,16 +175,23 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 <li>If you do not want to have a heading in the toc (maybe 'Contents'), simple delete it from the generated list in the markdown document.</li>
 <li>Generating certain toc levels only is not supported. Simply remove the unwanted entries manually then.</li>
 <li>If you edit the text of a heading, the toc won't update automatically. Recreate the toc then manually.</li>
+<li>Headings in markdown code sections are incorrectly inserted also. You need to remove them manually.</li>
 </ul>
 </blockquote>
-<h3 id="43-permalinks">4.3 Permalinks</h3>
-<p>This feature is shamelessly copied from GitHub. In the browser ... Whenever you are hovering with your pointer device a heading, a small symbol appears. Hovering then over that symbol, the document-local uri of the heading in question can be copied (right click) and is shown in the status bar at the same time.</p>
+<h3 id="permalinks">Permalinks <a href="#permalinks">#</a></h3>
+<p>This feature is shamelessly copied from GitHub. In the browser ... whenever you are hovering with your pointer device a heading, a small symbol appears. Hovering then over that symbol, the document-local uri of the heading in question can be copied (right click) and is shown in the status bar at the same time.</p>
 <figure>
   <img src="./img/mu-jam.use.08.png">
   <figcaption>Fig. 8: Explorer view - manually remove these files only</figcaption>
 </figure>
-<p>With this feature enabled, your visitors are allowed to link into your pages using these <em>permalinks</em>.</p>
-<h3 id="44-markdown-it-plugins">4.4 <code>markdown-it</code> Plugins</h3>
+<p>With this feature enabled, your visitors can copy and paste that location and thus link into your pages with the help of these <em>permalinks</em>.</p>
+<p>In order to activate this feature, you need to add</p>
+<pre><code class="code-line language-markdown"><div>---
+<span class="hljs-section">"permalink": "#"
+---</span>
+</div></code></pre>
+<p>to your page's frontmatter section. You are allowed to take a character symbol of your choice. <code>&quot;permalink&quot;: true</code> is also possible, with '#' as the default symbol.</p>
+<h3 id="markdown-it-plugins"><code>markdown-it</code> Plugins <a href="#markdown-it-plugins">#</a></h3>
 <p>VSCode uses <a href="https://github.com/markdown-it/markdown-it" data-href="https://github.com/markdown-it/markdown-it">markdown-it</a> as its markdown parser internally and so does μJam. There are a lot of markdown-it plugins available.
 μJam potentially supports only two of them at current:</p>
 <ul>
@@ -172,18 +199,17 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 <li>Footnotes plugin <code>markdown-it-footnotes</code></li>
 </ul>
 <p>Since they are both inactive initially, we can activate them – if we want – by appending the following to <code>.vscode/settings.json</code> ...</p>
-<pre><code class="code-line language-json"><div>	<span class="hljs-string">"microjam.markdownItPlugins"</span>: {
-		<span class="hljs-attr">"markdown-it-texmath"</span>: {
-			<span class="hljs-attr">"engine"</span>: <span class="hljs-string">"katex"</span>,
-            <span class="hljs-attr">"delimiters"</span>: <span class="hljs-string">"dollars"</span>,
-            <span class="hljs-attr">"macros"</span>: {<span class="hljs-attr">"\\RR"</span>: <span class="hljs-string">"\\mathbb{R}"</span>}
-		},
-		<span class="hljs-attr">"markdown-it-footnote"</span>: {}
-	}
+<pre><code class="code-line language-json"><div><span class="hljs-string">"microjam.markdownItPlugins"</span>: {
+  <span class="hljs-attr">"markdown-it-texmath"</span>: {
+    <span class="hljs-attr">"engine"</span>: <span class="hljs-string">"katex"</span>,
+          <span class="hljs-attr">"delimiters"</span>: <span class="hljs-string">"dollars"</span>,
+          <span class="hljs-attr">"macros"</span>: {<span class="hljs-attr">"\\RR"</span>: <span class="hljs-string">"\\mathbb{R}"</span>}
+  },
+  <span class="hljs-attr">"markdown-it-footnote"</span>: {}
 }
 </div></code></pre>
-<p>Extending μJam, in using other markdown-it plugins is possible, but out of scope of this user manual.</p>
-<h2 id="5-publishing-documents-to-github">5. Publishing Documents to GitHub</h2>
+<p>Extending μJam, in using other markdown-it plugins is possible, but out of the scope of this user manual.</p>
+<h2 id="publishing-to-github">Publishing to GitHub <a href="#publishing-to-github">#</a></h2>
 <p>We are assuming here, that you have a valid local <code>git</code> and remote GitHub repository already. Read <a href="./installationGuide.html" data-href="./installationGuide.html">installation guide</a> otherwise.</p>
 <figure>
   <img src="./img/mu-jam.16-4.png">
@@ -195,11 +221,136 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 <li>Send it by <kbd>Ctrl</kbd> + <kbd>Enter</kbd>.</li>
 <li>Press the <em>up arrow</em> symbol in the status bar.</li>
 </ul>
+<h2 id="the-usual-workflow">The Usual Workflow <a href="#the-usual-workflow">#</a></h2>
+<p>I would like to show you how working at your website looks like, once you installed all and already wrote your markdown files.</p>
+<ol>
+<li>You will again open your project directory <code>first</code>, which already has the following structure</li>
+</ol>
+<pre><code><code><div>/first
+|_ package.json
+|_ /docs
+   |_ /theme
+   |_ index.html
+   |_ one.html
+   |_ two.html
+   |_ pages.json
+   |_ index.md
+   |_ one.md
+   |_ two.md
+</div></code></code></pre>
+<ol start="2">
+<li>Add a <code>readme.md</code> file (content below) and save it (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>) to your project root folder. Its content might be somewhat like</li>
+</ol>
+<pre><code><code><div># A minimal sample repository for &amp;mu;Jam
+</div></code></code></pre>
+<ol start="3">
+<li>Modify the content of <code>one.md</code> and save (<kbd>Ctrl</kbd> + <kbd>S</kbd>).</li>
+<li>Type in a <em>commit message</em> <code>'Add readme'</code> (<kbd>Ctrl</kbd> + <kbd>Enter</kbd>).</li>
+<li>In a possibly upcoming <code>vscode</code> message window <code>Would you like to automatically ...</code> select <code>Always</code> .</li>
+<li>In the VSCode status bar select either the little <code>cloud</code> or the <code>up-arrow</code> symbol for uploading the changed files to GitHub.</li>
+</ol>
+<figure>
+  <img src="./img/mu-jam.16-1.png">
+  <br>
+  <img src="./img/mu-jam.16-2.png">
+  <br>
+  <img src="./img/mu-jam.16-3.png">
+  <br>
+  <img src="./img/mu-jam.16-4.png">
+  <figcaption>Fig. 16: Workflow: Adding 'readme.md' and modifying 'one.md'.</figcaption>
+</figure>
+<p>That's it. Please verify the arrival of the readme file at Github and successful update of your website.</p>
+<p>Steps <code>2-3-5</code> above i.e.</p>
+<ul>
+<li>modify content</li>
+<li>type commit message</li>
+<li>upload to GitHub</li>
+</ul>
+<p>is all you need to do from now on.</p>
+<p>Just to mention – this documentation was authored by <strong>μJam</strong> during a process called <a href="https://en.wikipedia.org/wiki/Eating_your_own_dog_food" data-href="https://en.wikipedia.org/wiki/Eating_your_own_dog_food"><em>dogfooding</em></a> <code>:)</code>.</p>
+<p><em>Happy publishing ...</em></p>
+<h2 id="keyboard-commands">Keyboard Commands <a href="#keyboard-commands">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Command</th>
+<th style="text-align:left">Mnemonic</th>
+<th style="text-align:left">Menu</th>
+<th style="text-align:left">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>H</kbd></td>
+<td style="text-align:left"><strong>H</strong>tml</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Generate single Html file</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>A</kbd></td>
+<td style="text-align:left"><strong>A</strong>ll</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Generate all Html files</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>-</kbd></td>
+<td style="text-align:left">---</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Insert frontmatter template</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>T</kbd></td>
+<td style="text-align:left"><strong>T</strong>oC</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Insert Table of Contents</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>V</kbd></td>
+<td style="text-align:left">pre<strong>V</strong>iew</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Open preview window</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Commit Changes</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd></td>
+<td style="text-align:left"><strong>S</strong>ave A<strong>s</strong></td>
+<td style="text-align:left"><code>File &gt; Save As</code></td>
+<td style="text-align:left">Save file as ...</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
+<td style="text-align:left"><strong>S</strong>ave</td>
+<td style="text-align:left"><code>File &gt; Save</code></td>
+<td style="text-align:left">Save file</td>
+</tr>
+</tbody>
+</table>
+<p>Apple users will press the <kbd>Cmd</kbd> key instead of the <kbd>Ctrl</kbd> key.</p>
 <h2 id="references">References <a href="#references">#</a></h2>
+<p>[1] <a href="https://jamstack.wtf/" data-href="https://jamstack.wtf/">jamstack.wtf</a><br>
+[2] <a href="http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-studio-code" data-href="http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-studio-code">Not Your Dad's IT</a><br>
+[3] <a href="https://stackoverflow.com/questions/17308954/where-can-i-find-the-github-id-in-my-account/40695228" data-href="https://stackoverflow.com/questions/17308954/where-can-i-find-the-github-id-in-my-account/40695228">Where can I find the GitHub ID in my account?</a><br>
+[4]: <a href="https://medium.com/@brygrill/version-control-basics-with-github-and-vs-code-1c1906cadd33" data-href="https://medium.com/@brygrill/version-control-basics-with-github-and-vs-code-1c1906cadd33">Version Control Basics with Github and VS Code</a><br>
+[5] <a href="https://azuredevopslabs.com/labs/azuredevops/github/" data-href="https://azuredevopslabs.com/labs/azuredevops/github/">Version Controlling with Git in Visual Studio Code and GitHub</a><br>
+[6] <a href="https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/" data-href="https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/">Versionskontrolle mit Git auf einem Hoster wie GitHub, GitLab, BitBucket unter Visual Studio Code einrichten</a><br>
+[7] <a href="https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code" data-href="https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code">Git Integration in Visual Studio Code</a><br>
+[8] <a href="https://commonmark.org/" data-href="https://commonmark.org/">CommonMark - Specification of Markdown</a></p>
 
+  </article>
 </main>
 <footer>
-  <span class="left">&copy; &mu;Jam</span>
+  <span class="left">&copy; Documentation</span>
   <span class="center">powered by &mu;Jam &amp; VSCode &mdash; hosted by GitHub</span>
   <span class="right" onclick="document.documentElement.className = document.documentElement.className === 'theme-dark' ? 'theme-light' : 'theme-dark';">&#9788;</span>
 </footer>
