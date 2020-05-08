@@ -17,7 +17,7 @@ ${data.math ? `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/d
 </head>
 <body id="top">
 <header>
-  <span class="left"><img src="./img/icon128.png"></span>
+  <a class="left" href="./index.html><img src="./img/icon128.png"></a>
   <h1 class="right">&mu;Jam &ndash; Documentation</h1>
 </header>
 <main>
