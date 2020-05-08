@@ -210,10 +210,6 @@ const ext = {
                     ext.saveAsHtml(basedir, ent, template);
                     delete ent.articles;
                     delete ent.content;
-                    if (page.use)
-                        for (const use of page.use)
-                            delete use.content;
-
                 }
             });
         }
@@ -269,6 +265,9 @@ const ext = {
             ext.saveAsHtml(basedir, page, template);
             delete page.content;
             delete page.articles;
+            if (page.use)
+                for (const use of page.use)
+                    delete use.content;
         }
 
         // store 'pages.json'.
@@ -301,6 +300,9 @@ const ext = {
                 ext.saveAsHtml(basedir, page, template);
             delete page.content;
             delete page.articles;
+            if (page.use)
+                for (const use of page.use)
+                    delete use.content;
 
             ext.updatePages(pagesuri, page, basedir, template);
             // see https://stackoverflow.com/questions/23685930/clearing-require-cache
