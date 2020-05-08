@@ -29,5 +29,5 @@ No sorry, it's due to *minimalism* paradigma.
 ## Deployment
 
 * **Is it possible to deploy to other hosting platforms ?**   
-Yes, it should be easy in principle. External help regarding this would be welcome.
+Yes, it should be easy in principle. Nothing done here yet.
 
