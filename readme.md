@@ -1,4 +1,4 @@
-# ![mdmath](./docs/img/icon128.png) &mu;Jam
+# ![microjam](./docs/img/icon128.png) &mu;Jam
 
 [![npm version](https://badge.fury.io/js/microjam.svg)](https://badge.fury.io/js/microjam)
 ![Dependencies](./docs/img/dependencies-badge.png)
