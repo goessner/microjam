@@ -4,7 +4,7 @@
     "icon": "img/icon128.png",
 	"author": "Stefan Goessner",
 	"publisher": "goessner",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"keywords": [
 		"JAMStack",
 		"deploy",

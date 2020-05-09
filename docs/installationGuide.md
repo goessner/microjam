@@ -15,7 +15,13 @@ This is an installation guide for **&mu;Jam**, an extension to [*Visual Studio C
 So in using this installation guide we need only few prerequisites.
 
 * VS Code installed. You can download it from [here](https://code.visualstudio.com/download).
-* Install **&mu;Jam** ... (todo)
+* Install **&mu;Jam**. You can download it from [here](https://marketplace.visualstudio.com/items?itemName=goessner.microjam).
+
+<figure>
+  <img src="img/mu-jam.00.png">
+  <figcaption>Fig. 0: Alternative way to install &mu;Jam directly from inside VSCode.</figcaption>
+</figure>
+
 * Minimal knowledge of markdown. Here is an overview of its [basic syntax](https://commonmark.org/help/).
 
 You may like to hear that ...
