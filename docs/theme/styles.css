@@ -6,8 +6,8 @@
 :root {
     --color-footer: #e2f3f3;
     --bgcol-footer: #1f3939;
-    --color-code: #eee;
-    --bgcol-code: #222;
+    --color-code: #e2f3f3;
+    --bgcol-code: #1f3939;
     --color-shade: #666;
     --sidebar-width: 14rem;
 }
