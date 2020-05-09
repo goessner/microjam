@@ -260,6 +260,15 @@ Just to mention &ndash; this documentation was authored by **&mu;Jam** during a 
 
 *Happy publishing ...*   
 
+## Templates
+
+* [microjam-simple](https://github.com/goessner/microjam-simple) &ndash; A simple website template for μJam
+* [microjam-tufte](https://github.com/goessner/microjam-tufte) &ndash; A Tufte Style Template for μJam
+* [microjam-docs](https://github.com/goessner/microjam-docs) &ndash; A documentation theme for μjam with sidebar
+* [microjam-g2](https://github.com/goessner/microjam-docs) &ndash; A theme for μjam + g2
+
+
+
 ## Keyboard Commands 
 
 | Command |  Mnemonic  | Menu | Action |

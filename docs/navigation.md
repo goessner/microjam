@@ -16,6 +16,7 @@
   - [Editing Markdown Files](usage.html#editing-markdown-files)
   - [Publishing to GitHub](usage.html#publishing-to-github)
   - [The Usual Workflow](usage.html#the-usual-workflow)
+  - [Templates](usage.html#templates)
   - [Keyboard Commands](usage.html#keyboard-commands)
   - [References](usage.html#references)
 
