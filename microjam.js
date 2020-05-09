@@ -49,7 +49,7 @@ const ext = {
                         .replace(/\sclass=\"code-line\"/g,() => '')
                         .replace(/\sdata-line=\"[0-9]+\"/g,() => '')
                         .replace(/<h([1-6])\s+id=\"(.+)(-\d)?\">(.+)<\/h[1-6]>/g,    // investigate different effects of '?' in '(-\d)?'  !!!
-                                 ($0,$1,$2,$3,$4) => `<h${$1} id="${$2}">${$4}${permalink ? ` <a href="#${$2}">${(permalink===true)?'#':permalink}</a>` : ''}</h${$1}>`);
+                                 ($0,$1,$2,$3,$4) => `<h${$1} id="${$2}">${$4}${permalink ? ` <a class="plnk" href="#${$2}">${(permalink===true)?'#':permalink}</a>` : ''}</h${$1}>`);
         return html;
     },
     /**
@@ -450,8 +450,8 @@ dateElement(date) {
 css: `:root {
     --color-footer: #e2f3f3;
     --bgcol-footer: #1f3939;
-    --color-code: #1f3939;
-    --bgcol-code: #e2f3f3;
+    --color-code: #eee;
+    --bgcol-code: #222;
     --color-shade: #666;
 }
 
@@ -554,12 +554,12 @@ header a:hover {
   color: var(--color-hover);
 }
 
-h1>a,h2>a,h3>a {
+h1>a.plnk,h2>a.plnk,h3>a.plnk {
   display: none;
   text-decoration: none;
   color: inherit;
 }
-h1:hover>a,h2:hover>a,h3:hover>a {
+h1:hover>a.plnk,h2:hover>a.plnk,h3:hover>a.plnk {
   display: initial;
 }
 p, blockquote { 
@@ -569,7 +569,7 @@ blockquote {
     font-size: 11pt;
     margin-top: 1em;
     margin-bottom: 1em;
-    border-left: .25em solid green;
+    border-left: .25em solid var(--bgcol-header);
     color: #666;
     background-color: #f6f6f6;
     padding: 0 0.5em;

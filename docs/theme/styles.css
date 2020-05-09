@@ -169,12 +169,12 @@ h1 {
   font-size: 2.5rem;
 }
 
-h1>a,h2>a,h3>a {
+h1>a.plnk,h2>a.plnk,h3>a.plnk {
   display: none;
   text-decoration: none;
   color: inherit;
 }
-h1:hover>a,h2:hover>a,h3:hover>a {
+h1:hover>a.plnk,h2:hover>a.plnk,h3:hover>a.plnk {
   display: initial;
 }
 p, blockquote { 
