@@ -45,11 +45,17 @@ const ext = {
      * @returns {string}
      */
     toHtml(md, permalink) {
+        const formatHeading = (match,level,id,content) => {
+            permalink = (permalink===true) ? '#' : permalink;
+            id = id.replace(/(.+?)(\-[\d]+)?$/g, '$1');
+            return permalink 
+                 ? `<h${level} id="${id}">${content} <a class="plnk" href="#${id}">${permalink}</a></h${level}>`
+                 : `<h${level} id="${id}">${content}</h${level}>`;
+        }
         const html = ext.mdit.render(md) // ... change / remove some vscode stuff ...
-                        .replace(/\sclass=\"code-line\"/g,() => '')
-                        .replace(/\sdata-line=\"[0-9]+\"/g,() => '')
-                        .replace(/<h([1-6])\s+id=\"(.+)(-\d)?\">(.+)<\/h[1-6]>/g,    // investigate different effects of '?' in '(-\d)?'  !!!
-                                 ($0,$1,$2,$3,$4) => `<h${$1} id="${$2}">${$4}${permalink ? ` <a class="plnk" href="#${$2}">${(permalink===true)?'#':permalink}</a>` : ''}</h${$1}>`);
+                        .replace(/\sclass=\"code-line\"/g,'')
+                        .replace(/\sdata-line=\"[0-9]+\"/g,'')
+                        .replace(/<h([1-6])\s+id=\"(.+)\">(.+)<\/h[1-6]>/g, formatHeading);
         return html;
     },
     /**
