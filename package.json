@@ -1,20 +1,27 @@
 {
 	"name": "microjam",
-	"description": "Most minimalistic JAMStack environment",
-	"author": "Stefan Goessner <fang03@web.de>",
+	"description": "Minimalistic JAMStack authoring environment",
+    "icon": "https://github.com/goessner/microjam/img/icon128.png",
+	"author": "Stefan Goessner",
 	"publisher": "goessner",
 	"version": "0.3.0",
 	"keywords": [
 		"JAMStack",
 		"deploy",
+		"static",
+		"serverless",
 		"github-pages",
 		"markdown",
+		"math",
 		"microjam"
 	],
 	"microjam": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/goessner/microjam.git"
+	},
+	"bugs": {
+		"url": "https://github.com/goessner/microjam/issues"
 	},
 	"license": "MIT",
 	"engines": {

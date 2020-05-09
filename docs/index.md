@@ -1,6 +1,8 @@
 ---
 "layout": "page",
-"title": "Introduction",
+"title": "Creating and Authoring Web Pages with μJam - Introduction",
+"description": "Creating Web Pages with `&mu;Jam`",
+"tags": ["jamstack","static","serverless","web pages","markdown"],
 "use": [ { "uri": "navigation.md" } ],
 "permalink": true
 ---
