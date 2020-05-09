@@ -49,15 +49,16 @@ So if this is exactly what you want, go on ... I recommend to have a closer look
 > With &mu;Jam I want to offer my mechanical engineering students and a certain number of interested colleagues a tool, which
 > *  allows to create small to medium project specific websites.
 > *  is easy to learn and use.
-> *  does not require programming skills.
+> *  does not require web programming skills.
 > *  can handle LaTeX math expressions natively,
 > *  integrates static or dynamic vector graphics
 > *  offers comfortable Html previewing
 > *  supports high quality research paper `pdf`-format output.
+> *  doing that all inside of a markdown authoring application.
 > 
 > As a result &mu;Jam is considered a [low code publishing tool](https://en.wikipedia.org/wiki/Low-code_development_platform) for scientists, engineers and students.
 
-In this sense &mu;Jam is minimalistic, as it does quite well, what it is intended to do, but not more. And as you can easily leave that *math*, *vector graphics* and *research paper* stuff out, it may serve your publishing wishes well.
+In this sense &mu;Jam is minimalistic, as it does quite well, what it is intended to do, but not more. And as you can easily leave that *math*, *vector graphics* and *research paper* stuff out, it may serve your publishing wishes also well.
 In this possible case you are invited to read on.
 
 This is my second relevant VSCode extension. My other one is [Markdown+Math](https://marketplace.visualstudio.com/items?itemName=goessner.mdmath).
