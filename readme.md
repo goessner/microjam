@@ -8,6 +8,8 @@
 
 ## What is it ?
 
+**&mu;Jam** allows to use *Visual Studio Code* as a lightweight authoring and publishing tool for small to medium websites.
+
 Greek letter `'μ'` is pronounced `'my'` as in `micro`, `'mu'` as in `'music'` or `'mee'` according to [modern Greek](https://www.thoughtco.com/the-greek-alphabet-1705558). In that context here it simply means *tiny* or  *minimalistic*.
 
 That `'Jam'` in &mu;Jam comes from `Jamstack` and means the collection of the three attributes
@@ -33,7 +35,7 @@ then the minimalistic and powerful approach of &mu;Jam might convice you.
 
 ## Why yet another Jamstack Approach ?
 
-**&mu;Jam** is meant to be a [low code](https://en.wikipedia.org/wiki/Low-code_development_platform) authoring and  web publishing tool for scientists, engineers and students, which ...
+**&mu;Jam** is meant to be a [low code](https://en.wikipedia.org/wiki/Low-code_development_platform) authoring and web publishing tool for scientists, engineers and students, which ...
 
 > *  is easy to learn and use.
 > *  does not require web programming skills.
