@@ -1,6 +1,8 @@
 # ![microjam](https://goessner.github.io/microjam//img/icon128.png) &mu;Jam
 
-[![npm version](https://badge.fury.io/js/microjam.svg)](https://badge.fury.io/js/microjam)
+[![marketplace](https://vsmarketplacebadge.apphb.com/version/goessner.microjam.svg)](https://marketplace.visualstudio.com/items?itemName=goessner.microjam)
+[![marketplace](https://vsmarketplacebadge.apphb.com/installs-short/goessner.microjam.svg)](https://marketplace.visualstudio.com/items?itemName=goessner.microjam)
+[![npm](https://img.shields.io/npm/v/microjam.svg)](https://www.npmjs.com/package/microjam)
 ![Dependencies](https://goessner.github.io/microjam//img/dependencies-badge.png)
 [![License](https://img.shields.io/github/license/goessner/mdmath.svg)](https://github.com/goessner/microjam/blob/master/LICENSE.txt)
 

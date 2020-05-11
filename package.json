@@ -4,7 +4,7 @@
     "icon": "https://github.com/goessner/microjam/img/icon128.png",
 	"author": "Stefan Goessner",
 	"publisher": "goessner",
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"keywords": [
 		"JAMStack",
 		"deploy",
