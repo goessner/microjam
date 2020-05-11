@@ -25,9 +25,9 @@ If you want to
 
 then the minimalistic and powerful approach of &mu;Jam might convice you.
 
-<img src="img/browser-view.png">
+<img src="img/browser-view2.png">
 <br><br>
-<img src="img/vscode-view.png">
+<img src="img/vscode-view2.png">
 
 ## Why yet another Jamstack Approach ?
 
