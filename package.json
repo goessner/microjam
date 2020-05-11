@@ -1,10 +1,10 @@
 {
 	"name": "microjam",
 	"description": "Minimalistic JAMStack authoring environment",
-    "icon": "img/icon128.png",
+    "icon": "https://github.com/goessner/microjam/img/icon128.png",
 	"author": "Stefan Goessner",
 	"publisher": "goessner",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"keywords": [
 		"JAMStack",
 		"deploy",
@@ -16,9 +16,10 @@
 		"microjam"
 	],
 	"microjam": {},
+	"homepage": "https://github.com/goessner/microjam/blob/master/readme.md",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/goessner/microjam.git"
+		"url": "https://github.com/goessner/microjam.git"
 	},
 	"bugs": {
 		"url": "https://github.com/goessner/microjam/issues"
@@ -27,6 +28,10 @@
 	"engines": {
 		"vscode": "^1.44.0"
 	},
+	"categories": [
+		"Programming Languages",
+		"Other"
+	],
 	"activationEvents": [
 		"onLanguage:markdown"
 	],

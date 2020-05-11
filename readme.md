@@ -1,7 +1,7 @@
-# ![microjam](./docs/img/icon128.png) &mu;Jam
+# ![microjam](https://goessner.github.io/microjam//img/icon128.png) &mu;Jam
 
 [![npm version](https://badge.fury.io/js/microjam.svg)](https://badge.fury.io/js/microjam)
-![Dependencies](./docs/img/dependencies-badge.png)
+![Dependencies](https://goessner.github.io/microjam//img/dependencies-badge.png)
 [![License](https://img.shields.io/github/license/goessner/mdmath.svg)](https://github.com/goessner/microjam/blob/master/LICENSE.txt)
 
 ## What is it ?
@@ -25,4 +25,30 @@ If you want to
 
 then the minimalistic and powerful approach of &mu;Jam might convice you.
 
-If you want to know more [read on](https://goessner.github.io/microjam/index.html).
+<figure>
+  <img src="img/browser-view.png">
+  <figcaption>Fig. 1: Resulting Browser View.</figcaption>
+</figure>
+
+<figure>
+  <img src="img/vscode-view.png">
+  <figcaption>Fig. 2: VSCode Editor View.</figcaption>
+</figure>
+
+## Why yet another Jamstack Approach ?
+
+**&mu;Jam** is meant to be a [low code](https://en.wikipedia.org/wiki/Low-code_development_platform) authoring and  web publishing tool for scientists, engineers and students, which ...
+
+> *  is easy to learn and use.
+> *  does not require web programming skills.
+> *  can handle LaTeX math expressions natively.
+> *  integrates static or dynamic vector graphics.
+> *  integrates scripting capabilities.
+> *  offers comfortable Html previewing.
+> *  supports different templates and styles.
+> *  enables high quality research paper `pdf`-format output.
+> *  doing that all inside of a professional markdown authoring application.
+
+But as you can easily leave that *math*, *vector graphics* and *research paper* stuff out, it may serve your non-academic publishing wishes also well.
+
+Interested ... ?  So [read on](https://goessner.github.io/microjam/index.html) ...
