@@ -25,15 +25,9 @@ If you want to
 
 then the minimalistic and powerful approach of &mu;Jam might convice you.
 
-<figure>
-  <img src="img/browser-view.png">
-  <figcaption>Fig. 1: Resulting Browser View.</figcaption>
-</figure>
-
-<figure>
-  <img src="img/vscode-view.png">
-  <figcaption>Fig. 2: VSCode Editor View.</figcaption>
-</figure>
+<img src="img/browser-view.png">
+<br><br>
+<img src="img/vscode-view.png">
 
 ## Why yet another Jamstack Approach ?
 
