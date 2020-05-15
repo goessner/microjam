@@ -139,7 +139,7 @@ When finishing a markdown document containing several headings possibly in multi
   <figcaption>Fig. 7: Auto-create table of content</figcaption>
 </figure>
 
-Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>t</kbd> (think &nbsp;**t** oc) for getting this.
+Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>t</kbd> (think &nbsp;**t**oc) for getting this.
 
 > **Note:**   
 > The table of content inserted is static and not configurable, i.e. minimalistic:
@@ -147,6 +147,19 @@ Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>t</kbd> (think &nbsp;**t** oc) for
 > * Generating certain toc levels only is not supported. Simply remove the unwanted entries manually then.
 > * If you edit the text of a heading, the toc won't update automatically. Recreate the toc then manually.
 > * Headings in markdown code sections are incorrectly inserted also. You need to remove them manually.
+
+### Navigation List Snippet
+
+Sometimes we do not want to have an internal table of content, but an external navigation list. With that we might compose a navigation sidebar. In this case we want to have explicite local `html` url's, as in ...
+
+```md
+- [Installation](installationGuide.html#installation)
+  - [A New Project](installationGuide.html#a-new-project)
+  - [Generating Content](installationGuide.html#generating-content)
+  - [Publish to the World](installationGuide.html#publish-to-the-world)
+```
+
+For getting this we type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>n</kbd> (think &nbsp;**n**av).
 
 ### Permalinks
 
@@ -277,11 +290,14 @@ Just to mention &ndash; this documentation was authored by **&mu;Jam** during a 
 | <kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>K</kbd>&nbsp;&nbsp;<kbd>A</kbd> | **A**ll | &ndash; | Generate all Html files |
 | <kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>K</kbd>&nbsp;&nbsp;<kbd>-</kbd> | --- | &ndash; | Insert frontmatter template |
 | <kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>K</kbd>&nbsp;&nbsp;<kbd>T</kbd> | **T**oC | &ndash; | Insert Table of Contents |
+| <kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>K</kbd>&nbsp;&nbsp;<kbd>N</kbd> | **N**av | &ndash; | Copy navigation markdown to clipboard |
 | |
 | <kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>K</kbd>&nbsp;&nbsp;<kbd>V</kbd> | pre**V**iew | &ndash; | Open preview window |
 | <kbd>Ctrl</kbd> + <kbd>Enter</kbd> | &ndash; |  &ndash; | Commit Changes |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | **S**ave A**s** |`File > Save As` | Save file as ... |
 | <kbd>Ctrl</kbd> + <kbd>S</kbd> | **S**ave |`File > Save` | Save file |
+| <kbd>Ctrl</kbd> + <kbd>C</kbd> | **C**opy |`Edit > Copy` | Copy text to clipboard |
+| <kbd>Ctrl</kbd> + <kbd>V</kbd> | Paste |`Edit > Paste` | Retrive text from clipboard |
 
 Apple users will press the <kbd>Cmd</kbd> key instead of the <kbd>Ctrl</kbd> key.
 
@@ -296,4 +312,5 @@ Apple users will press the <kbd>Cmd</kbd> key instead of the <kbd>Ctrl</kbd> key
 [6] [Versionskontrolle mit Git auf einem Hoster wie GitHub, GitLab, BitBucket unter Visual Studio Code einrichten](https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/)   
 [7] [Git Integration in Visual Studio Code](https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code)   
 [8] [CommonMark - Specification of Markdown](https://commonmark.org/)
+[9] [Configuring a custom domain for your GitHub Pages site](https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)
 

@@ -339,15 +339,27 @@ const ext = {
     },
     insertTocCmd(arg) {
         const doc = arg && arg.uri ? arg : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
-        const uri = doc.uri.fsPath;
-        const basedir = doc && doc.languageId === 'markdown' && ext.baseOfValidRepo(uri);
         const headings = ext.extractHeadings(doc.getText());
         let   toc = '';
         for (const h of headings)
-            toc += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](${path.relative(basedir, uri).replace(/\.md/g,'.html')}#${h.permalink})\n`;
+            toc += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](#${h.permalink})\n`;
 
         vscode.env.clipboard.writeText(toc);
         vscode.commands.executeCommand('editor.action.insertSnippet', {snippet: "$CLIPBOARD"} );
+    },
+    insertNavCmd(arg) {
+        const doc = arg && arg.uri ? arg : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
+        const uri = doc.uri.fsPath;
+        const basedir = doc && doc.languageId === 'markdown' && ext.baseOfValidRepo(uri);
+        const mdname = path.relative(basedir, uri);
+        const htmlname = mdname.replace(/\.md/g,'.html');
+        const headings = ext.extractHeadings(doc.getText());
+        let   nav = '';
+        for (const h of headings)
+            nav += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](${htmlname}#${h.permalink})\n`;
+
+        vscode.env.clipboard.writeText(nav);
+        ext.infoMsg(`Navigation list of '${mdname}' copied to clipboard.`);
     }
 }
 // extension is activated ..
@@ -359,6 +371,7 @@ exports.activate = function activate(context) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.saveAsHtml', ext.saveAsHtmlCmd));
     context.subscriptions.push(vscode.commands.registerCommand('extension.rebuild', ext.rebuildCmd));
     context.subscriptions.push(vscode.commands.registerCommand('extension.insertToc', ext.insertTocCmd));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.insertNav', ext.insertNavCmd));
 
     ext.infoMsg(`Extension activated!`);
 

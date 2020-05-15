@@ -33,6 +33,15 @@ then the minimalistic and powerful approach of &mu;Jam might convice you.
 <br><br>
 <img src="img/vscode-view2.png">
 
+## Examples ?
+
+Some templates are here ...
+
+* [microjam-simple](https://github.com/goessner/microjam-simple) &ndash; A simple website template for μJam
+* [microjam-tufte](https://github.com/goessner/microjam-tufte) &ndash; A Tufte Style Template for μJam
+* [microjam-docs](https://github.com/goessner/microjam-docs) &ndash; A documentation theme for μjam with sidebar
+* [microjam-g2](https://github.com/goessner/microjam-docs) &ndash; A theme for μjam + g2
+
 ## Why yet another Jamstack Approach ?
 
 **&mu;Jam** is meant to be a [low code](https://en.wikipedia.org/wiki/Low-code_development_platform) authoring and web publishing tool for scientists, engineers and students, which ...

@@ -1,10 +1,10 @@
 {
 	"name": "microjam",
 	"description": "Minimalistic JAMStack authoring environment",
-    "icon": "https://github.com/goessner/microjam/img/icon128.png",
+    "icon": "img/icon128.png",
 	"author": "Stefan Goessner",
 	"publisher": "goessner",
-	"version": "0.3.3",
+	"version": "0.3.4",
 	"keywords": [
 		"JAMStack",
 		"deploy",
@@ -124,6 +124,11 @@
 			{
 				"key": "ctrl+k t",
 				"command": "extension.insertToc",
+				"when": "editorTextFocus"
+			},
+			{
+				"key": "ctrl+k n",
+				"command": "extension.insertNav",
 				"when": "editorTextFocus"
 			}
 		],

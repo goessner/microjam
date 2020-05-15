@@ -16,6 +16,10 @@ The CSS styles are defined in the file `/docs/theme/styles.css`. They are refere
 Yes. Change them in file `/docs/theme/styles.css` or rename it or use multiple CSS files. You only need to reference them from the templates in `/docs/theme/template.js`.
 
 ## Templates
+- [FaQ's](#faqs)
+  - [Styles](#styles)
+  - [Templates](#templates)
+  - [Deployment](#deployment)
 
 * **Where are the templates ?**   
 The templates are defined in file `/docs/theme/template.js`. They are basically delivered by simple JavaScript functions returning [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals). Those recieve extended versions of the frontmatter metadata.
@@ -30,4 +34,3 @@ No sorry, it's due to *minimalism* paradigma.
 
 * **Is it possible to deploy to other hosting platforms ?**   
 Yes, it should be easy in principle. Nothing done here yet.
-

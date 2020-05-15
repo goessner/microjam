@@ -168,7 +168,7 @@ Sort order of files by <em>type</em> makes sense in explorer view, but it's not 
   <img src="./img/mu-jam.use.07.png">
   <figcaption>Fig. 7: Auto-create table of content</figcaption>
 </figure>
-<p>Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>t</kbd> (think  <strong>t</strong> oc) for getting this.</p>
+<p>Simply type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>t</kbd> (think  <strong>t</strong>oc) for getting this.</p>
 <blockquote>
 <p><strong>Note:</strong><br>
 The table of content inserted is static and not configurable, i.e. minimalistic:</p>
@@ -179,6 +179,14 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 <li>Headings in markdown code sections are incorrectly inserted also. You need to remove them manually.</li>
 </ul>
 </blockquote>
+<h3 id="navigation-list-snippet">Navigation List Snippet <a class="plnk" href="#navigation-list-snippet">#</a></h3>
+<p>Sometimes we do not want to have an internal table of content, but an external navigation list. With that we might compose a navigation sidebar. In this case we want to have explicite local <code>html</code> url's, as in ...</p>
+<pre><code class="code-line language-md"><div><span class="hljs-bullet">- </span>[<span class="hljs-string">Installation</span>](<span class="hljs-link">installationGuide.html#installation</span>)
+<span class="hljs-bullet">  - </span>[<span class="hljs-string">A New Project</span>](<span class="hljs-link">installationGuide.html#a-new-project</span>)
+<span class="hljs-bullet">  - </span>[<span class="hljs-string">Generating Content</span>](<span class="hljs-link">installationGuide.html#generating-content</span>)
+<span class="hljs-bullet">  - </span>[<span class="hljs-string">Publish to the World</span>](<span class="hljs-link">installationGuide.html#publish-to-the-world</span>)
+</div></code></pre>
+<p>For getting this we type <kbd>Ctrl</kbd>+<kbd>k</kbd> <kbd>n</kbd> (think  <strong>n</strong>av).</p>
 <h3 id="permalinks">Permalinks <a class="plnk" href="#permalinks">#</a></h3>
 <p>This feature is shamelessly copied from GitHub. In the browser ... whenever you are hovering with your pointer device a heading, a small symbol appears. Hovering then over that symbol, the document-local uri of the heading in question can be copied (right click) and is shown in the status bar at the same time.</p>
 <figure>
@@ -313,6 +321,12 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 <td style="text-align:left">Insert Table of Contents</td>
 </tr>
 <tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>K</kbd>  <kbd>N</kbd></td>
+<td style="text-align:left"><strong>N</strong>av</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Copy navigation markdown to clipboard</td>
+</tr>
+<tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"></td>
 <td style="text-align:left"></td>
@@ -342,6 +356,18 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 <td style="text-align:left"><code>File &gt; Save</code></td>
 <td style="text-align:left">Save file</td>
 </tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>C</kbd></td>
+<td style="text-align:left"><strong>C</strong>opy</td>
+<td style="text-align:left"><code>Edit &gt; Copy</code></td>
+<td style="text-align:left">Copy text to clipboard</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>Ctrl</kbd> + <kbd>V</kbd></td>
+<td style="text-align:left">Paste</td>
+<td style="text-align:left"><code>Edit &gt; Paste</code></td>
+<td style="text-align:left">Retrive text from clipboard</td>
+</tr>
 </tbody>
 </table>
 <p>Apple users will press the <kbd>Cmd</kbd> key instead of the <kbd>Ctrl</kbd> key.</p>
@@ -353,7 +379,8 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 [5] <a href="https://azuredevopslabs.com/labs/azuredevops/github/" data-href="https://azuredevopslabs.com/labs/azuredevops/github/">Version Controlling with Git in Visual Studio Code and GitHub</a><br>
 [6] <a href="https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/" data-href="https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/">Versionskontrolle mit Git auf einem Hoster wie GitHub, GitLab, BitBucket unter Visual Studio Code einrichten</a><br>
 [7] <a href="https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code" data-href="https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code">Git Integration in Visual Studio Code</a><br>
-[8] <a href="https://commonmark.org/" data-href="https://commonmark.org/">CommonMark - Specification of Markdown</a></p>
+[8] <a href="https://commonmark.org/" data-href="https://commonmark.org/">CommonMark - Specification of Markdown</a>
+[9] <a href="https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site" data-href="https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site">Configuring a custom domain for your GitHub Pages site</a></p>
 
   </article>
 </main>
