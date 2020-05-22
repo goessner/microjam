@@ -10,6 +10,7 @@ page(data) {
 ${data.date ? `<meta name="date" content="${new Date(data.date).toString()}">` : ''}
 ${data.tags ? `<meta name="keywords" content="${data.tags.join()}">` : ''}
 <title>${data.title}</title>
+<link rel="shortcut icon" type="image/png" href="./img/favicon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">
 ${data.math ? `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">` : ''}

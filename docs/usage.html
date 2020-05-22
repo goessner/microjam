@@ -7,6 +7,7 @@
 <meta name="date" content="Mon Mar 30 2020 02:00:00 GMT+0200 (Mitteleuropäische Sommerzeit)">
 <meta name="keywords" content="jamstack,static,serverless,web pages,markdown">
 <title>Using μjam</title>
+<link rel="shortcut icon" type="image/png" href="./img/favicon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">
 
 <link rel="stylesheet" href="./theme/styles.css">
@@ -42,13 +43,19 @@
 <ul>
 <li><a href="usage.html#prerequisites" data-href="usage.html#prerequisites">Prerequisites</a></li>
 <li><a href="usage.html#activation" data-href="usage.html#activation">Activation</a></li>
-<li><a href="usage.html#generating-webpages" data-href="usage.html#generating-webpages">Generating Webpages</a></li>
 <li><a href="usage.html#editing-markdown-files" data-href="usage.html#editing-markdown-files">Editing Markdown Files</a></li>
 <li><a href="usage.html#publishing-to-github" data-href="usage.html#publishing-to-github">Publishing to GitHub</a></li>
 <li><a href="usage.html#the-usual-workflow" data-href="usage.html#the-usual-workflow">The Usual Workflow</a></li>
 <li><a href="usage.html#templates" data-href="usage.html#templates">Templates</a></li>
 <li><a href="usage.html#keyboard-commands" data-href="usage.html#keyboard-commands">Keyboard Commands</a></li>
 <li><a href="usage.html#references" data-href="usage.html#references">References</a></li>
+</ul>
+</li>
+<li>
+<p><a href="cloning.html#cloning-templates" data-href="cloning.html#cloning-templates">Cloning Templates</a></p>
+<ul>
+<li><a href="cloning.html#prerequisites" data-href="cloning.html#prerequisites">Prerequisites</a></li>
+<li><a href="cloning.html#cloning-a-template" data-href="cloning.html#cloning-a-template">Cloning a Template</a></li>
 </ul>
 </li>
 <li>
@@ -67,8 +74,9 @@
 <h2 id="prerequisites">Prerequisites <a class="plnk" href="#prerequisites">#</a></h2>
 <p>It is assumed, that you</p>
 <ul>
+<li>have <a href="https://code.visualstudio.com/Download" data-href="https://code.visualstudio.com/Download">installed</a> Visual Studio Code.</li>
 <li>have basic knowledge, how to use <a href="https://code.visualstudio.com/" data-href="https://code.visualstudio.com/"><em>Visual Studio Code</em></a>.</li>
-<li>successfully <a href="./installationGuide.html" data-href="./installationGuide.html">installed</a> <strong>μJam</strong> extension to VSCode.</li>
+<li>successfully <a href="https://marketplace.visualstudio.com/items?itemName=goessner.microjam" data-href="https://marketplace.visualstudio.com/items?itemName=goessner.microjam">installed</a> <strong>μJam</strong> extension to VSCode.</li>
 </ul>
 <h2 id="activation">Activation <a class="plnk" href="#activation">#</a></h2>
 <p>μJam is an extension to VSCode and VSCode will activate it under certain conditions. As μJam deals primarily – or more precise exclusively – with markdown files, it will get activated, when you either</p>
@@ -88,7 +96,7 @@ You do not necessarily have your repository folder opened in VSCode. μJam will 
 <li>belonging to a repository having an entry <code>&quot;microjam&quot;: {...}</code> in its <code>package.json</code></li>
 </ul>
 <p>only.</p>
-<h2 id="generating-webpages">Generating Webpages <a class="plnk" href="#generating-webpages">#</a></h2>
+<h2 id="editing-markdown-files">Editing Markdown Files <a class="plnk" href="#editing-markdown-files">#</a></h2>
 <p>μJam can do exactly <em>two things</em> for you:</p>
 <ul>
 <li>generate/update a <code>html</code> file from a single <code>md</code> file ...</li>
@@ -153,8 +161,6 @@ Menus in VSCode are defined statically with extensions like μJam. So above menu
 <p><strong>Note:</strong><br>
 Sort order of files by <em>type</em> makes sense in explorer view, but it's not VSCode's default order. So μJam adds an entry <code>&quot;explorer.sortOrder&quot;:&quot;type&quot;</code> to user settings file <code>.vscode/settings.json</code>. You can add more individual settings to that file.</p>
 </blockquote>
-<h2 id="editing-markdown-files">Editing Markdown Files <a class="plnk" href="#editing-markdown-files">#</a></h2>
-<p>It is not much to say here, since markdown editing is excellently done by VSCode editor. There are only a few assisting μJam features worth mentioning.</p>
 <h3 id="frontmatter-snippet">Frontmatter Snippet <a class="plnk" href="#frontmatter-snippet">#</a></h3>
 <p>When starting a new markdown file, μJam assists you by inserting a partial filled <em>frontmatter</em> template at current editor location.</p>
 <figure>
@@ -379,7 +385,7 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 [5] <a href="https://azuredevopslabs.com/labs/azuredevops/github/" data-href="https://azuredevopslabs.com/labs/azuredevops/github/">Version Controlling with Git in Visual Studio Code and GitHub</a><br>
 [6] <a href="https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/" data-href="https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/">Versionskontrolle mit Git auf einem Hoster wie GitHub, GitLab, BitBucket unter Visual Studio Code einrichten</a><br>
 [7] <a href="https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code" data-href="https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code">Git Integration in Visual Studio Code</a><br>
-[8] <a href="https://commonmark.org/" data-href="https://commonmark.org/">CommonMark - Specification of Markdown</a>
+[8] <a href="https://commonmark.org/" data-href="https://commonmark.org/">CommonMark - Specification of Markdown</a><br>
 [9] <a href="https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site" data-href="https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site">Configuring a custom domain for your GitHub Pages site</a></p>
 
   </article>

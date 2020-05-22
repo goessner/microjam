@@ -12,13 +12,16 @@
 - [Usage](usage.html#usage)
   - [Prerequisites](usage.html#prerequisites)
   - [Activation](usage.html#activation)
-  - [Generating Webpages](usage.html#generating-webpages)
   - [Editing Markdown Files](usage.html#editing-markdown-files)
   - [Publishing to GitHub](usage.html#publishing-to-github)
   - [The Usual Workflow](usage.html#the-usual-workflow)
   - [Templates](usage.html#templates)
   - [Keyboard Commands](usage.html#keyboard-commands)
   - [References](usage.html#references)
+
+- [Cloning Templates](cloning.html#cloning-templates)
+  - [Prerequisites](cloning.html#prerequisites)
+  - [Cloning a Template](cloning.html#cloning-a-template)
 
 - [FaQ's](faq.html#faqs)
   - [Styles](faq.html#styles)

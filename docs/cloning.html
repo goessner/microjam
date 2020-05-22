@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="theme-light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
+<meta name="description" content="Cloning a `&mu;Jam` template">
+<meta name="date" content="Thu May 21 2020 02:00:00 GMT+0200 (Mitteleuropäische Sommerzeit)">
+<meta name="keywords" content="jamstack,static,serverless,web pages,markdown">
+<title>Cloning a microJam template</title>
+<link rel="shortcut icon" type="image/png" href="./img/favicon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">
+
+<link rel="stylesheet" href="./theme/styles.css">
+</head>
+<body id="top">
+<header>
+  <a class="left" href="./index.html"><img src="./img/icon128.png"></a>
+  <h1 class="right">&mu;Jam &ndash; Documentation</h1>
+</header>
+<main>
+  <nav>
+     <h2 style="margin: 0.5em"><a href="#top">Documentation</a></h2>
+     <ul>
+<li>
+<p><a href="index.html#introduction" data-href="index.html#introduction">Introduction</a></p>
+<ul>
+<li><a href="index.html#what-is-it" data-href="index.html#what-is-it">What is it ?</a></li>
+<li><a href="index.html#what-can-i-do-with-it" data-href="index.html#what-can-i-do-with-it">What can I do with it ?</a></li>
+<li><a href="index.html#i-am-not-a-programmer" data-href="index.html#i-am-not-a-programmer">I am not a programmer !</a></li>
+<li><a href="index.html#yet-another-jamstack-approach" data-href="index.html#yet-another-jamstack-approach">Yet another Jamstack Approach ?</a></li>
+</ul>
+</li>
+<li>
+<p><a href="installationGuide.html#installation" data-href="installationGuide.html#installation">Installation</a></p>
+<ul>
+<li><a href="installationGuide.html#a-new-project" data-href="installationGuide.html#a-new-project">A New Project</a></li>
+<li><a href="installationGuide.html#generating-content" data-href="installationGuide.html#generating-content">Generating Content</a></li>
+<li><a href="installationGuide.html#publish-to-the-world" data-href="installationGuide.html#publish-to-the-world">Publish to the World</a></li>
+</ul>
+</li>
+<li>
+<p><a href="usage.html#usage" data-href="usage.html#usage">Usage</a></p>
+<ul>
+<li><a href="usage.html#prerequisites" data-href="usage.html#prerequisites">Prerequisites</a></li>
+<li><a href="usage.html#activation" data-href="usage.html#activation">Activation</a></li>
+<li><a href="usage.html#editing-markdown-files" data-href="usage.html#editing-markdown-files">Editing Markdown Files</a></li>
+<li><a href="usage.html#publishing-to-github" data-href="usage.html#publishing-to-github">Publishing to GitHub</a></li>
+<li><a href="usage.html#the-usual-workflow" data-href="usage.html#the-usual-workflow">The Usual Workflow</a></li>
+<li><a href="usage.html#templates" data-href="usage.html#templates">Templates</a></li>
+<li><a href="usage.html#keyboard-commands" data-href="usage.html#keyboard-commands">Keyboard Commands</a></li>
+<li><a href="usage.html#references" data-href="usage.html#references">References</a></li>
+</ul>
+</li>
+<li>
+<p><a href="cloning.html#cloning-templates" data-href="cloning.html#cloning-templates">Cloning Templates</a></p>
+<ul>
+<li><a href="cloning.html#prerequisites" data-href="cloning.html#prerequisites">Prerequisites</a></li>
+<li><a href="cloning.html#cloning-a-template" data-href="cloning.html#cloning-a-template">Cloning a Template</a></li>
+</ul>
+</li>
+<li>
+<p><a href="faq.html#faqs" data-href="faq.html#faqs">FaQ's</a></p>
+<ul>
+<li><a href="faq.html#styles" data-href="faq.html#styles">Styles</a></li>
+<li><a href="faq.html#templates" data-href="faq.html#templates">Templates</a></li>
+<li><a href="faq.html#deployment" data-href="faq.html#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+  <article>
+<h1 id="cloning-templates">Cloning Templates <a class="plnk" href="#cloning-templates">#</a></h1>
+<h2 id="prerequisites">Prerequisites <a class="plnk" href="#prerequisites">#</a></h2>
+<p>It is assumed, that you have</p>
+<ul>
+<li>a registered GitHub account.</li>
+<li>successfully <a href="https://code.visualstudio.com/Download" data-href="https://code.visualstudio.com/Download">installed</a> Visual Studio Code.</li>
+<li>basic knowledge, how to use <a href="https://code.visualstudio.com/" data-href="https://code.visualstudio.com/"><em>Visual Studio Code</em></a>.</li>
+<li>successfully <a href="https://marketplace.visualstudio.com/items?itemName=goessner.microjam" data-href="https://marketplace.visualstudio.com/items?itemName=goessner.microjam">installed</a> μJam extension to VSCode.</li>
+<li>basic knowledge, how to <a href="./usage.html" data-href="./usage.html">use μJam</a>.</li>
+</ul>
+<h2 id="cloning-a-template">Cloning a Template <a class="plnk" href="#cloning-a-template">#</a></h2>
+<p>Say you want to create a website similar to an already existing website from one of the <a href="./usage.html#templates" data-href="./usage.html#templates">basic μJam template repositories</a> or others. Than you can</p>
+<ul>
+<li>clone that repository, i.e. create a local copy of a GitHub repository on your computer.</li>
+<li>modify structure, style and content of your local repository.</li>
+<li>publish your local repository to a remote repository under your GitHub account.</li>
+</ul>
+<p>Let's go briefly through these steps by cloning the repository <a href="https://github.com/goessner/microjam-simple" data-href="https://github.com/goessner/microjam-simple">microjam-simple</a> as an example.</p>
+<blockquote>
+<ol>
+<li>Start VSCode in empty mode – with no file or folder open.</li>
+<li>Open the <em>Explorer View</em>. Here you are offered to  <kbd><em>Clone Repository</em></kbd>.</li>
+</ol>
+</blockquote>
+<figure>
+  <img src="./img/mu-jam.clone.01.png" alt="open empty VSCode">
+  <figcaption>Fig. 1: Clone Remote Repository.</figcaption>
+</figure>
+<blockquote>
+<ol start="3">
+<li>Press button <kbd><em>Clone Repository</em></kbd> and enter the template url.</li>
+</ol>
+</blockquote>
+<figure>
+  <img src="./img/mu-jam.clone.02.png" alt="enter template url">
+  <figcaption>Fig. 2: Enter Template Url.</figcaption>
+</figure>
+<blockquote>
+<ol start="4">
+<li>You will be asked to select the local directory, where to copy the template files into.</li>
+<li>After successfully copied the template files you recieve a notification asking you to open the cloned repository.</li>
+</ol>
+</blockquote>
+<figure>
+  <img src="./img/mu-jam.clone.03.png" alt="copy success notification">
+  <figcaption>Fig. 3: Copy Success Notification.</figcaption>
+</figure>
+<blockquote>
+<ol start="5">
+<li>You might want to open the cloned repository.</li>
+</ol>
+</blockquote>
+<figure>
+  <img src="./img/mu-jam.clone.04.png" alt="Open cloned repository">
+  <figcaption>Fig. 4: Opened Cloned Repository.</figcaption>
+</figure>
+<blockquote>
+<ol start="6">
+<li>Modifying structure, style and content of your local repository is <a href="file:///C:/git/microjam/docs/usage.html#usage" data-href="file:///C:/git/microjam/docs/usage.html#usage">described here</a>.</li>
+<li>For publishing your repository to your GitHub account <a href="./usage.html#usage" data-href="./usage.html#usage">read here</a> or here <a href="./installationGuide.html#publish-to-the-world" data-href="./installationGuide.html#publish-to-the-world">in more detail</a>.</li>
+</ol>
+</blockquote>
+<p>If you otherwise want to go the direct way to create a remote GitHub repository from an existing template repository you are <a href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template" data-href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template">guided through this process</a> here very well.</p>
+
+  </article>
+</main>
+<footer>
+  <span class="left">&copy; Documentation</span>
+  <span class="center">powered by &mu;Jam &amp; VSCode &mdash; hosted by GitHub</span>
+  <span class="right" onclick="document.documentElement.className = document.documentElement.className === 'theme-dark' ? 'theme-light' : 'theme-dark';">&#9788;</span>
+</footer>
+</body>
+</html>

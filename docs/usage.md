@@ -14,8 +14,9 @@
 ## Prerequisites
 
 It is assumed, that you 
+* have [installed](https://code.visualstudio.com/Download) Visual Studio Code.
 * have basic knowledge, how to use [*Visual Studio Code*](https://code.visualstudio.com/).
-* successfully [installed](./installationGuide.html) **&mu;Jam** extension to VSCode.
+* successfully [installed](https://marketplace.visualstudio.com/items?itemName=goessner.microjam) **&mu;Jam** extension to VSCode.
 
 ## Activation
 
@@ -39,7 +40,7 @@ But ... having &mu;Jam activated properly does not mean, it works with every mar
 
 only.
 
-## Generating Webpages
+## Editing Markdown Files
 
 &mu;Jam can do exactly *two things* for you:
 
@@ -114,10 +115,6 @@ You won't want to remove auto-generated files usually, as they are regularly upd
 
 > **Note:**   
 >Sort order of files by *type* makes sense in explorer view, but it's not VSCode's default order. So &mu;Jam adds an entry `"explorer.sortOrder":"type"` to user settings file `.vscode/settings.json`. You can add more individual settings to that file.
-
-## Editing Markdown Files
-
-It is not much to say here, since markdown editing is excellently done by VSCode editor. There are only a few assisting &mu;Jam features worth mentioning.
 
 ### Frontmatter Snippet
 
@@ -280,8 +277,6 @@ Just to mention &ndash; this documentation was authored by **&mu;Jam** during a 
 * [microjam-docs](https://github.com/goessner/microjam-docs) &ndash; A documentation theme for μjam with sidebar
 * [microjam-g2](https://github.com/goessner/microjam-docs) &ndash; A theme for μjam + g2
 
-
-
 ## Keyboard Commands 
 
 | Command |  Mnemonic  | Menu | Action |
@@ -311,6 +306,6 @@ Apple users will press the <kbd>Cmd</kbd> key instead of the <kbd>Ctrl</kbd> key
 [5] [Version Controlling with Git in Visual Studio Code and GitHub](https://azuredevopslabs.com/labs/azuredevops/github/)  
 [6] [Versionskontrolle mit Git auf einem Hoster wie GitHub, GitLab, BitBucket unter Visual Studio Code einrichten](https://machine-learning-blog.de/2019/10/03/versionskontrolle-mit-git-auf-einem-hoster-wie-github-gitlab-bitbucket-unter-visual-studio-code-einrichten/)   
 [7] [Git Integration in Visual Studio Code](https://www.digitalocean.com/community/tutorials/git-integration-in-visual-studio-code)   
-[8] [CommonMark - Specification of Markdown](https://commonmark.org/)
+[8] [CommonMark - Specification of Markdown](https://commonmark.org/)    
 [9] [Configuring a custom domain for your GitHub Pages site](https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)
 
