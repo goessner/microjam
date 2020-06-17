@@ -1,10 +1,10 @@
 {
 	"name": "microjam",
 	"description": "Minimalistic JAMStack authoring and publishing environment",
-    "icon": "img/icon128.png",
+	"icon": "img/icon128.png",
 	"author": "Stefan Goessner",
 	"publisher": "goessner",
-	"version": "0.3.5",
+	"version": "0.3.7",
 	"keywords": [
 		"JAMStack",
 		"deploy",
@@ -26,7 +26,7 @@
 	},
 	"license": "MIT",
 	"engines": {
-		"vscode": "^1.44.0"
+		"vscode": "^1.45.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -36,6 +36,21 @@
 		"onLanguage:markdown"
 	],
 	"contributes": {
+		"configuration": {
+			"title": "microjam",
+			"properties": {
+				"microjam.showSaveMessage": {
+					"type": "boolean",
+					"default": true,
+					"description": "Visibility of 'showInformationMessage' for display successful storage of 'html' file."
+				},
+				"microjam.markdownItPlugins": {
+					"type": "object",
+					"default": {},
+					"description": "markdown-it-plugins to install at initialization time."
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "extension.saveAsHtml",
@@ -139,38 +154,46 @@
 		],
 		"markdown.markdownItPlugins": true,
 		"markdown.previewScripts": [
-			"scripts/g2.html.js"
+			"scripts/g2.html.js",
+			"scripts/mec2.html.js"
 		],
-		"configuration": {
-			"title": "microjam",
-			"properties": {
-				"microjam.showSaveMessage": {
-					"type": "boolean",
-					"default": true,
-					"description": "Visibility of 'showInformationMessage' for display successful storage of 'html' file."
-				},
-				"microjam.markdownItPlugins": {
-					"type": "object",
-					"default": {},
-					"description": "markdown-it-plugins to install at initialization time."
-				}
+		"languages": [
+			{
+				"id": "source.microjam.math",
+				"extensions": [
+					"md"
+				]
 			}
-		}
+		],
+		"grammars": [
+			{
+				"injectTo": [
+					"text.html.markdown"
+				],
+				"scopeName": "microjam.math",
+				"path": "./syntaxes/dollars.json"
+			}
+		]
 	},
 	"main": "./microjam",
 	"dependencies": {
 		"argparse": "^1.0.9",
-		"commander": "^2.19.0",
-		"entities": "~2.0.0",
+		"commander": "^2.20.3",
+		"entities": "^2.0.3",
 		"katex": "0.11.1",
 		"linkify-it": "^2.2.0",
-		"markdown-it": "^10.0.0",
+		"markdown-it": "^11.0.0",
 		"markdown-it-footnote": "^3.0.2",
-		"markdown-it-texmath": "^0.6.7",
+		"markdown-it-texmath": "^0.7.0",
 		"mdurl": "^1.0.1",
 		"uc.micro": "^1.0.6"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.44.0"
+		"@types/vscode": "^1.45.0"
+	},
+	"__metadata": {
+		"id": "34fa3da6-f0e9-45c4-badd-3de753adcbb6",
+		"publisherDisplayName": "goessner",
+		"publisherId": "b49843a2-25e3-49f0-a037-519a07c3178d"
 	}
 }

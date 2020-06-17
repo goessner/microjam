@@ -29,9 +29,9 @@ If you want to
 
 then the minimalistic and powerful approach of &mu;Jam might convice you.
 
-<img src="img/browser-view2.png">
+<img src="https://github.com/goessner/microjam/raw/master/img/browser-view2.png">
 <br><br>
-<img src="img/vscode-view2.png">
+<img src="https://github.com/goessner/microjam/raw/master/img/vscode-view2.png">
 
 ## Examples ?
 
@@ -59,3 +59,11 @@ Some templates are here ...
 But as you can easily leave that *math*, *vector graphics* and *research paper* stuff out, it may serve your non-academic publishing wishes also well.
 
 Interested ... ?  So [read on](https://goessner.github.io/microjam/index.html) ...
+
+
+## Changelog
+
+
+###  [0.3.7] on June 17, 2020
+* Inline TeX expression `$$..$$` will result in display math presentation now.
+* Custom HTML elements `g-2` and `mec-2` are supported now. 

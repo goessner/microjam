@@ -55,7 +55,8 @@ const ext = {
         const html = ext.mdit.render(md) // ... change / remove some vscode stuff ...
                         .replace(/\sclass=\"code-line\"/g,'')
                         .replace(/\sdata-line=\"[0-9]+\"/g,'')
-                        .replace(/<h([1-6])\s+id=\"(.+)\">(.+)<\/h[1-6]>/g, formatHeading);
+                        .replace(/<h([1-6])\s+id=\"(.+)\">(.+)<\/h[1-6]>/g, formatHeading)
+                        .replace(/<a\s+href=\"#(\d+)\"\sdata-href=\"#\d+\">\[\d+\]<\/a>/g, '<a id="$$1" href="$1">[$1]</a>');
         return html;
     },
     /**
@@ -228,7 +229,7 @@ const ext = {
      * @param {string}  basedir - absolute base directory path
      * @param {object}  page - page object
      */
-    saveAsHtml(basedir, page, template) {       // imply existing 'docs' directory ...
+    saveAsHtml(basedir, page, template) {  // safely imply existing 'docs' directory ...
         page.content = ext.toHtml(page.content, page.permalink || ext.cfg('permalink'));
 
         try {
@@ -340,10 +341,10 @@ const ext = {
     insertTocCmd(arg) {
         const doc = arg && arg.uri ? arg : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
         const headings = ext.extractHeadings(doc.getText());
-        let   toc = '';
+        let   toc = '<nav>\n';
         for (const h of headings)
             toc += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](#${h.permalink})\n`;
-
+        toc += '</nav>';
         vscode.env.clipboard.writeText(toc);
         vscode.commands.executeCommand('editor.action.insertSnippet', {snippet: "$CLIPBOARD"} );
     },
@@ -373,30 +374,24 @@ exports.activate = function activate(context) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.insertToc', ext.insertTocCmd));
     context.subscriptions.push(vscode.commands.registerCommand('extension.insertNav', ext.insertNavCmd));
 
-    ext.infoMsg(`Extension activated!`);
+    ext.infoMsg(`ready ...`);
 
     return {
         extendMarkdownIt: (md) => {
-            for (const key of Object.keys(mdplugins))  // see user settings
-                md.use(require(key));
+            for (const key of Object.keys(mdplugins)) {  // see user settings
+                md.use(require(key),JSON.parse(JSON.stringify(mdplugins[key])));  // simply `mdplugins[key]` alone does not work ... magic ?!
+            }
             return (ext.mdit = md);
         }
     }
 }
+
 // extension is deactivated ..
 exports.deactivate = function deactivate() {};
 
-function log(arg) {
-    if (!log.outchannel) {
-        log.outchannel = vscode.window.createOutputChannel('log');
-        log.outchannel.show(true);
-    }
-    log.outchannel.appendLine(arg);
-}
-
 ext.defaults = {
     templates:
-`const tmpl = module.exports = {
+`module.exports = {
 // base layout ... used by other templates
 base(data) {
   return \`<!doctype html>
