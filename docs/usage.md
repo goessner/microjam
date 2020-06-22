@@ -5,7 +5,7 @@
   "description": "Creating Web Pages with `&mu;Jam`",
   "tags": ["jamstack","static","serverless","web pages","markdown"],
   "category": ["math"],
-  "use": [ { "uri": "navigation.md" } ],
+  "uses": [ { "uri": "navigation.md" } ],
   "permalink": true
 ---
 
@@ -276,6 +276,21 @@ Just to mention &ndash; this documentation was authored by **&mu;Jam** during a 
 * [microjam-tufte](https://github.com/goessner/microjam-tufte) &ndash; A Tufte Style Template for μJam
 * [microjam-docs](https://github.com/goessner/microjam-docs) &ndash; A documentation theme for μjam with sidebar
 * [microjam-g2](https://github.com/goessner/microjam-docs) &ndash; A theme for μjam + g2
+
+## Frontmatter Entries 
+
+| Entry |  Type  | Comment |
+|:------|:--------|:-----|:----|
+| `author` | string | Author name(s) used by search engines. |
+| `date` | string | Creation date `yyyy-mm-dd` as in `2020-12-31`. |
+| `description` | string | Page description used by search engines. |
+| `lang` | string | Used by browser for hyphenation. Default value is `"en"`. |
+| `layout` | enum | μJam knows the following layout types:<br> `["page","article","index","none"]`<br>Other custom layout types are supported<br> and treated like `page` layouts internally. |
+| `math` | boolean | Support of LaTeX math formulas using `$` delimiters. |
+| `permalink` | string \| `true` |  Place character symbol as a link anchor behind headings.<br>Default character symbol is `"#"`. |
+| `tags` | array of strings | Used as keywords for search engines.<br>Example `["web,"page","physics","svg"]` |
+| `title` | string | Page title shown in browser's title bar. |
+| `uses` | array of objects | Inject external resources into page.<br>Example `"uses":[ { "uri": "navigation.md" } ]` |
 
 ## Keyboard Commands 
 

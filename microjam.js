@@ -9,6 +9,7 @@
 const vscode = require('vscode'),
       fs = require('fs'),
       path = require('path');
+const { Console } = require('console');
 /**
  * Static Extension Object.
  */
@@ -110,25 +111,29 @@ const ext = {
                        description:"",
                        tags:[],
                        category:[],
-                       math: ext.cfg("markdownItPlugins")['markdown-it-texmath'] ? true : undefined
+                       math: false
                     };
         if (text) {
+            const reldir = path.relative(path.parse(mdpath).dir, basedir);
             let frontmatter;
 
             page.content = text.replace(/^\s*?[{\-]{3}([\s\S]+?)[}\-.]{3}\s*?/g, ($0,$1) => { frontmatter = $1; return '';});
+            page.uri = mdpath;
+            page.reluri = path.relative(basedir, mdpath).replace(/\.md$/,'');
+            page.reldir = reldir === '' ? './' : reldir+'/';
 
             if (frontmatter) {
                 try { 
                     frontmatter = JSON.parse(`{${frontmatter}}`);
                     Object.assign(page, frontmatter);
-                    if (["page","article","index"].includes(page.layout)) {
+                    if (page.layout !== 'none') {  // allow arbitrary layouts, except 'none' !
                         if (page.layout === 'article') {
                             page.content.replace(/#{2}\s[Aa]bstract\s*([^#]+?)\s*?#/g, ($0,$1) => { page.abstract = $1; return '';});
                             if (page.abstract)
                                 page.abstract = ext.toHtml(page.abstract, false);
                         }
-                        if (page.use) {
-                            for (const use of page.use) {
+                        if (page.uses) {
+                            for (const use of page.uses) {
                                 const file = path.resolve(basedir,use.uri);
                                 if (fs.existsSync(file))
                                     use.content = ext.toHtml(fs.readFileSync(file,'utf8'), false);
@@ -136,6 +141,8 @@ const ext = {
                         }
                     }
                  // else  // do silently nothing ... !
+                    if (!page.description && page.title) 
+                    page.description = page.title;
                 }
                 catch (err) {
                     const transform = (pos) => `in frontmatter: … ${frontmatter.substring(Math.max(0,pos-15),pos-1)}¿${frontmatter.substring(pos-1,Math.min(pos+15,frontmatter.length-1))} …`;
@@ -143,12 +150,6 @@ const ext = {
                     ext.errMsg(errstr); 
                 }
             }
-            if (!page.description && page.title) 
-                page.description = page.title;
-
-            page.uri = mdpath;
-            page.reluri = path.relative(basedir, mdpath).replace(/\.md/g,'');
-            page.reldir = path.relative(path.parse(mdpath).dir, basedir);
         }
         return page;        
     },
@@ -244,42 +245,58 @@ const ext = {
         }
     },
     /**
-     * Rebuild repository.
-     * Rebuild `*.html` and `pages.json` files in `docs` folder.
+     * Rebuild all files.
+     * Rebuild `*.html` and `pages.json` files in `docs` folder including subdirectories, 
+     * as long as these also have the extension `md`.
      * @param {string}  basedir - absolute base directory path
      * @method
      */
-    rebuild(basedir, template) {
-        const mdfiles = fs.readdirSync(basedir)
-                          .filter((uri) => uri.match(/.*\.md$/)),
-              pages = [],
-              articles = [];
+    rebuildAll(basedir, template) {
+        const pages = ext.collectPages(basedir, basedir, []);
+        const indexPages = pages.filter(page => page.layout === 'index');   // far from different to be 'index.md' !!
+        const articles = indexPages.length > 0 ? pages.filter(page => page.layout === 'article') : false;
 
-        // build complete in-memory pages-structure
-        for (const uri of mdfiles) {
-            const mdpath = path.resolve(basedir,uri),
-                  page = ext.pageStructure(mdpath, basedir, fs.readFileSync(mdpath,'utf8'));
-            if (page.layout !== 'none')
-                pages.push(page);
-            if (page.layout === 'article')
-                articles.push(page);
-            else if (page.layout === 'index')
-                page.articles = articles;
-        }
-
+        if (indexPages.length > 0)  // assume it's only one for now ... !
+            indexPages[0].articles = articles;
         // create / overwrite *.html files
         for (const page of pages) {
             ext.saveAsHtml(basedir, page, template);
-            delete page.content;
+            delete page.content;    // strip off page structure
             delete page.articles;
-            if (page.use)
-                for (const use of page.use)
+            if (page.uses)
+                for (const use of page.uses)
                     delete use.content;
         }
 
-        // store 'pages.json'.
+        // store stripped off pages array to 'pages.json'.
         fs.writeFileSync(path.resolve(basedir,'./pages.json'), JSON.stringify(pages), 'utf8');
     },
+    /**
+     * Collect pages.
+     * Starting in `docs` folder advancing to subdirectories `*.md`.
+     * @param {string}  dir - current directory path
+     * @param {string}  basedir - base directory path (`docs` folder).
+     * @method
+     */
+    collectPages(dir, basedir, pages) {
+        const mdfiles = fs.readdirSync(dir)
+                          .filter((uri) => uri.match(/.*\.md$/));
+
+        for (const mdfile of mdfiles) {
+            const mdpath = path.resolve(dir,mdfile);
+            const stat = fs.statSync(mdpath);
+
+            if (fs.statSync(mdpath).isDirectory())
+                ext.collectPages(mdpath, basedir, pages);
+            else {
+                const page = ext.pageStructure(mdpath, basedir, fs.readFileSync(mdpath,'utf8'));
+                if (page.layout !== 'none')
+                    pages.push(page);
+            }
+        }
+        return pages;
+    },
+
     /**
      * Save Markdown document command handler.
      * @method
@@ -307,8 +324,8 @@ const ext = {
                 ext.saveAsHtml(basedir, page, template);
             delete page.content;
             delete page.articles;
-            if (page.use)
-                for (const use of page.use)
+            if (page.uses)
+                for (const use of page.uses)
                     delete use.content;
 
             ext.updatePages(pagesuri, page, basedir, template);
@@ -332,7 +349,7 @@ const ext = {
             const tmplturi = path.resolve(basedir, './theme/template.js');
             const template = require(tmplturi);
 
-            ext.rebuild(basedir, template);
+            ext.rebuildAll(basedir, template);
             delete require.cache[tmplturi];  // still need to refresh files twice after changes in 'template.js'
         }
         else
@@ -353,9 +370,10 @@ const ext = {
         const uri = doc.uri.fsPath;
         const basedir = doc && doc.languageId === 'markdown' && ext.baseOfValidRepo(uri);
         const mdname = path.relative(basedir, uri);
-        const htmlname = mdname.replace(/\.md/g,'.html');
+        const htmlname = mdname.replace(/\\/g,'/').replace(/\.md$/,'.html');
         const headings = ext.extractHeadings(doc.getText());
         let   nav = '';
+
         for (const h of headings)
             nav += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](${htmlname}#${h.permalink})\n`;
 
@@ -374,8 +392,7 @@ exports.activate = function activate(context) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.insertToc', ext.insertTocCmd));
     context.subscriptions.push(vscode.commands.registerCommand('extension.insertNav', ext.insertNavCmd));
 
-    ext.infoMsg(`ready ...`);
-
+    ext.infoMsg('ready ...');
     return {
         extendMarkdownIt: (md) => {
             for (const key of Object.keys(mdplugins)) {  // see user settings
@@ -392,16 +409,17 @@ exports.deactivate = function deactivate() {};
 ext.defaults = {
     templates:
 `module.exports = {
-// base layout ... used by other templates
-base(data) {
+// page layout ... possibly used by other templates
+page(data) {
   return \`<!doctype html>
-<html class="theme-dark">
+<html lang="\${data.lang||'en'}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
 <meta name="description" content="\${data.description || (data.title + ' - microjam page')}">
 \${data.date ? \`<meta name="date" content="\${new Date(data.date).toString()}">\` : ''}
 \${data.tags ? \`<meta name="keywords" content="\${data.tags.join()}">\` : ''}
+<base href="\${'./'+data.reldir}">
 <title>\${data.title}</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/github-gist.min.css">
 \${data.math ? \`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
@@ -424,16 +442,12 @@ base(data) {
 </body>
 </html>\` 
 },
-// page layout ...
-page(data) {
-  return tmpl.base(data);
-},
-// article layout ...
+// article layout ...  // test necessary
 article(data) {
   const articleContent = \`<article>
   \${data.content}
 </article>\`;
-  return tmpl.base(data);
+  return tmpl.page(data);
 },
 // index layout ...
 index(data) {
@@ -461,21 +475,14 @@ dateElement(date) {
 }
 `,
 
-css: `:root {
+css: `@media screen {
+:root {
     --color-footer: #e2f3f3;
     --bgcol-footer: #1f3939;
     --color-code: #e2f3f3;
     --bgcol-code: #1f3939;
     --color-shade: #666;
-}
-
-.theme-light {
-    --color-main: #1f3939;
-    --bgcol-main: snow;
-    --color-header: #e2f3f3;
-    --bgcol-header: #3c6362;
-    --color-link: #4b7776;
-    --color-hover: #87acac;
+    --sidebar-width: 14rem;
 }
 .theme-dark {
     --color-main: snow;
@@ -484,9 +491,20 @@ css: `:root {
     --bgcol-header: #e2f3f3;
     --color-link: #c6dddb;
     --color-hover: #6f9999;
+    --color-plnk: #fffafa22;
 }
 
-@media screen {
+/* .theme-light */
+html {
+    --color-main: #1f3939;
+    --bgcol-main: snow;
+    --color-header: #e2f3f3;
+    --bgcol-header: #3c6362;
+    --color-link: #4b7776;
+    --color-hover: #87acac;
+    --color-plnk: #1f393922;
+}
+
 body {
   margin: 1em 1em;
   padding: 0;
@@ -642,5 +660,9 @@ kbd {
 time {
   color: var(--color-link);
 }
-}  /* end @media screen */`
+}  /* end @media screen */`,
+
+settings: `{
+	"explorer.sortOrder": "type"
+}`
 };

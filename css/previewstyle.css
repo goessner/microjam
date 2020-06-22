@@ -26,23 +26,23 @@ h4  {
 }
 
 p { 
-    text-align: justify; 
-    hyphens: auto;
+  text-align: justify; 
+  hyphens: auto;
 }
 
 table {
-    display: table !important;
-    width: auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important; 
-    border-collapse: collapse !important;
+  display: table !important;
+  width: auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important; 
+  border-collapse: collapse !important;
 }
 
 table th, table td {
-    border-left: none !important;
-    border-right: none !important;
-    border-top: 1px solid #000 !important;
-    border-bottom: 1px solid #000 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: 1px solid #000 !important;
+  border-bottom: 1px solid #000 !important;
 }
 
 img {
@@ -52,17 +52,17 @@ img {
 }
 
 figure {
-    margin: 0.5em auto;
+  margin: 0.5em auto;
 }
 figure > * {
-    display: block;
-    margin: 0 auto;
-    page-break-inside: avoid;
-    text-align: center;
+  display: block;
+  margin: 0 auto;
+  page-break-inside: avoid;
+  text-align: center;
 }
 figcaption { 
-    font-size: 0.9em;
-    margin-top: 0.5em;
+  font-size: 0.9em;
+  margin-top: 0.5em;
 }
 
 aside {

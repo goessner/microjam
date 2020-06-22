@@ -1,11 +1,12 @@
 <!doctype html>
-<html class="theme-light">
+<html lang="${data.lang||'en'}" class="theme-light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
 <meta name="description" content="Introduction">
 
 <meta name="keywords" content="">
+<base href="./">
 <title>Introduction</title>
 <link rel="shortcut icon" type="image/png" href="./img/favicon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">
@@ -15,7 +16,8 @@
 <body id="top">
 <header>
   <a class="left" href="./index.html"><img src="./img/icon128.png"></a>
-  <h1 class="right">&mu;Jam &ndash; Documentation</h1>
+  <h1 class="center">&mu;Jam &ndash; Documentation</h1>
+  <a class="right" href="https://github.com/goessner/microjam"><img src="img/GitHub-Mark-Light-32px.png"></a>
 </header>
 <main>
   <nav>
@@ -47,6 +49,7 @@
 <li><a href="usage.html#publishing-to-github" data-href="usage.html#publishing-to-github">Publishing to GitHub</a></li>
 <li><a href="usage.html#the-usual-workflow" data-href="usage.html#the-usual-workflow">The Usual Workflow</a></li>
 <li><a href="usage.html#templates" data-href="usage.html#templates">Templates</a></li>
+<li><a href="usage.html#frontmatter-entries" data-href="usage.html#frontmatter-entries">Frontmatter Entries</a></li>
 <li><a href="usage.html#keyboard-commands" data-href="usage.html#keyboard-commands">Keyboard Commands</a></li>
 <li><a href="usage.html#references" data-href="usage.html#references">References</a></li>
 </ul>
@@ -70,48 +73,32 @@
 
   </nav>
   <article>
-<h1 id="faqs">FaQ's <a class="plnk" href="#faqs">#</a></h1>
+<h1 id="faq">FAQ <a class="plnk" href="#faq">#</a></h1>
+<h2 id="pages">Pages <a class="plnk" href="#pages">#</a></h2>
+<details><summary><b>Can we organize markdown files in subdirectories ?</b></summary>
+<p>Yes, starting with version 0.3.8 organization of markdown files in subdirectories <code>'docs/*.md'</code> with extension <code>'md'</code> under <code>'docs'</code> folder is possible. With that feature comes the requirement of having a single html <code>&lt;base&gt;</code> element pointing to the <code>'docs'</code> folder in template header sections.</p>
+</details>
 <h2 id="styles">Styles <a class="plnk" href="#styles">#</a></h2>
-<ul>
-<li>
-<p><strong>Where are the style sheets ?</strong><br>
-The CSS styles are defined in the file <code>/docs/theme/styles.css</code>. They are referenced by the templates in file <code>/docs/theme/template.js</code>.</p>
-</li>
-<li>
-<p><strong>Can we change the styles ?</strong><br>
-Yes. Change them in file <code>/docs/theme/styles.css</code> or rename it or use multiple CSS files. You only need to reference them from the templates in <code>/docs/theme/template.js</code>.</p>
-</li>
-</ul>
+<details><summary><b>Where are the style sheets ?</b></summary>
+<p>The CSS styles are defined in the file <code>/docs/theme/styles.css</code>. They are referenced by the templates in file <code>/docs/theme/template.js</code>.</p>
+</details>
+<details><summary><b>Can we change the styles ?</b></summary>
+<p>Yes. Change them in file <code>/docs/theme/styles.css</code> or rename it or use multiple CSS files. You only need to reference them from the templates in <code>/docs/theme/template.js</code>.</p>
+</details>
 <h2 id="templates">Templates <a class="plnk" href="#templates">#</a></h2>
-<ul>
-<li><a href="#faqs" data-href="#faqs">FaQ's</a>
-<ul>
-<li><a href="#styles" data-href="#styles">Styles</a></li>
-<li><a href="#templates" data-href="#templates">Templates</a></li>
-<li><a href="#deployment" data-href="#deployment">Deployment</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<p><strong>Where are the templates ?</strong><br>
-The templates are defined in file <code>/docs/theme/template.js</code>. They are basically delivered by simple JavaScript functions returning <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" data-href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template literals</a>. Those recieve extended versions of the frontmatter metadata.</p>
-</li>
-<li>
-<p><strong>Can we change the templates ?</strong><br>
-Yes, of course. New themes are generated exactly by that. So go on and do it.</p>
-</li>
-<li>
-<p><strong>Are other template engines supported ?</strong><br>
-No sorry, it's due to <em>minimalism</em> paradigma.</p>
-</li>
-</ul>
+<details><summary><b>Where are the templates ?</b></summary>
+<p>The templates are defined in file <code>/docs/theme/template.js</code>. They are basically delivered by simple JavaScript functions returning <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" data-href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template literals</a>. Those recieve extended versions of the frontmatter metadata.</p>
+</details>
+<details><summary><b>Can we change the templates ?</b></summary>
+<p>Yes, of course. New themes are generated exactly by that. So go on and do it.</p>
+</details>
+<details><summary><b>Are other template engines supported ?</b></summary>
+<p>No sorry, it's due to <em>minimalism</em> paradigma.</p>
+</details>
 <h2 id="deployment">Deployment <a class="plnk" href="#deployment">#</a></h2>
-<ul>
-<li><strong>Is it possible to deploy to other hosting platforms ?</strong><br>
-Yes, it should be easy in principle. Nothing done here yet.</li>
-</ul>
-
+<details><summary><b>Is it possible to deploy to other hosting platforms ?</b></summary>
+<p>Yes, it should be easy in principle. Nothing done here yet.</p>
+</details>
   </article>
 </main>
 <footer>

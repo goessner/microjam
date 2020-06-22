@@ -60,10 +60,17 @@ But as you can easily leave that *math*, *vector graphics* and *research paper* 
 
 Interested ... ?  So [read on](https://goessner.github.io/microjam/index.html) ...
 
+## [FAQ](https://goessner.github.io/microjam/faq.html)
 
-## Changelog
 
+## Release Notes
+
+###  [0.3.8] on June 21, 2020
+* Organization of markdown files in subdirectories `docs/*.md` having extension `md` under `docs` is possible. 
+* Using `docs/*.md` subdirectories requires existence of a single `<base>` Html element in the template header section.
+* **Breaking Change**: `"use"` entry in frontmatter sections is renamed to `"uses"`.
 
 ###  [0.3.7] on June 17, 2020
 * Inline TeX expression `$$..$$` will result in display math presentation now.
-* Custom HTML elements `g-2` and `mec-2` are supported now. 
+* Custom HTML elements `g-2` and `mec-2` are supported. 
+

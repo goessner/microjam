@@ -4,7 +4,7 @@
   "date": "2020-05-21",
   "description": "Cloning a `&mu;Jam` template",
   "tags": ["jamstack","static","serverless","web pages","markdown"],
-  "use": [ { "uri": "navigation.md" } ],
+  "uses": [ { "uri": "navigation.md" } ],
   "permalink": true
 ---
 

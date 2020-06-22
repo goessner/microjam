@@ -2,7 +2,7 @@
  *  credits for sidebar styling go to 'https://www.bram.us/2020/01/10/smooth-scrolling-sticky-scrollspy-navigation/',
  *  though 'scrollspy-navigation' is not used !
  **/
-
+@media screen {
 :root {
     --color-footer: #e2f3f3;
     --bgcol-footer: #1f3939;
@@ -10,16 +10,6 @@
     --bgcol-code: #1f3939;
     --color-shade: #666;
     --sidebar-width: 14rem;
-}
-
-.theme-light {
-    --color-main: #1f3939;
-    --bgcol-main: snow;
-    --color-header: #e2f3f3;
-    --bgcol-header: #3c6362;
-    --color-link: #4b7776;
-    --color-hover: #87acac;
-    --color-plnk: #1f393922;
 }
 .theme-dark {
     --color-main: snow;
@@ -31,7 +21,16 @@
     --color-plnk: #fffafa22;
 }
 
-@media screen {
+.theme-light {
+    --color-main: #1f3939;
+    --bgcol-main: snow;
+    --color-header: #e2f3f3;
+    --bgcol-header: #3c6362;
+    --color-link: #4b7776;
+    --color-hover: #87acac;
+    --color-plnk: #1f393922;
+}
+
 body {
   margin: 1em 1em;
   padding: 0;
@@ -48,12 +47,13 @@ body {
 }
 header {
   display: grid;
-  grid-template-columns: var(--sidebar-width) auto;
+  grid-template-columns: var(--sidebar-width) auto 3rem;
   align-items: center;  /* vertical align */
   padding: 0;
   margin: 0;
   color: var(--color-header);
   background-color: var(--bgcol-header);
+  text-align: center;
 }
 footer {
   display: grid;
@@ -65,14 +65,18 @@ footer {
   background-color: var(--bgcol-footer);
 }
 header > .left {
-  text-align: center;
+  grid-column: 1;
   margin: 0.5em 0.5em 0.5em 0;
   border-right: 1px solid var(--bgcol-main);
 }
-header > .right {
-  text-align:center;
+header > .center {
+  grid-column: 2;
   font-size: 2.5rem;
   font-weight: 200;
+}
+header > .right {
+  grid-column: 3;
+  text-align: left;
 }
 footer > .left {
   grid-column: 1;

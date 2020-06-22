@@ -16,6 +16,7 @@
   - [Publishing to GitHub](usage.html#publishing-to-github)
   - [The Usual Workflow](usage.html#the-usual-workflow)
   - [Templates](usage.html#templates)
+  - [Frontmatter Entries](usage.html#frontmatter-entries)
   - [Keyboard Commands](usage.html#keyboard-commands)
   - [References](usage.html#references)
 

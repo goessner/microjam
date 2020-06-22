@@ -1,11 +1,12 @@
 <!doctype html>
-<html class="theme-light">
+<html lang="${data.lang||'en'}" class="theme-light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
 <meta name="description" content="Creating Web Pages with `&mu;Jam`">
 <meta name="date" content="Mon Mar 30 2020 02:00:00 GMT+0200 (Mitteleuropäische Sommerzeit)">
 <meta name="keywords" content="jamstack,static,serverless,web pages,markdown">
+<base href="./">
 <title>Using μjam</title>
 <link rel="shortcut icon" type="image/png" href="./img/favicon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">
@@ -15,7 +16,8 @@
 <body id="top">
 <header>
   <a class="left" href="./index.html"><img src="./img/icon128.png"></a>
-  <h1 class="right">&mu;Jam &ndash; Documentation</h1>
+  <h1 class="center">&mu;Jam &ndash; Documentation</h1>
+  <a class="right" href="https://github.com/goessner/microjam"><img src="img/GitHub-Mark-Light-32px.png"></a>
 </header>
 <main>
   <nav>
@@ -47,6 +49,7 @@
 <li><a href="usage.html#publishing-to-github" data-href="usage.html#publishing-to-github">Publishing to GitHub</a></li>
 <li><a href="usage.html#the-usual-workflow" data-href="usage.html#the-usual-workflow">The Usual Workflow</a></li>
 <li><a href="usage.html#templates" data-href="usage.html#templates">Templates</a></li>
+<li><a href="usage.html#frontmatter-entries" data-href="usage.html#frontmatter-entries">Frontmatter Entries</a></li>
 <li><a href="usage.html#keyboard-commands" data-href="usage.html#keyboard-commands">Keyboard Commands</a></li>
 <li><a href="usage.html#references" data-href="usage.html#references">References</a></li>
 </ul>
@@ -291,6 +294,68 @@ The table of content inserted is static and not configurable, i.e. minimalistic:
 <li><a href="https://github.com/goessner/microjam-docs" data-href="https://github.com/goessner/microjam-docs">microjam-docs</a> – A documentation theme for μjam with sidebar</li>
 <li><a href="https://github.com/goessner/microjam-docs" data-href="https://github.com/goessner/microjam-docs">microjam-g2</a> – A theme for μjam + g2</li>
 </ul>
+<h2 id="frontmatter-entries">Frontmatter Entries <a class="plnk" href="#frontmatter-entries">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Entry</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>author</code></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Author name(s) used by search engines.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date</code></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Creation date <code>yyyy-mm-dd</code> as in <code>2020-12-31</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>description</code></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Page description used by search engines.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>lang</code></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Used by browser for hyphenation. Default value is <code>&quot;en&quot;</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>layout</code></td>
+<td style="text-align:left">enum</td>
+<td style="text-align:left">μJam knows the following layout types:<br> <code>[&quot;page&quot;,&quot;article&quot;,&quot;index&quot;,&quot;none&quot;]</code><br>Other custom layout types are supported<br> and treated like <code>page</code> layouts internally.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>math</code></td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">Support of LaTeX math formulas using <code>$</code> delimiters.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>permalink</code></td>
+<td style="text-align:left">string | <code>true</code></td>
+<td style="text-align:left">Place character symbol as a link anchor behind headings.<br>Default character symbol is <code>&quot;#&quot;</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tags</code></td>
+<td style="text-align:left">array of strings</td>
+<td style="text-align:left">Used as keywords for search engines.<br>Example <code>[&quot;web,&quot;page&quot;,&quot;physics&quot;,&quot;svg&quot;]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>title</code></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Page title shown in browser's title bar.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>uses</code></td>
+<td style="text-align:left">array of objects</td>
+<td style="text-align:left">Inject external resources into page.<br>Example <code>&quot;uses&quot;:[ { &quot;uri&quot;: &quot;navigation.md&quot; } ]</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="keyboard-commands">Keyboard Commands <a class="plnk" href="#keyboard-commands">#</a></h2>
 <table>
 <thead>
