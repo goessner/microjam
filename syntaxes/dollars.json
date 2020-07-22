@@ -3,15 +3,9 @@
 	"injectionSelector": "meta.paragraph.markdown",
 	"patterns": [
 		{
-			"name":"block-dollars",
-			"begin": "(\\$\\$)",
-			"end": "(\\$\\$)",
-			"contentName": "markup.inline.raw"
-		},
-		{
 			"name":"inline-dollars",
-			"begin": "(^|\\s*)\\$",
-			"end": "\\$",
+			"begin": "(^|\\s+)\\${1,2}+",
+			"end": "\\${1,2}+",
             "contentName": "markup.inline.raw"
 		}
     ],

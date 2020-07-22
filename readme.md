@@ -60,15 +60,23 @@ But as you can easily leave that *math*, *vector graphics* and *research paper* 
 
 Interested ... ?  So [read on](https://goessner.github.io/microjam/index.html) ...
 
-## [FAQ](https://goessner.github.io/microjam/faq.html)
-
+## [FAQ](./docs/faq.md)
 
 ## Release Notes
+
+###  [0.4.0] on July 22, 2020
+* Update to KaTeX v.0.12.0. 
+* permanently load 'markdown-it-texmath' and KaTeX.
+* Enable/disable math rules in `markdown-it` plugin on file level, based on frontmatter `"math":true` setting.
+* Introducing data entry `${data.base}` holding the relative path from the current markdown file 
+to the `'docs'` folder.
+* Accessing that relative path `${data.base}` in *reused* markdown files (`navigation.md` etc.) is possible via macro `{base}`.
 
 ###  [0.3.8] on June 21, 2020
 * Organization of markdown files in subdirectories `docs/*.md` having extension `md` under `docs` is possible. 
 * Using `docs/*.md` subdirectories requires existence of a single `<base>` Html element in the template header section.
 * **Breaking Change**: `"use"` entry in frontmatter sections is renamed to `"uses"`.
+* Layout names are not restricted now. Ensure that there is a corresponding template.
 
 ###  [0.3.7] on June 17, 2020
 * Inline TeX expression `$$..$$` will result in display math presentation now.

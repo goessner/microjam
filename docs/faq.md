@@ -11,9 +11,20 @@
 
 <details><summary><b>Can we organize markdown files in subdirectories ?</b></summary>
 
-Yes, starting with version 0.3.8 organization of markdown files in subdirectories `'docs/*.md'` with extension `'md'` under `'docs'` folder is possible. With that feature comes the requirement of having a single html `<base>` element pointing to the `'docs'` folder in template header sections.
+Yes, starting with version 0.4.0 organization of markdown files in subdirectories `'docs/*.md'` with extension `'md'` under `'docs'` folder is possible. With that feature comes the data entry `${data.base}`, which is holding the relative path from the current markdown file 
+to the `'docs'` folder and can be used in template header sections.
 </details>
 
+<details><summary><b>Changing <code>"math"</code> setting in frontmatter section has no visual effect on math rendering.</b>
+</summary>
+
+Hmm, you need to ...
+
+1. add or change `"math":true/false` setting in the frontmatter section of your markdown document.
+2. activate (set focus away to) any other editor window (preview window works perfect here).
+3. reactivate (set focus back to) your markdown document.
+4. make any modification (a simple keystroke should work) and see change in math rendering.
+</details>
 
 ## Styles
 

@@ -4,7 +4,7 @@
 	"icon": "img/icon128.png",
 	"author": "Stefan Goessner",
 	"publisher": "goessner",
-	"version": "0.3.8",
+	"version": "0.4.0",
 	"keywords": [
 		"JAMStack",
 		"deploy",
@@ -180,11 +180,11 @@
 		"argparse": "^1.0.9",
 		"commander": "^2.20.3",
 		"entities": "^2.0.3",
-		"katex": "0.11.1",
+		"katex": "^0.12.00",
 		"linkify-it": "^2.2.0",
 		"markdown-it": "^11.0.0",
 		"markdown-it-footnote": "^3.0.2",
-		"markdown-it-texmath": "^0.7.0",
+		"markdown-it-texmath": "^0.8.0",
 		"mdurl": "^1.0.1",
 		"uc.micro": "^1.0.6"
 	},

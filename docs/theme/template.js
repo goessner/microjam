@@ -9,7 +9,6 @@ page(data) {
 <meta name="description" content="${data.description || (data.title + ' - microjam page')}">
 ${data.date ? `<meta name="date" content="${new Date(data.date).toString()}">` : ''}
 ${data.tags ? `<meta name="keywords" content="${data.tags.join()}">` : ''}
-<base href="${data.reldir}">
 <title>${data.title}</title>
 <link rel="shortcut icon" type="image/png" href="./img/favicon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/vs2015.min.css">

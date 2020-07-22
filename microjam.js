@@ -9,7 +9,7 @@
 const vscode = require('vscode'),
       fs = require('fs'),
       path = require('path');
-const { Console } = require('console');
+//const { Console } = require('console');
 /**
  * Static Extension Object.
  */
@@ -18,6 +18,10 @@ const ext = {
      * Cached markdown-it object
      */
     mdit: null, 
+    /**
+     * Cached markdown-it-texmath object
+     */
+    texmath: null, 
     /**
      * Access microjam configuration keys in 'package.json'
      * @method
@@ -41,9 +45,9 @@ const ext = {
         vscode.window.showErrorMessage(`microjam: ${msg}`);
     },
     /**
-     * Markdown => Html
+     * Markdown content => Html
      * @method
-     * @returns {string}
+     * @returns {string}  Html
      */
     toHtml(md, permalink) {
         const formatHeading = (match,level,id,content) => {
@@ -56,8 +60,9 @@ const ext = {
         const html = ext.mdit.render(md) // ... change / remove some vscode stuff ...
                         .replace(/\sclass=\"code-line\"/g,'')
                         .replace(/\sdata-line=\"[0-9]+\"/g,'')
+                        .replace(/\sdata-href=\"(.+)\"/g,'')
                         .replace(/<h([1-6])\s+id=\"(.+)\">(.+)<\/h[1-6]>/g, formatHeading)
-                        .replace(/<a\s+href=\"#(\d+)\"\sdata-href=\"#\d+\">\[\d+\]<\/a>/g, '<a id="$$1" href="$1">[$1]</a>');
+                        .replace(/<a\shref=\"#(\d+)\">\[\d+\]<\/a>/g, '<a id="$$1" href="$1">[$1]</a>');
         return html;
     },
     /**
@@ -114,13 +119,13 @@ const ext = {
                        math: false
                     };
         if (text) {
-            const reldir = path.relative(path.parse(mdpath).dir, basedir);
+            const base = path.relative(path.parse(mdpath).dir, basedir);  // (relative) path from `md`-file to base directory `docs` ... !
             let frontmatter;
 
             page.content = text.replace(/^\s*?[{\-]{3}([\s\S]+?)[}\-.]{3}\s*?/g, ($0,$1) => { frontmatter = $1; return '';});
             page.uri = mdpath;
             page.reluri = path.relative(basedir, mdpath).replace(/\.md$/,'');
-            page.reldir = reldir === '' ? './' : reldir+'/';
+            page.base = base === '' ? '.' : base;
 
             if (frontmatter) {
                 try { 
@@ -135,8 +140,9 @@ const ext = {
                         if (page.uses) {
                             for (const use of page.uses) {
                                 const file = path.resolve(basedir,use.uri);
-                                if (fs.existsSync(file))
-                                    use.content = ext.toHtml(fs.readFileSync(file,'utf8'), false);
+                                const content = fs.existsSync(file) && fs.readFileSync(file,'utf8');
+                                if (content)
+                                    use.content = ext.toHtml(content.replace(/\{base\}/mg, page.base));
                             }
                         }
                     }
@@ -280,7 +286,8 @@ const ext = {
      */
     collectPages(dir, basedir, pages) {
         const mdfiles = fs.readdirSync(dir)
-                          .filter((uri) => uri.match(/.*\.md$/));
+                          .filter((uri) => /.*\.md$/.test(uri));  // performs better ...
+//                          .filter((uri) => uri.match(/.*\.md$/));
 
         for (const mdfile of mdfiles) {
             const mdpath = path.resolve(dir,mdfile);
@@ -319,7 +326,7 @@ const ext = {
             if (page.layout === 'index')
                 page.articles = JSON.parse(fs.readFileSync(pagesuri,'utf8'))
                                     .filter((e) => e.layout === 'article');
-
+//console.log(page)
             if (page.layout !== 'none')
                 ext.saveAsHtml(basedir, page, template);
             delete page.content;
@@ -375,7 +382,7 @@ const ext = {
         let   nav = '';
 
         for (const h of headings)
-            nav += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](${htmlname}#${h.permalink})\n`;
+            nav += `${Array(h.level-1).fill('  ').join('')}- [${h.str}]({base}/${htmlname}#${h.permalink})\n`;
 
         vscode.env.clipboard.writeText(nav);
         ext.infoMsg(`Navigation list of '${mdname}' copied to clipboard.`);
@@ -392,13 +399,36 @@ exports.activate = function activate(context) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.insertToc', ext.insertTocCmd));
     context.subscriptions.push(vscode.commands.registerCommand('extension.insertNav', ext.insertNavCmd));
 
+    // switch math mode on/off on file level for performance reasons ... 
+    // ... depending on `"math":true` in frontmatter section.
+    vscode.window.onDidChangeActiveTextEditor(function(editor) {
+        if (editor.document.languageId === 'markdown') {
+            if (/\"math\":\s*?true/m.test(editor.document.getText())) {
+                ext.mdit.block.ruler.enable(ext.texmath.blockRuleNames, true);
+                ext.mdit.inline.ruler.enable(ext.texmath.inlineRuleNames, true);
+            }
+            else {
+                ext.mdit.block.ruler.disable(ext.texmath.blockRuleNames, true);
+                ext.mdit.inline.ruler.disable(ext.texmath.inlineRuleNames, true);
+            }
+        }
+    })
+
     ext.infoMsg('ready ...');
     return {
-        extendMarkdownIt: (md) => {
+        extendMarkdownIt: function(md) {
+            // permanently load 'markdown-it-texmath' ... but disable math rules in standard mode for performance reasons.
+            ext.mdit = md;
+            ext.texmath = require('markdown-it-texmath');
+            ext.mdit.use(ext.texmath, { "engine": "katex", "delimiters": "dollars", "katexOptions": { "macros": {"\\RR": "\\mathbb{R}" } } } );
+            ext.mdit.block.ruler.disable(ext.texmath.blockRuleNames, true);
+            ext.mdit.inline.ruler.disable(ext.texmath.inlineRuleNames, true);
+
             for (const key of Object.keys(mdplugins)) {  // see user settings
-                md.use(require(key),JSON.parse(JSON.stringify(mdplugins[key])));  // simply `mdplugins[key]` alone does not work ... magic ?!
+                if (key !== 'markdown-it-texmath')
+                    md.use(require(key),JSON.parse(JSON.stringify(mdplugins[key])));  // simply `mdplugins[key]` alone does not work ... magic ?!
             }
-            return (ext.mdit = md);
+            return ext.mdit;
         }
     }
 }
