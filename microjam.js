@@ -124,7 +124,7 @@ const ext = {
 
             page.content = text.replace(/^\s*?[{\-]{3}([\s\S]+?)[}\-.]{3}\s*?/g, ($0,$1) => { frontmatter = $1; return '';});
             page.uri = mdpath;
-            page.reluri = path.relative(basedir, mdpath).replace(/\.md$/,'');
+            page.reluri = path.relative(basedir, mdpath).replace(/\\/g,'/').replace(/\.md$/,'');
             page.base = base === '' ? '.' : base;
 
             if (frontmatter) {
