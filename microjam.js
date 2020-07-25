@@ -60,9 +60,8 @@ const ext = {
         const html = ext.mdit.render(md) // ... change / remove some vscode stuff ...
                         .replace(/\sclass=\"code-line\"/g,'')
                         .replace(/\sdata-line=\"[0-9]+\"/g,'')
-                        .replace(/\sdata-href=\"(.+)\"/g,'')
-                        .replace(/<h([1-6])\s+id=\"(.+)\">(.+)<\/h[1-6]>/g, formatHeading)
-                        .replace(/<a\shref=\"#(\d+)\">\[\d+\]<\/a>/g, '<a id="$$1" href="$1">[$1]</a>');
+                        .replace(/\sdata-href=\".+?\"/g,'')
+                        .replace(/<h([1-6])\s+?id=\"(.+?)\">(.+?)<\/h[1-6]>/g, formatHeading)
         return html;
     },
     /**
@@ -286,8 +285,7 @@ const ext = {
      */
     collectPages(dir, basedir, pages) {
         const mdfiles = fs.readdirSync(dir)
-                          .filter((uri) => /.*\.md$/.test(uri));  // performs better ...
-//                          .filter((uri) => uri.match(/.*\.md$/));
+                          .filter((uri) => /.*\.md$/.test(uri)); 
 
         for (const mdfile of mdfiles) {
             const mdpath = path.resolve(dir,mdfile);
@@ -365,10 +363,9 @@ const ext = {
     insertTocCmd(arg) {
         const doc = arg && arg.uri ? arg : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
         const headings = ext.extractHeadings(doc.getText());
-        let   toc = '<nav>\n';
+        let   toc = '';
         for (const h of headings)
             toc += `${Array(h.level-1).fill('  ').join('')}- [${h.str}](#${h.permalink})\n`;
-        toc += '</nav>';
         vscode.env.clipboard.writeText(toc);
         vscode.commands.executeCommand('editor.action.insertSnippet', {snippet: "$CLIPBOARD"} );
     },
@@ -421,8 +418,8 @@ exports.activate = function activate(context) {
             ext.mdit = md;
             ext.texmath = require('markdown-it-texmath');
             ext.mdit.use(ext.texmath, { "engine": "katex", "delimiters": "dollars", "katexOptions": { "macros": {"\\RR": "\\mathbb{R}" } } } );
-            ext.mdit.block.ruler.disable(ext.texmath.blockRuleNames, true);
-            ext.mdit.inline.ruler.disable(ext.texmath.inlineRuleNames, true);
+//            ext.mdit.block.ruler.disable(ext.texmath.blockRuleNames, true);
+//            ext.mdit.inline.ruler.disable(ext.texmath.inlineRuleNames, true);
 
             for (const key of Object.keys(mdplugins)) {  // see user settings
                 if (key !== 'markdown-it-texmath')
