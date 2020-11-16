@@ -1,0 +1,186 @@
+@media screen {
+    :root {
+        --color-footer: #e2f3f3;
+        --bgcol-footer: #1f3939;
+        --color-code: #e2f3f3;
+        --bgcol-code: #1f3939;
+        --color-shade: #666;
+        --sidebar-width: 14rem;
+    }
+    .theme-dark {
+        --color-main: snow;
+        --bgcol-main: #3c6362;
+        --color-header: #3c6362;
+        --bgcol-header: #e2f3f3;
+        --color-link: #c6dddb;
+        --color-hover: #6f9999;
+        --color-plnk: #fffafa22;
+    }
+    
+    /* .theme-light */
+    html {
+        --color-main: #1f3939;
+        --bgcol-main: snow;
+        --color-header: #e2f3f3;
+        --bgcol-header: #3c6362;
+        --color-link: #4b7776;
+        --color-hover: #87acac;
+        --color-plnk: #1f393922;
+    }
+    
+    body {
+      margin: 1em 1em;
+      padding: 0;
+      background-color: #ddd;
+      font-size: 12pt;
+      font-family: Helvetica, Arial, sans-serif;
+      box-shadow: 0 0 0.5em var(--color-shade);
+    }
+    @media screen and (min-width: 768px) {
+      body {
+        max-width: 768px;
+        margin: 1em auto;
+      }
+    }
+    main, footer {
+      padding: 5px 1em;
+    }
+    main {
+      color: var(--color-main);
+      background-color: var(--bgcol-main);
+      word-wrap: break-word;
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;  /* vertical align */
+      padding: 5px 1em;
+      color: var(--color-header);
+      background-color: var(--bgcol-header);
+    }
+    footer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;  /* vertical align */
+      font-size: 0.8em;
+      color: var(--color-footer);
+      background-color: var(--bgcol-footer);
+    }
+    header > .left {
+      text-align: left;
+      font-size: 2em;
+    }
+    header > .right {
+      text-align: right;
+    }
+    footer > .left {
+      grid-column: 1;
+      text-align: left;
+    }
+    footer > .center {
+      grid-column: 2;
+      text-align: center;
+    }
+    footer > .right {
+      grid-column: 3;
+      text-align: right;
+    }
+    footer > .right:hover {
+      cursor: pointer;
+      color: var(--color-hover);
+    }
+    
+    main a:link, main a:visited {
+      color: var(--color-link);
+      text-decoration: none;
+    }
+    main a:hover {
+      color: var(--color-hover);
+      text-decoration: none;
+    }
+    footer > a {
+      color: var(--color-footer);
+    }
+    header a:link, header a:visited {
+      color: var(--color-header);
+      text-decoration: none;
+    }
+    header a:hover {
+      color: var(--color-hover);
+    }
+    
+    h1>a.plnk,h2>a.plnk,h3>a.plnk {
+      display: none;
+      text-decoration: none;
+      color: inherit;
+    }
+    h1:hover>a.plnk,h2:hover>a.plnk,h3:hover>a.plnk {
+      display: initial;
+    }
+    p, blockquote { 
+      text-align: justify; 
+    }
+    blockquote {
+        font-size: 11pt;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        border-left: .25em solid var(--bgcol-header);
+        color: #666;
+        background-color: #f6f6f6;
+        padding: 0 0.5em;
+    }
+    
+    table {
+        display: table;
+        width: auto;
+        margin-left: auto;
+        margin-right: auto; 
+        border-collapse: collapse;
+    }
+    table th, table td {
+        padding: 0.2rem 0.5rem;
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+    }
+    
+    figure {
+        margin: 0.5em auto;
+    }
+    figure > * {
+        display: block;
+        margin: 0 auto;
+        page-break-inside: avoid;
+        text-align: center;
+    }
+    figure img {
+      max-width: 100%;
+    }
+    figcaption { 
+        font-size: 11pt;
+        margin-top: 0.5em;
+    }
+    /* code sections */
+    pre > code > code > div,
+    pre > code.code-line > div {
+      font-size: 10pt;
+      color: var(--color-code);
+      background-color: var(--bgcol-code);
+      border-radius: 5px;
+      padding: 0.5em;
+      white-space: pre-wrap;
+    }
+    kbd {
+      font-size: 10pt;
+      border-radius: 3px;
+      padding: 1px 2px 0;
+      margin: 0 2px;
+      color: #444;
+      border: 1px solid #999;
+      background-color: #eee;
+    }
+    time {
+      color: var(--color-link);
+    }
+}  /* end @media screen */
